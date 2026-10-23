@@ -1,0 +1,18 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+	level: 6
+	phpVersion: 80100
+	paths:
+		- gtfs-timetables.php
+		- uninstall.php
+		- src
+		- templates
+	scanFiles:
+		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php
+	ignoreErrors:
+		# Native "array" types are enough here; spelling out array<string, string> on every helper adds noise, not safety.
+		- identifier: missingType.iterableValue
