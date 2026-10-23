@@ -11,6 +11,7 @@ use GtfsTimetables\FeedInfo;
 use GtfsTimetables\Import\ImportLock;
 use GtfsTimetables\Import\ImportScheduler;
 use GtfsTimetables\Import\ImportState;
+use GtfsTimetables\Schedule\ServiceCalendar;
 use GtfsTimetables\Schema;
 use GtfsTimetables\Settings;
 
@@ -23,4 +24,5 @@ Schema::forget_version();
 FeedInfo::clear();
 ImportState::forget();
 ImportLock::release();
+ServiceCalendar::forget_cached_days();
 delete_option( Settings::OPTION );
