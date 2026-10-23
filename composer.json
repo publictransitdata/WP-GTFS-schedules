@@ -13,7 +13,8 @@
 		"phpstan/phpstan": "^2.3",
 		"szepeviktor/phpstan-wordpress": "^2.0",
 		"php-stubs/wp-cli-stubs": "^2.12",
-		"phpunit/phpunit": "^10.5"
+		"phpunit/phpunit": "^10.5",
+		"wp-cli/i18n-command": "^2.7"
 	},
 	"minimum-stability": "alpha",
 	"prefer-stable": true,
@@ -30,10 +31,22 @@
 		"lint:fix": "phpcbf",
 		"analyse": "phpstan analyse --memory-limit=1G",
 		"test": "phpunit",
+		"i18n:pot": "wp i18n make-pot . languages/gtfs-timetables.pot --slug=gtfs-timetables --exclude=vendor,tests --skip-js --no-location --headers='{\"POT-Creation-Date\":\"\",\"Project-Id-Version\":\"GTFS Timetables\"}'",
+		"i18n": [
+			"@i18n:pot",
+			"wp i18n update-po languages/gtfs-timetables.pot",
+			"wp i18n make-mo languages",
+			"wp i18n make-php languages",
+			"@php tests/check-translations.php"
+		],
 		"check": [
 			"@lint",
 			"@analyse",
 			"@test"
 		]
+	},
+	"scripts-descriptions": {
+		"i18n:pot": "Regenerate the translation template from the code.",
+		"i18n": "Update the translation template and files after changing strings, then check every string is translated."
 	}
 }
