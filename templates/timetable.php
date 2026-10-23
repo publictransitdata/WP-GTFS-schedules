@@ -40,7 +40,7 @@ $day_link = fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUER
 			</h4>
 			<table class="gtfs-timetable__hours">
 				<tbody>
-					<?php foreach ( $section->rows() as $hour => $minutes ) : ?>
+					<?php foreach ( $section->rows() as list( $hour, $minutes ) ) : ?>
 						<tr>
 							<th scope="row"><?php echo esc_html( $hour ); ?></th>
 							<td><?php echo esc_html( implode( ' ', $minutes ) ); ?></td>

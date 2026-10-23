@@ -27,15 +27,20 @@ final class TimetableSection {
 	}
 
 	/**
-	 * @return array<string, string[]> Clock hour such as "05" => minutes such as ["03", "33"].
+	 * Hours after midnight come last and can repeat an early-morning clock hour,
+	 * e.g. 04:47 and 28:18 (04:18 the next morning) on the same service day.
+	 *
+	 * @return list<array{0: string, 1: string[]}> [clock hour such as "05", minutes such as ["03", "33"]].
 	 */
 	public function rows(): array {
 		ksort( $this->minutes_by_hour );
 
 		$rows = array();
 		foreach ( $this->minutes_by_hour as $hour => $minutes ) {
-			$clock_hour          = sprintf( '%02d', $hour % 24 );
-			$rows[ $clock_hour ] = array_map( fn( int $minute ) => sprintf( '%02d', $minute ), $minutes );
+			$rows[] = array(
+				sprintf( '%02d', $hour % 24 ),
+				array_map( fn( int $minute ) => sprintf( '%02d', $minute ), $minutes ),
+			);
 		}
 
 		return $rows;
