@@ -31,9 +31,6 @@
 		<!-- Feed data lives in the plugin's own tables, which have no WordPress API. -->
 		<exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery"/>
 		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching"/>
-
-		<!-- Import errors are plain text, escaped where they are shown (esc_html, textContent, WP-CLI). -->
-		<exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
 	</rule>
 
 	<!-- Managing its own tables is this class's job. -->
