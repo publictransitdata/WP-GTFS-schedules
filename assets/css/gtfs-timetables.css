@@ -1,0 +1,64 @@
+.gtfs-departures,
+.gtfs-timetable {
+	margin-block: 1.5em;
+	font-variant-numeric: tabular-nums;
+}
+
+.gtfs-departures table,
+.gtfs-timetable table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.gtfs-departures th,
+.gtfs-departures td,
+.gtfs-timetable th,
+.gtfs-timetable td {
+	padding: 0.4em 0.6em;
+	border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+	text-align: start;
+	vertical-align: top;
+}
+
+.gtfs-departures__time {
+	white-space: nowrap;
+	text-align: end;
+	font-weight: 600;
+}
+
+.gtfs-route {
+	display: inline-block;
+	min-width: 2.5em;
+	padding: 0.1em 0.5em;
+	border-radius: 0.3em;
+	background-color: color-mix(in srgb, currentColor 12%, transparent);
+	font-weight: 700;
+	text-align: center;
+}
+
+.gtfs-timetable__days {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1em;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-block-end: 1em;
+}
+
+.gtfs-timetable__section {
+	margin-block-end: 1.5em;
+}
+
+.gtfs-timetable__hours th {
+	width: 3em;
+}
+
+.gtfs-timetable__hours td {
+	word-spacing: 0.4em;
+}
+
+.gtfs-attribution,
+.gtfs-notice {
+	font-size: 0.85em;
+	opacity: 0.8;
+}
