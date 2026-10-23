@@ -22,7 +22,7 @@ final class Shortcodes {
 		add_shortcode( 'gtfs_timetable', array( self::class, 'timetable' ) );
 	}
 
-	public static function departures( $attributes ): string {
+	public static function departures( array|string $attributes ): string {
 		$attributes = shortcode_atts(
 			array(
 				'stop'  => '',
@@ -40,7 +40,7 @@ final class Shortcodes {
 		return Renderer::departure_board( sanitize_text_field( $attributes['stop'] ), $limit );
 	}
 
-	public static function timetable( $attributes ): string {
+	public static function timetable( array|string $attributes ): string {
 		$attributes = shortcode_atts(
 			array(
 				'stop'  => '',

@@ -47,12 +47,11 @@ final class ServiceCalendar {
 	private function weekly_services( int $day, string $weekday ): array {
 		global $wpdb;
 
-		$calendar = Schema::table( 'calendar' );
-
-		// $weekday comes from DateTimeImmutable::format( 'l' ), so it is always a valid column name.
 		return $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT service_id FROM {$calendar} WHERE {$weekday} = 1 AND start_date <= %d AND end_date >= %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				'SELECT service_id FROM %i WHERE %i = 1 AND start_date <= %d AND end_date >= %d',
+				Schema::table( 'calendar' ),
+				$weekday,
 				$day,
 				$day
 			)
@@ -62,11 +61,10 @@ final class ServiceCalendar {
 	private function exceptions( int $day, int $exception_type ): array {
 		global $wpdb;
 
-		$calendar_dates = Schema::table( 'calendar_dates' );
-
 		return $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT service_id FROM {$calendar_dates} WHERE service_date = %d AND exception_type = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				'SELECT service_id FROM %i WHERE service_date = %d AND exception_type = %d',
+				Schema::table( 'calendar_dates' ),
 				$day,
 				$exception_type
 			)

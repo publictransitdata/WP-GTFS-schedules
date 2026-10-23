@@ -13,9 +13,7 @@ final class Stops {
 	public function find( string $stop_id ): ?object {
 		global $wpdb;
 
-		$stops = Schema::table( 'stops' );
-
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$stops} WHERE stop_id = %s", $stop_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE stop_id = %s', Schema::table( 'stops' ), $stop_id ) );
 	}
 
 	/**
@@ -26,8 +24,7 @@ final class Stops {
 	public function with_platforms( string $stop_id ): array {
 		global $wpdb;
 
-		$stops     = Schema::table( 'stops' );
-		$platforms = $wpdb->get_col( $wpdb->prepare( "SELECT stop_id FROM {$stops} WHERE parent_station = %s", $stop_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$platforms = $wpdb->get_col( $wpdb->prepare( 'SELECT stop_id FROM %i WHERE parent_station = %s', Schema::table( 'stops' ), $stop_id ) );
 
 		return array_merge( array( $stop_id ), $platforms );
 	}
@@ -35,15 +32,15 @@ final class Stops {
 	public function search( string $term, int $limit = 50 ): array {
 		global $wpdb;
 
-		$stops = Schema::table( 'stops' );
-		$like  = '%' . $wpdb->esc_like( $term ) . '%';
+		$like = '%' . $wpdb->esc_like( $term ) . '%';
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT stop_id, stop_code, stop_name, location_type, parent_station FROM {$stops}
+				'SELECT stop_id, stop_code, stop_name, location_type, parent_station FROM %i
 				WHERE stop_name LIKE %s OR stop_code = %s OR stop_id = %s
 				ORDER BY stop_name, stop_code
-				LIMIT %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				LIMIT %d',
+				Schema::table( 'stops' ),
 				$like,
 				$term,
 				$term,

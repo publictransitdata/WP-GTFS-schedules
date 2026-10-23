@@ -21,16 +21,16 @@ final class ImportState {
 	private const OPTION              = 'gtfs_timetables_import_state';
 	private const STALE_AFTER_SECONDS = HOUR_IN_SECONDS;
 
-	public string $stage      = self::IDLE;
-	public bool $forced       = false;
-	public string $directory  = '';
-	public string $version    = '';
-	public int $file_index    = 0;
-	public int $offset        = 0;
-	public array $rows        = array();
-	public string $message    = '';
-	public int $started_at    = 0;
-	public int $updated_at    = 0;
+	public string $stage     = self::IDLE;
+	public bool $forced      = false;
+	public string $directory = '';
+	public string $version   = '';
+	public int $file_index   = 0;
+	public int $offset       = 0;
+	public array $rows       = array();
+	public string $message   = '';
+	public int $started_at   = 0;
+	public int $updated_at   = 0;
 
 	public static function load(): self {
 		$state = new self();

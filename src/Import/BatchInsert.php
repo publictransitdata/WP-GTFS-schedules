@@ -30,6 +30,7 @@ final class BatchInsert {
 
 	/**
 	 * @return int Number of rows written.
+	 * @throws ImportError When the database rejects the rows.
 	 */
 	public function flush(): int {
 		global $wpdb;

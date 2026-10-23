@@ -156,7 +156,7 @@ final class Importer {
 
 		$batch = new BatchInsert( Schema::table( $file->table, Schema::STAGING ), $file->columns );
 
-		while ( null !== ( $row = $reader->next_row() ) ) {
+		foreach ( $reader->rows() as $row ) {
 			$values = $file->map( $row );
 
 			if ( null !== $values ) {
@@ -206,7 +206,7 @@ final class Importer {
 				__( 'Import finished: %1$s stops, %2$s trips, %3$s stop times.', 'gtfs-timetables' ),
 				number_format_i18n( $state->rows['stops'] ?? 0 ),
 				number_format_i18n( $state->rows['trips'] ?? 0 ),
-				number_format_i18n( $state->rows['stop_times'] ?? 0 )
+				number_format_i18n( $state->rows['stop_times'] )
 			)
 		);
 
@@ -222,9 +222,9 @@ final class Importer {
 	private function feed_timezone(): string {
 		global $wpdb;
 
-		$table = Schema::table( 'agency', Schema::STAGING );
-
-		return (string) $wpdb->get_var( "SELECT agency_timezone FROM {$table} WHERE agency_timezone <> '' LIMIT 1" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name only.
+		return (string) $wpdb->get_var(
+			$wpdb->prepare( "SELECT agency_timezone FROM %i WHERE agency_timezone <> '' LIMIT 1", Schema::table( 'agency', Schema::STAGING ) )
+		);
 	}
 
 	private function percent_of_file_done( FeedFile $file, ImportState $state ): int {
