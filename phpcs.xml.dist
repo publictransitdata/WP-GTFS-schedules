@@ -38,6 +38,17 @@
 		<exclude-pattern>/src/Schema\.php$</exclude-pattern>
 	</rule>
 
+	<!-- Unit tests run without WordPress: the bootstrap stands in for WordPress functions under their real names. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.AlternativeFunctions">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
+		<exclude-pattern>/tests/bootstrap\.php$</exclude-pattern>
+	</rule>
+
 	<!-- Templates run inside load_template(), so their variables are local, not global. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
 		<exclude-pattern>/templates/*</exclude-pattern>

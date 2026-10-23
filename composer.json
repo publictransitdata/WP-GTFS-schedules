@@ -12,7 +12,8 @@
 		"phpcompatibility/phpcompatibility-wp": "^3.0@alpha",
 		"phpstan/phpstan": "^2.3",
 		"szepeviktor/phpstan-wordpress": "^2.0",
-		"php-stubs/wp-cli-stubs": "^2.12"
+		"php-stubs/wp-cli-stubs": "^2.12",
+		"phpunit/phpunit": "^10.5"
 	},
 	"minimum-stability": "alpha",
 	"prefer-stable": true,
@@ -28,9 +29,11 @@
 		"lint": "phpcs",
 		"lint:fix": "phpcbf",
 		"analyse": "phpstan analyse --memory-limit=1G",
+		"test": "phpunit",
 		"check": [
 			"@lint",
-			"@analyse"
+			"@analyse",
+			"@test"
 		]
 	}
 }
