@@ -13,6 +13,10 @@ parameters:
 		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
+	earlyTerminatingMethodCalls:
+		WP_CLI:
+			- error
+			- halt
 	ignoreErrors:
 		# Native "array" types are enough here; spelling out array<string, string> on every helper adds noise, not safety.
 		- identifier: missingType.iterableValue

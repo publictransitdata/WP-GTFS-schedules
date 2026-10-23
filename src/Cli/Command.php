@@ -5,6 +5,7 @@
 namespace GtfsTimetables\Cli;
 
 use GtfsTimetables\FeedInfo;
+use GtfsTimetables\Import\ImportError;
 use GtfsTimetables\Import\Importer;
 use GtfsTimetables\Import\ImportLock;
 use GtfsTimetables\Import\ImportState;
@@ -20,9 +21,12 @@ final class Command {
 	private const SECONDS_PER_STEP = 60;
 
 	/**
-	 * Downloads and imports the feed set on the settings page.
+	 * Downloads and imports the feed set on the settings page, or imports a feed .zip file.
 	 *
 	 * ## OPTIONS
+	 *
+	 * [--file=<path>]
+	 * : Import this feed .zip instead of downloading the feed URL.
 	 *
 	 * [--force]
 	 * : Import even if the feed has not changed since the last import.
@@ -31,6 +35,7 @@ final class Command {
 	 *
 	 *     wp gtfs-timetables import
 	 *     wp gtfs-timetables import --force
+	 *     wp gtfs-timetables import --file=gtfs.zip
 	 */
 	public function import( array $args, array $options ): void {
 		if ( ImportLock::is_held() ) {
@@ -38,7 +43,10 @@ final class Command {
 		}
 
 		$importer = new Importer();
-		$state    = $importer->start( ! empty( $options['force'] ) );
+		$force    = ! empty( $options['force'] );
+		$state    = isset( $options['file'] )
+			? $this->start_from_file( $importer, (string) $options['file'], $force )
+			: $importer->start( $force );
 
 		while ( $state->is_running() ) {
 			$state = $importer->run_step( self::SECONDS_PER_STEP );
@@ -50,6 +58,28 @@ final class Command {
 		}
 
 		WP_CLI::success( $state->message );
+	}
+
+	/**
+	 * The import deletes its archive once unpacked, so it gets a copy and the user's file stays.
+	 */
+	private function start_from_file( Importer $importer, string $path, bool $force ): ImportState {
+		if ( ! is_readable( $path ) ) {
+			WP_CLI::error( "Cannot read {$path}." );
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		$archive = wp_tempnam( 'gtfs-feed.zip' );
+
+		if ( ! copy( $path, $archive ) ) {
+			WP_CLI::error( 'Could not copy the file to the temporary directory.' );
+		}
+
+		try {
+			return $importer->start_from_archive( $archive, $force );
+		} catch ( ImportError $error ) {
+			WP_CLI::error( $error->plain_text() );
+		}
 	}
 
 	/**

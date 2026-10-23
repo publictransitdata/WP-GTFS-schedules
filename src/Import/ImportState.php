@@ -23,6 +23,7 @@ final class ImportState {
 
 	public string $stage     = self::IDLE;
 	public bool $forced      = false;
+	public string $archive   = '';
 	public string $directory = '';
 	public string $version   = '';
 	public int $file_index   = 0;
@@ -44,10 +45,14 @@ final class ImportState {
 		return $state;
 	}
 
-	public static function begin( bool $forced ): self {
+	/**
+	 * With an archive (an uploaded feed .zip) the import uses it instead of downloading the feed URL.
+	 */
+	public static function begin( bool $forced, string $archive = '' ): self {
 		$state             = new self();
 		$state->stage      = self::DOWNLOADING;
 		$state->forced     = $forced;
+		$state->archive    = $archive;
 		$state->started_at = time();
 
 		return $state;
@@ -62,8 +67,13 @@ final class ImportState {
 		update_option( self::OPTION, get_object_vars( $this ), false );
 	}
 
+	public function is_from_upload(): bool {
+		return '' !== $this->archive;
+	}
+
 	public function start_loading( string $directory, string $version ): void {
 		$this->stage      = self::LOADING;
+		$this->archive    = '';
 		$this->directory  = $directory;
 		$this->version    = $version;
 		$this->file_index = 0;
@@ -82,12 +92,14 @@ final class ImportState {
 	public function finish( string $message ): void {
 		$this->stage     = self::DONE;
 		$this->message   = $message;
+		$this->archive   = '';
 		$this->directory = '';
 	}
 
 	public function fail( string $message ): void {
 		$this->stage     = self::FAILED;
 		$this->message   = $message;
+		$this->archive   = '';
 		$this->directory = '';
 	}
 

@@ -141,14 +141,42 @@ final class SettingsPage {
 			data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ImportAjax::NONCE_ACTION ) ); ?>"
 			data-running="<?php echo $state->is_running() ? '1' : '0'; ?>"
+			data-max-upload-bytes="<?php echo esc_attr( (string) FeedUpload::max_bytes() ); ?>"
+			data-too-large-message="<?php echo esc_attr( FeedUpload::too_large_message() ); ?>"
+			data-uploading-message="<?php esc_attr_e( 'Uploading the file…', 'gtfs-timetables' ); ?>"
 		>
 			<p>
-				<button type="button" class="button button-primary" <?php disabled( '' === Settings::get( 'feed_url' ) ); ?>><?php esc_html_e( 'Import now', 'gtfs-timetables' ); ?></button>
+				<button type="button" class="button button-primary" data-gtfs-import-url <?php disabled( '' === Settings::get( 'feed_url' ) ); ?>><?php esc_html_e( 'Import from feed URL', 'gtfs-timetables' ); ?></button>
+			</p>
+			<p>
+				<label>
+					<?php esc_html_e( 'Or upload a GTFS .zip file:', 'gtfs-timetables' ); ?>
+					<input type="file" accept=".zip,application/zip" name="<?php echo esc_attr( FeedUpload::FIELD ); ?>" data-gtfs-import-file>
+				</label>
+				<button type="button" class="button" data-gtfs-import-upload disabled><?php esc_html_e( 'Upload and import', 'gtfs-timetables' ); ?></button>
+			</p>
+			<p class="description">
+				<?php
+				printf(
+					/* translators: %s: maximum upload size, e.g. "64 MB" */
+					esc_html__( 'Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip', 'gtfs-timetables' ),
+					esc_html( size_format( FeedUpload::max_bytes() ) )
+				);
+				?>
+				<?php if ( self::updates_automatically() ) : ?>
+					<br><?php esc_html_e( 'Automatic updates import from the feed URL and will replace data from an uploaded file.', 'gtfs-timetables' ); ?>
+				<?php endif; ?>
+			</p>
+			<p>
 				<label><input type="checkbox" data-gtfs-import-force> <?php esc_html_e( 'Re-import even if the feed has not changed', 'gtfs-timetables' ); ?></label>
 			</p>
 			<p data-gtfs-import-status><?php echo esc_html( $importer->summary( $state ) ); ?></p>
 		</div>
 		<?php
+	}
+
+	private static function updates_automatically(): bool {
+		return '' !== Settings::get( 'feed_url' ) && 'off' !== Settings::get( 'refresh_frequency' );
 	}
 
 	private static function render_stop_finder(): void {

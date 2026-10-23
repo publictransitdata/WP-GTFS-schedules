@@ -4,6 +4,7 @@
 
 namespace GtfsTimetables\Admin;
 
+use GtfsTimetables\Import\ImportError;
 use GtfsTimetables\Import\Importer;
 use GtfsTimetables\Import\ImportState;
 
@@ -20,6 +21,7 @@ final class ImportAjax {
 	public static function register(): void {
 		add_action( 'wp_ajax_gtfs_timetables_import_start', array( self::class, 'start' ) );
 		add_action( 'wp_ajax_gtfs_timetables_import_step', array( self::class, 'step' ) );
+		add_action( 'wp_ajax_gtfs_timetables_import_upload', array( self::class, 'upload' ) );
 	}
 
 	public static function start(): void {
@@ -29,6 +31,25 @@ final class ImportAjax {
 
 		$importer = new Importer();
 		$importer->start( $force );
+
+		self::respond( $importer, $importer->run_step( Importer::seconds_per_step() ) );
+	}
+
+	/**
+	 * The nonce comes in the query string: when a file exceeds post_max_size,
+	 * PHP drops the whole request body and the nonce would go with it.
+	 */
+	public static function upload(): void {
+		self::authorize();
+
+		$force    = ! empty( $_POST['force'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- checked in authorize().
+		$importer = new Importer();
+
+		try {
+			$importer->start_from_archive( FeedUpload::take_from_request(), $force );
+		} catch ( ImportError $error ) {
+			wp_send_json_error( array( 'message' => $error->plain_text() ), 400 );
+		}
 
 		self::respond( $importer, $importer->run_step( Importer::seconds_per_step() ) );
 	}
