@@ -40,6 +40,15 @@ final class CsvReader {
 	}
 
 	/**
+	 * @return \Generator<array<string, string>> Column name => value.
+	 */
+	public function rows(): \Generator {
+		for ( $row = $this->next_row(); null !== $row; $row = $this->next_row() ) {
+			yield $row;
+		}
+	}
+
+	/**
 	 * @return array<string, string>|null Column name => value, or null at the end of the file.
 	 */
 	public function next_row(): ?array {

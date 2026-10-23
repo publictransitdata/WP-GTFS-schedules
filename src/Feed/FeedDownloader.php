@@ -14,6 +14,7 @@ final class FeedDownloader {
 
 	/**
 	 * @return string Path to a temporary copy of the feed archive.
+	 * @throws ImportError When the server cannot fetch the URL.
 	 */
 	public function download( string $url ): string {
 		$this->load_file_api();
@@ -30,6 +31,7 @@ final class FeedDownloader {
 
 	/**
 	 * @return string Directory that holds the feed's .txt files.
+	 * @throws ImportError When the archive is broken or the uploads folder is not writable.
 	 */
 	public function extract( string $archive ): string {
 		$this->load_file_api();

@@ -173,10 +173,10 @@ final class FeedFormat {
 		return trim( (string) ( $row[ $column ] ?? '' ) );
 	}
 
-	private static function integer( array $row, string $column, int $default = 0 ): int {
+	private static function integer( array $row, string $column, int $fallback = 0 ): int {
 		$value = self::text( $row, $column );
 
-		return is_numeric( $value ) ? (int) $value : $default;
+		return is_numeric( $value ) ? (int) $value : $fallback;
 	}
 
 	private static function integer_or_null( array $row, string $column ): ?int {
