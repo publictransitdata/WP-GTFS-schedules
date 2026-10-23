@@ -20,6 +20,7 @@ final class Plugin {
 		Schema::upgrade_if_needed();
 		ImportScheduler::register();
 
+		add_action( 'init', array( self::class, 'load_translations' ) );
 		add_action( 'init', array( Shortcodes::class, 'register' ) );
 		add_action( 'wp_enqueue_scripts', array( Assets::class, 'register' ) );
 		add_action( 'rest_api_init', array( RestController::class, 'register_routes' ) );
@@ -32,6 +33,10 @@ final class Plugin {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			\WP_CLI::add_command( 'gtfs-timetables', Command::class );
 		}
+	}
+
+	public static function load_translations(): void {
+		load_plugin_textdomain( 'gtfs-timetables', false, dirname( plugin_basename( GTFS_TIMETABLES_FILE ) ) . '/languages' );
 	}
 
 	public static function activate(): void {

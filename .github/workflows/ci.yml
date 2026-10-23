@@ -42,6 +42,15 @@ jobs:
       - name: Static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress --error-format=github
 
+      - name: Translations
+        run: |
+          composer i18n:pot
+          if ! git diff --exit-code -- languages/gtfs-timetables.pot; then
+            echo "::error file=languages/gtfs-timetables.pot::The translation template is out of date. Run composer i18n and commit languages/."
+            exit 1
+          fi
+          php tests/check-translations.php
+
   tests:
     name: Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
