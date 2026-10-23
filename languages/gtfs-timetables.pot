@@ -15,221 +15,398 @@ msgstr ""
 "X-Domain: gtfs-timetables\n"
 
 #. Plugin Name of the plugin
+#: gtfs-timetables.php:3
+#: src/Admin/SettingsPage.php:32
+#: src/Admin/SettingsPage.php:33
+#: src/Admin/SettingsPage.php:68
 msgid "GTFS Timetables"
 msgstr ""
 
 #. Description of the plugin
+#: gtfs-timetables.php:4
 msgid "Shows public transport schedules from a GTFS feed."
 msgstr ""
 
 #. Author of the plugin
+#: gtfs-timetables.php:8
 msgid "PUBLICTRANSITDATA.NET"
 msgstr ""
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
+#: src/Admin/FeedUpload.php:82
 #, php-format
 msgid "The file is larger than this site accepts (%s). Import it from a URL or with WP-CLI instead."
 msgstr ""
 
+#: src/Admin/FeedUpload.php:97
 msgid "Choose a GTFS .zip file first."
 msgstr ""
 
 #. translators: %d: PHP upload error code
+#: src/Admin/FeedUpload.php:101
 #, php-format
 msgid "The upload failed (PHP error %d)."
 msgstr ""
 
+#: src/Admin/FeedUpload.php:109
 msgid "The file is not a .zip archive. A GTFS feed is published as a .zip of .txt files."
 msgstr ""
 
+#: src/Admin/ImportAjax.php:69
 msgid "You are not allowed to import feeds."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:85
 msgid "Feed URL"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:88
 msgid "Link to the GTFS .zip published by the transport operator."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:92
 msgid "Update automatically"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:99
 msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:103
 msgid "Data source credit"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:106
 msgid "Shown under timetables. Many open data licences require crediting the publisher, e.g. \"Data: City transport authority, CC BY 4.0\". Leave empty to show nothing."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:120
 msgid "Import"
 msgstr ""
 
 #. translators: 1: date and time, 2: time zone
+#: src/Admin/SettingsPage.php:127
 #, php-format
 msgid "Current data imported %1$s. Feed time zone: %2$s."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:136
 msgid "This feed describes some trips with frequencies.txt (\"every 10 minutes\"). Those trips are not shown yet."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:146
 msgid "Uploading the file…"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:149
 msgid "Import from feed URL"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:153
 msgid "Or upload a GTFS .zip file:"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:156
 msgid "Upload and import"
 msgstr ""
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
+#: src/Admin/SettingsPage.php:162
 #, php-format
 msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:167
 msgid "Automatic updates import from the feed URL and will replace data from an uploaded file."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:171
 msgid "Re-import even if the feed has not changed"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:186
 msgid "Find a stop"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:189
 msgid "Stop name, code or id"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:190
 msgid "Search"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:194
 msgid "No stops found."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:201
 msgid "Stop"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:202
 msgid "Code"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:203
 msgid "Shortcodes"
 msgstr ""
 
+#: src/Admin/SettingsPage.php:212
 msgid "station, includes all its platforms"
 msgstr ""
 
 #. translators: %s: file name
+#: src/Feed/CsvReader.php:73
 #, php-format
 msgid "%s has no header row."
 msgstr ""
 
 #. translators: %s: error message
+#: src/Feed/FeedDownloader.php:26
 #, php-format
 msgid "Could not download the feed: %s"
 msgstr ""
 
+#: src/Feed/FeedDownloader.php:44
 msgid "filesystem is not writable"
 msgstr ""
 
 #. translators: %s: error message
+#: src/Feed/FeedDownloader.php:46
 #, php-format
 msgid "Could not unpack the feed: %s"
 msgstr ""
 
 #. translators: %s: comma-separated list of file names
+#: src/Feed/FeedFormat.php:131
 #, php-format
 msgid "The feed is missing required files: %s"
 msgstr ""
 
+#: src/Frontend/Renderer.php:70
+#: src/Frontend/Renderer.php:119
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr ""
 
+#: src/Frontend/Renderer.php:76
+msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
+msgstr ""
+
 #. translators: %s: stop id
+#: src/Frontend/Renderer.php:126
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr ""
 
 #. translators: 1: table name, 2: database error
+#: src/Import/BatchInsert.php:54
 #, php-format
 msgid "Could not write to %1$s: %2$s"
 msgstr ""
 
+#: src/Import/Importer.php:47
 msgid "Another import is running. Try again when it has finished."
 msgstr ""
 
+#: src/Import/Importer.php:102
 msgid "Unpacking the feed…"
 msgstr ""
 
+#: src/Import/Importer.php:103
 msgid "Downloading the feed…"
 msgstr ""
 
 #. translators: 1: file name, 2: percent done, 3: number of rows
+#: src/Import/Importer.php:109
 #, php-format
 msgid "Importing %1$s: %2$d%% (%3$s rows so far)"
 msgstr ""
 
+#: src/Import/Importer.php:113
 msgid "Finishing…"
 msgstr ""
 
+#: src/Import/Importer.php:120
 msgid "No import has run yet."
 msgstr ""
 
+#: src/Import/Importer.php:130
 msgid "The feed has not changed since the last import."
 msgstr ""
 
+#: src/Import/Importer.php:152
 msgid "Set the feed URL first."
 msgstr ""
 
+#: src/Import/Importer.php:213
 msgid "The feed has no usable stop times."
 msgstr ""
 
 #. translators: 1: number of stops, 2: number of trips, 3: number of stop times
+#: src/Import/Importer.php:236
 #, php-format
 msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
 msgstr ""
 
+#: src/Network/Lines.php:50
+msgid "Night lines"
+msgstr ""
+
+#: src/Network/TransportMode.php:44
+msgid "Metro"
+msgstr ""
+
+#: src/Network/TransportMode.php:45
+msgid "Trams"
+msgstr ""
+
+#: src/Network/TransportMode.php:46
+msgid "Trolleybuses"
+msgstr ""
+
+#: src/Network/TransportMode.php:47
+msgid "Buses"
+msgstr ""
+
+#: src/Network/TransportMode.php:48
+msgid "Trains"
+msgstr ""
+
+#: src/Network/TransportMode.php:49
+msgid "Ferries"
+msgstr ""
+
+#: src/Network/TransportMode.php:50
+msgid "Cable cars and funiculars"
+msgstr ""
+
+#: src/Network/TransportMode.php:51
+msgid "Other lines"
+msgstr ""
+
+#: src/Schedule/Departure.php:38
 msgid "now"
 msgstr ""
 
 #. translators: %d: minutes until departure
+#: src/Schedule/Departure.php:43
 #, php-format
 msgid "in %d min"
 msgid_plural "in %d min"
 msgstr[0] ""
 msgstr[1] ""
 
+#: src/Settings.php:27
 msgid "Manual only"
 msgstr ""
 
+#: src/Settings.php:28
 msgid "Daily"
 msgstr ""
 
+#: src/Settings.php:29
 msgid "Weekly"
 msgstr ""
 
+#: templates/departures.php:25
 msgid "No departures scheduled."
 msgstr ""
 
+#: templates/departures.php:30
 msgid "Line"
 msgstr ""
 
+#: templates/departures.php:31
 msgid "Direction"
 msgstr ""
 
+#: templates/departures.php:32
 msgid "Departs"
 msgstr ""
 
+#: templates/timetable.php:25
 msgid "Choose a day"
 msgstr ""
 
+#: templates/timetable.php:26
 msgid "Previous day"
 msgstr ""
 
+#: templates/timetable.php:28
 msgid "Next day"
 msgstr ""
 
+#: templates/timetable.php:32
 msgid "No departures on this day."
+msgstr ""
+
+#: blocks/lines/editor.js:18
+msgid "Display"
+msgstr ""
+
+#: blocks/lines/editor.js:20
+msgid "Show"
+msgstr ""
+
+#: blocks/lines/editor.js:23
+msgid "Line numbers"
+msgstr ""
+
+#: blocks/lines/editor.js:24
+msgid "Line numbers with destinations"
+msgstr ""
+
+#: blocks/lines/editor.js:29
+msgid "One tab per transport mode"
+msgstr ""
+
+#: blocks/lines/editor.js:34
+msgid "Night lines in their own group"
+msgstr ""
+
+#: blocks/lines/editor.js:35
+msgid "Lines named N1, N8… are listed together after the other lines."
+msgstr ""
+
+#: blocks/lines/editor.js:40
+msgid "Group heading level"
+msgstr ""
+
+#: blocks/lines/editor.js:56
+msgid "Transport modes"
+msgstr ""
+
+#: blocks/lines/editor.js:57
+msgid "Tick the modes to show. With none ticked, the block shows them all."
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block title"
+msgid "Lines"
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block description"
+msgid "All lines of the network, grouped by transport mode."
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "routes"
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "network"
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "timetable"
+msgstr ""
+
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "GTFS"
 msgstr ""
