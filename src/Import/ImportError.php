@@ -6,4 +6,12 @@ namespace GtfsTimetables\Import;
 
 defined( 'ABSPATH' ) || exit;
 
-final class ImportError extends \RuntimeException {}
+/**
+ * The message is HTML-escaped when thrown, as WordPress requires of exception messages.
+ */
+final class ImportError extends \RuntimeException {
+
+	public function plain_text(): string {
+		return wp_specialchars_decode( $this->getMessage(), ENT_QUOTES );
+	}
+}

@@ -23,7 +23,7 @@ final class FeedDownloader {
 
 		if ( is_wp_error( $archive ) ) {
 			/* translators: %s: error message */
-			throw new ImportError( sprintf( __( 'Could not download the feed: %s', 'gtfs-timetables' ), $archive->get_error_message() ) );
+			throw new ImportError( esc_html( sprintf( __( 'Could not download the feed: %s', 'gtfs-timetables' ), $archive->get_error_message() ) ) );
 		}
 
 		return $archive;
@@ -43,7 +43,7 @@ final class FeedDownloader {
 		if ( true !== $result ) {
 			$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'filesystem is not writable', 'gtfs-timetables' );
 			/* translators: %s: error message */
-			throw new ImportError( sprintf( __( 'Could not unpack the feed: %s', 'gtfs-timetables' ), $reason ) );
+			throw new ImportError( esc_html( sprintf( __( 'Could not unpack the feed: %s', 'gtfs-timetables' ), $reason ) ) );
 		}
 
 		return FeedFormat::locate_root( $target );

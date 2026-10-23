@@ -61,6 +61,8 @@ final class Importer {
 			if ( ImportState::LOADING === $state->stage ) {
 				$this->load_until( $deadline, $state );
 			}
+		} catch ( ImportError $error ) {
+			$this->abandon( $state, $error->plain_text() );
 		} catch ( \Throwable $error ) {
 			$this->abandon( $state, $error->getMessage() );
 		} finally {
@@ -99,7 +101,7 @@ final class Importer {
 		$url = Settings::get( 'feed_url' );
 
 		if ( '' === $url ) {
-			throw new ImportError( __( 'Set the feed URL first.', 'gtfs-timetables' ) );
+			throw new ImportError( esc_html__( 'Set the feed URL first.', 'gtfs-timetables' ) );
 		}
 
 		$archive = $this->downloader->download( $url );
@@ -180,7 +182,7 @@ final class Importer {
 
 	private function publish( ImportState $state ): void {
 		if ( empty( $state->rows['stop_times'] ) ) {
-			throw new ImportError( __( 'The feed has no usable stop times.', 'gtfs-timetables' ) );
+			throw new ImportError( esc_html__( 'The feed has no usable stop times.', 'gtfs-timetables' ) );
 		}
 
 		$timezone         = $this->feed_timezone();

@@ -66,7 +66,7 @@ final class Schema {
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- $sql holds only %i placeholders.
 		if ( false === $wpdb->query( $wpdb->prepare( $sql, array_merge( ...$renames ) ) ) ) {
-			throw new ImportError( $wpdb->last_error );
+			throw new ImportError( esc_html( $wpdb->last_error ) );
 		}
 
 		self::drop( self::RETIRED );

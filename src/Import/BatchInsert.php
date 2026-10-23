@@ -51,7 +51,7 @@ final class BatchInsert {
 
 		if ( false === $written ) {
 			/* translators: 1: table name, 2: database error */
-			throw new ImportError( sprintf( __( 'Could not write to %1$s: %2$s', 'gtfs-timetables' ), $this->table, $wpdb->last_error ) );
+			throw new ImportError( esc_html( sprintf( __( 'Could not write to %1$s: %2$s', 'gtfs-timetables' ), $this->table, $wpdb->last_error ) ) );
 		}
 
 		return (int) $written;

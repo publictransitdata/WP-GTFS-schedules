@@ -128,7 +128,7 @@ final class FeedFormat {
 
 		if ( $missing ) {
 			/* translators: %s: comma-separated list of file names */
-			throw new ImportError( sprintf( __( 'The feed is missing required files: %s', 'gtfs-timetables' ), implode( ', ', $missing ) ) );
+			throw new ImportError( esc_html( sprintf( __( 'The feed is missing required files: %s', 'gtfs-timetables' ), implode( ', ', $missing ) ) ) );
 		}
 	}
 
