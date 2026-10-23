@@ -19,7 +19,7 @@ final class Schema {
 	public const STAGING = 'gtfs_next_';
 	public const RETIRED = 'gtfs_old_';
 
-	private const VERSION        = '1';
+	private const VERSION        = '2';
 	private const VERSION_OPTION = 'gtfs_timetables_db_version';
 
 	public static function table( string $name, string $set = self::LIVE ): string {
@@ -135,14 +135,17 @@ final class Schema {
 				PRIMARY KEY (trip_id),
 				KEY service_id (service_id)",
 
+			// Rows get an ever-growing id so the import appends them in order. Feeds are rarely
+			// sorted by trip_id, and a (trip_id, stop_sequence) key left the table half empty.
 			'stop_times'     => "
+				id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				trip_id VARCHAR(100) NOT NULL,
 				stop_sequence INT UNSIGNED NOT NULL,
 				stop_id VARCHAR(100) NOT NULL,
 				departure_secs MEDIUMINT UNSIGNED NOT NULL,
 				pickup_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
 				stop_headsign VARCHAR(255) NOT NULL DEFAULT '',
-				PRIMARY KEY (trip_id, stop_sequence),
+				PRIMARY KEY (id),
 				KEY stop_departure (stop_id, departure_secs)",
 
 			'calendar'       => '
