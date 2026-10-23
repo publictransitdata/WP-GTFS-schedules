@@ -30,7 +30,7 @@ final class Settings {
 		);
 	}
 
-	public static function sanitize( $input ): array {
+	public static function sanitize( mixed $input ): array {
 		$input     = is_array( $input ) ? $input : array();
 		$frequency = sanitize_key( $input['refresh_frequency'] ?? '' );
 

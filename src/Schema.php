@@ -34,7 +34,8 @@ final class Schema {
 		$charset_collate = $wpdb->get_charset_collate();
 
 		foreach ( self::definitions() as $name => $columns ) {
-			$wpdb->query( 'CREATE TABLE IF NOT EXISTS ' . self::table( $name, $set ) . " ({$columns}) {$charset_collate}" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- column definitions are constants of this class.
+			$wpdb->query( $wpdb->prepare( "CREATE TABLE IF NOT EXISTS %i ({$columns}) {$charset_collate}", self::table( $name, $set ) ) );
 		}
 	}
 
@@ -42,10 +43,13 @@ final class Schema {
 		global $wpdb;
 
 		foreach ( array_keys( self::definitions() ) as $name ) {
-			$wpdb->query( 'DROP TABLE IF EXISTS ' . self::table( $name, $set ) );
+			$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', self::table( $name, $set ) ) );
 		}
 	}
 
+	/**
+	 * @throws ImportError When the database refuses the swap; the live data is then left untouched.
+	 */
 	public static function promote_staging(): void {
 		global $wpdb;
 
@@ -54,11 +58,14 @@ final class Schema {
 
 		$renames = array();
 		foreach ( array_keys( self::definitions() ) as $name ) {
-			$renames[] = self::table( $name, self::LIVE ) . ' TO ' . self::table( $name, self::RETIRED );
-			$renames[] = self::table( $name, self::STAGING ) . ' TO ' . self::table( $name, self::LIVE );
+			$renames[] = array( self::table( $name, self::LIVE ), self::table( $name, self::RETIRED ) );
+			$renames[] = array( self::table( $name, self::STAGING ), self::table( $name, self::LIVE ) );
 		}
 
-		if ( false === $wpdb->query( 'RENAME TABLE ' . implode( ', ', $renames ) ) ) {
+		$sql = 'RENAME TABLE ' . implode( ', ', array_fill( 0, count( $renames ), '%i TO %i' ) );
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- $sql holds only %i placeholders.
+		if ( false === $wpdb->query( $wpdb->prepare( $sql, array_merge( ...$renames ) ) ) ) {
 			throw new ImportError( $wpdb->last_error );
 		}
 
