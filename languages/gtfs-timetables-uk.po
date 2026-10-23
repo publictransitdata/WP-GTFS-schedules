@@ -1,0 +1,236 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GTFS Timetables 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtfs-timetables\n"
+"Last-Translator: PUBLICTRANSITDATA.NET\n"
+"Language-Team: Ukrainian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
+"PO-Revision-Date: 2026-10-23T19:26:23+00:00\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: gtfs-timetables\n"
+
+#. Plugin Name of the plugin
+msgid "GTFS Timetables"
+msgstr "Розклади GTFS"
+
+#. Description of the plugin
+msgid "Shows public transport schedules from a GTFS feed."
+msgstr "Відображає розклади громадського транспорту з фіду GTFS."
+
+#. Author of the plugin
+msgid "PUBLICTRANSITDATA.NET"
+msgstr "PUBLICTRANSITDATA.NET"
+
+#. translators: %s: maximum upload size, e.g. "64 MB"
+#, php-format
+msgid "The file is larger than this site accepts (%s). Import it from a URL or with WP-CLI instead."
+msgstr "Файл більший, ніж дозволяє цей сайт (%s). Імпортуйте його використовуючи посилання на нього або через WP-CLI."
+
+msgid "Choose a GTFS .zip file first."
+msgstr "Спершу виберіть файл GTFS у форматі .zip."
+
+#. translators: %d: PHP upload error code
+#, php-format
+msgid "The upload failed (PHP error %d)."
+msgstr "Не вдалося завантажити файл (помилка PHP %d)."
+
+msgid "The file is not a .zip archive. A GTFS feed is published as a .zip of .txt files."
+msgstr "Файл не є архівом .zip. Фід GTFS має бути фалом .zip з файлами .txt."
+
+msgid "You are not allowed to import feeds."
+msgstr "У вас немає прав на імпорт фідів."
+
+msgid "Feed URL"
+msgstr "Посилання на фід"
+
+msgid "Link to the GTFS .zip published by the transport operator."
+msgstr "Посилання на архів GTFS .zip, який публікує перевізник чи оператор."
+
+msgid "Update automatically"
+msgstr "Оновлювати автоматично"
+
+msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import"
+msgstr "Запускається вночі через WP-Cron. На сайтах із невеликою відвідуваністю налаштуйте справжнє завдання cron для wp-cron.php або використовуйте WP-CLI: wp gtfs-timetables import"
+
+msgid "Data source credit"
+msgstr "Джерело даних"
+
+msgid "Shown under timetables. Many open data licences require crediting the publisher, e.g. \"Data: City transport authority, CC BY 4.0\". Leave empty to show nothing."
+msgstr "Відображається під розкладами. Деякі ліцензії відкритих даних вимагають зазначати джерело, наприклад «Дані: міське управління транспорту, CC BY 4.0». Залиште порожнім, щоб нічого не відображати."
+
+msgid "Import"
+msgstr "Імпорт"
+
+#. translators: 1: date and time, 2: time zone
+#, php-format
+msgid "Current data imported %1$s. Feed time zone: %2$s."
+msgstr "Поточні дані імпортовано %1$s. Часовий пояс фіду: %2$s."
+
+msgid "This feed describes some trips with frequencies.txt (\"every 10 minutes\"). Those trips are not shown yet."
+msgstr "Частину рейсів у цьому фіді описано через frequencies.txt («кожні 10 хвилин»). Такі рейси поки не відображаються."
+
+msgid "Uploading the file…"
+msgstr "Завантаження файлу…"
+
+msgid "Import from feed URL"
+msgstr "Імпортувати за посиланням"
+
+msgid "Or upload a GTFS .zip file:"
+msgstr "Або завантажте файл GTFS .zip:"
+
+msgid "Upload and import"
+msgstr "Завантажити й імпортувати"
+
+#. translators: %s: maximum upload size, e.g. "64 MB"
+#, php-format
+msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip"
+msgstr "Максимальний розмір файлу: %s. Для більших фідів використовуйте посилання або WP-CLI: wp gtfs-timetables import --file=feed.zip"
+
+msgid "Automatic updates import from the feed URL and will replace data from an uploaded file."
+msgstr "Автоматичне оновлення імпортує фід за посиланням і замінить дані із завантаженого файлу."
+
+msgid "Re-import even if the feed has not changed"
+msgstr "Імпортувати повторно, навіть якщо фід не змінився"
+
+msgid "Find a stop"
+msgstr "Пошук зупинки"
+
+msgid "Stop name, code or id"
+msgstr "Назва, код або ID зупинки"
+
+msgid "Search"
+msgstr "Шукати"
+
+msgid "No stops found."
+msgstr "Зупинок не знайдено."
+
+msgid "Stop"
+msgstr "Зупинка"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Shortcodes"
+msgstr "Скорочення"
+
+msgid "station, includes all its platforms"
+msgstr "станція, разом з усіма її платформами"
+
+#. translators: %s: file name
+#, php-format
+msgid "%s has no header row."
+msgstr "У файлі %s немає рядка заголовків."
+
+#. translators: %s: error message
+#, php-format
+msgid "Could not download the feed: %s"
+msgstr "Не вдалося завантажити фід: %s"
+
+msgid "filesystem is not writable"
+msgstr "немає прав на запис у файлову систему"
+
+#. translators: %s: error message
+#, php-format
+msgid "Could not unpack the feed: %s"
+msgstr "Не вдалося розпакувати фід: %s"
+
+#. translators: %s: comma-separated list of file names
+#, php-format
+msgid "The feed is missing required files: %s"
+msgstr "У фіді бракує обов'язкових файлів: %s"
+
+msgid "GTFS Timetables: no feed has been imported yet."
+msgstr "Розклади GTFS: фід ще не імпортовано."
+
+#. translators: %s: stop id
+#, php-format
+msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
+msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
+
+#. translators: 1: table name, 2: database error
+#, php-format
+msgid "Could not write to %1$s: %2$s"
+msgstr "Не вдалося записати в %1$s: %2$s"
+
+msgid "Another import is running. Try again when it has finished."
+msgstr "Уже триває інший імпорт. Спробуйте знову, коли він завершиться."
+
+msgid "Unpacking the feed…"
+msgstr "Розпакування фіду…"
+
+msgid "Downloading the feed…"
+msgstr "Завантаження фіду…"
+
+#. translators: 1: file name, 2: percent done, 3: number of rows
+#, php-format
+msgid "Importing %1$s: %2$d%% (%3$s rows so far)"
+msgstr "Імпорт %1$s: %2$d%% (оброблено рядків: %3$s)"
+
+msgid "Finishing…"
+msgstr "Завершення…"
+
+msgid "No import has run yet."
+msgstr "Імпорт ще не запускався."
+
+msgid "The feed has not changed since the last import."
+msgstr "Фід не змінився з останнього імпорту."
+
+msgid "Set the feed URL first."
+msgstr "Спершу вкажіть посилання на фід."
+
+msgid "The feed has no usable stop times."
+msgstr "У фіді немає придатних часів відправлення."
+
+#. translators: 1: number of stops, 2: number of trips, 3: number of stop times
+#, php-format
+msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
+msgstr "Імпорт завершено. Зупинок: %1$s, рейсів: %2$s, відправлень: %3$s."
+
+msgid "now"
+msgstr "зараз"
+
+#. translators: %d: minutes until departure
+#, php-format
+msgid "in %d min"
+msgid_plural "in %d min"
+msgstr[0] "через %d хв"
+msgstr[1] "через %d хв"
+msgstr[2] "через %d хв"
+
+msgid "Manual only"
+msgstr "Лише вручну"
+
+msgid "Daily"
+msgstr "Щодня"
+
+msgid "Weekly"
+msgstr "Щотижня"
+
+msgid "No departures scheduled."
+msgstr "Відправлень не заплановано."
+
+msgid "Line"
+msgstr "Маршрут"
+
+msgid "Direction"
+msgstr "Напрямок"
+
+msgid "Departs"
+msgstr "Відправлення"
+
+msgid "Choose a day"
+msgstr "Оберіть день"
+
+msgid "Previous day"
+msgstr "Попередній день"
+
+msgid "Next day"
+msgstr "Наступний день"
+
+msgid "No departures on this day."
+msgstr "Цього дня відправлень немає."
