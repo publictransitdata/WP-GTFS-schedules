@@ -4,7 +4,8 @@
 
 /*
  * Fails when a bundled translation leaves a string of the template untranslated,
- * or when its compiled .mo / .l10n.php files no longer match the .po file.
+ * or when its compiled files no longer match the .po file:
+ * .mo and .l10n.php hold the strings used in PHP, one .json per script the strings used in JavaScript.
  * Fix both with "composer i18n".
  */
 
@@ -14,26 +15,34 @@ use Gettext\Translations;
 require dirname( __DIR__ ) . '/vendor/autoload.php';
 
 /**
- * The same shape WordPress uses in .l10n.php files: "context\4original" => "translation\0plural…".
+ * Keyed the way WordPress keys compiled translations: "context\4original" => [translation, plural forms…].
  *
- * @return array<string, string>
+ * @return array<string, string[]>
  */
-function gtfs_timetables_messages( Translations $translations ): array {
+function gtfs_timetables_messages( iterable $translations, callable $is_wanted ): array {
 	$messages = array();
 
 	foreach ( $translations as $translation ) {
-		if ( ! $translation->hasTranslation() ) {
-			continue;
+		if ( $translation->hasTranslation() && $is_wanted( $translation ) ) {
+			$key              = ( $translation->hasContext() ? $translation->getContext() . "\4" : '' ) . $translation->getOriginal();
+			$messages[ $key ] = array_merge( array( $translation->getTranslation() ), $translation->getPluralTranslations() );
 		}
-
-		$key = ( $translation->hasContext() ? $translation->getContext() . "\4" : '' ) . $translation->getOriginal();
-
-		$messages[ $key ] = implode( "\0", array_merge( array( $translation->getTranslation() ), $translation->getPluralTranslations() ) );
 	}
 
 	ksort( $messages );
 
 	return $messages;
+}
+
+/**
+ * @return string[] Files the string appears in.
+ */
+function gtfs_timetables_sources( Translation $translation ): array {
+	return array_unique( array_map( fn( array $reference ) => $reference[0], $translation->getReferences() ) );
+}
+
+function gtfs_timetables_is_script( string $file ): bool {
+	return str_ends_with( $file, '.js' );
 }
 
 function gtfs_timetables_is_translated( ?Translation $translation, Translation $original, int $plural_forms ): bool {
@@ -46,6 +55,25 @@ function gtfs_timetables_is_translated( ?Translation $translation, Translation $
 	}
 
 	return count( array_filter( $translation->getPluralTranslations( $plural_forms - 1 ), 'strlen' ) ) === $plural_forms - 1;
+}
+
+/**
+ * @return array<string, string[]>|null
+ */
+function gtfs_timetables_compiled_messages( string $file ): ?array {
+	if ( ! is_readable( $file ) ) {
+		return null;
+	}
+
+	$messages = match ( pathinfo( $file, PATHINFO_EXTENSION ) ) {
+		'mo'   => gtfs_timetables_messages( Translations::fromMoFile( $file ), fn() => true ),
+		'php'  => array_map( fn( string $value ) => explode( "\0", $value ), ( require $file )['messages'] ),
+		'json' => json_decode( (string) file_get_contents( $file ), true )['locale_data']['messages'],
+	};
+	unset( $messages[''] );
+	ksort( $messages );
+
+	return $messages;
 }
 
 $languages = dirname( __DIR__ ) . '/languages';
@@ -63,19 +91,31 @@ foreach ( glob( "{$languages}/*.po" ) as $po_file ) {
 		}
 	}
 
-	$expected = gtfs_timetables_messages( $translations );
-	$compiled = array(
-		"{$name}.mo"       => is_readable( "{$languages}/{$name}.mo" ) ? gtfs_timetables_messages( Translations::fromMoFile( "{$languages}/{$name}.mo" ) ) : null,
-		"{$name}.l10n.php" => is_readable( "{$languages}/{$name}.l10n.php" ) ? ( require "{$languages}/{$name}.l10n.php" )['messages'] : null,
+	$used_in_php = fn( Translation $translation ) => ! $translation->getReferences()
+		|| array_filter( gtfs_timetables_sources( $translation ), fn( string $file ) => ! gtfs_timetables_is_script( $file ) );
+
+	$expected = array(
+		"{$name}.mo"       => gtfs_timetables_messages( $translations, $used_in_php ),
+		"{$name}.l10n.php" => gtfs_timetables_messages( $translations, $used_in_php ),
 	);
 
-	foreach ( $compiled as $file => $messages ) {
-		if ( is_array( $messages ) ) {
-			ksort( $messages );
-		}
+	$scripts = array();
+	foreach ( $translations as $translation ) {
+		$scripts = array_merge( $scripts, array_filter( gtfs_timetables_sources( $translation ), 'gtfs_timetables_is_script' ) );
+	}
 
-		if ( $messages !== $expected ) {
-			$problems[] = null === $messages ? "{$file} is missing." : "{$file} does not match {$name}.po.";
+	foreach ( array_unique( $scripts ) as $script ) {
+		$expected[ "{$name}-" . md5( $script ) . '.json' ] = gtfs_timetables_messages(
+			$translations,
+			fn( Translation $translation ) => in_array( $script, gtfs_timetables_sources( $translation ), true )
+		);
+	}
+
+	foreach ( $expected as $file => $messages ) {
+		$compiled = gtfs_timetables_compiled_messages( "{$languages}/{$file}" );
+
+		if ( $compiled !== $messages ) {
+			$problems[] = null === $compiled ? "{$file} is missing." : "{$file} does not match {$name}.po.";
 		}
 	}
 }

@@ -31,12 +31,13 @@
 		"lint:fix": "phpcbf",
 		"analyse": "phpstan analyse --memory-limit=1G",
 		"test": "phpunit",
-		"i18n:pot": "wp i18n make-pot . languages/gtfs-timetables.pot --slug=gtfs-timetables --exclude=vendor,tests --skip-js --no-location --headers='{\"POT-Creation-Date\":\"\",\"Project-Id-Version\":\"GTFS Timetables\"}'",
+		"i18n:pot": "wp i18n make-pot . languages/gtfs-timetables.pot --slug=gtfs-timetables --exclude=vendor,tests,languages --headers='{\"POT-Creation-Date\":\"\",\"Project-Id-Version\":\"GTFS Timetables\"}'",
 		"i18n": [
 			"@i18n:pot",
 			"wp i18n update-po languages/gtfs-timetables.pot",
 			"wp i18n make-mo languages",
 			"wp i18n make-php languages",
+			"wp i18n make-json languages --pretty-print",
 			"@php tests/check-translations.php"
 		],
 		"check": [
