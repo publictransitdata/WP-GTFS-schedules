@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "gtfs-timetables/lines",
+	"title": "Lines",
+	"category": "widgets",
+	"icon": "editor-ol",
+	"description": "All lines of the network, grouped by transport mode.",
+	"keywords": [ "routes", "network", "timetable", "GTFS" ],
+	"textdomain": "gtfs-timetables",
+	"attributes": {
+		"modes": {
+			"type": "array",
+			"items": { "type": "string" },
+			"default": []
+		},
+		"layout": {
+			"type": "string",
+			"enum": [ "compact", "destinations" ],
+			"default": "compact"
+		},
+		"tabs": {
+			"type": "boolean",
+			"default": false
+		},
+		"nightLinesApart": {
+			"type": "boolean",
+			"default": true
+		},
+		"headingLevel": {
+			"type": "integer",
+			"default": 2
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./editor.js",
+	"style": "gtfs-timetables"
+}

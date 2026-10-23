@@ -62,3 +62,80 @@
 	font-size: 0.85em;
 	opacity: 0.8;
 }
+
+/* Lines */
+
+.gtfs-lines__group + .gtfs-lines__group {
+	margin-block-start: 1.75em;
+}
+
+.gtfs-lines__heading {
+	margin-block: 0 0.6em;
+}
+
+.gtfs-lines__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45em;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gtfs-lines .gtfs-route {
+	min-width: 3em;
+	padding: 0.3em 0.55em;
+}
+
+.gtfs-lines--destinations .gtfs-lines__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+	gap: 0.5em 2em;
+}
+
+.gtfs-lines--destinations .gtfs-lines__line {
+	display: flex;
+	gap: 0.75em;
+	align-items: baseline;
+}
+
+.gtfs-lines--destinations .gtfs-route {
+	flex: none;
+}
+
+.gtfs-lines__destinations {
+	font-size: 0.92em;
+}
+
+.gtfs-lines__tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25em;
+	margin-block-end: 1.25em;
+	border-block-end: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.gtfs-lines__tab {
+	margin-block-end: -1px;
+	padding: 0.55em 1em;
+	border: 0;
+	border-block-end: 3px solid transparent;
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.gtfs-lines__tab[aria-selected="true"] {
+	border-block-end-color: currentColor;
+	font-weight: 700;
+}
+
+.gtfs-lines.is-tabbed .gtfs-lines__heading {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}

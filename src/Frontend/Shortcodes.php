@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * [gtfs_departures stop="123" limit="8"]
  * [gtfs_timetable stop="123" route="7"]
+ * [gtfs_lines modes="tram,bus" layout="destinations" tabs="yes" night="mixed" heading="3"]
  */
 final class Shortcodes {
 
@@ -20,6 +21,11 @@ final class Shortcodes {
 	public static function register(): void {
 		add_shortcode( 'gtfs_departures', array( self::class, 'departures' ) );
 		add_shortcode( 'gtfs_timetable', array( self::class, 'timetable' ) );
+		add_shortcode( 'gtfs_lines', array( self::class, 'lines' ) );
+	}
+
+	public static function lines( array|string $attributes ): string {
+		return Renderer::line_list( LineListSettings::from_shortcode( (array) $attributes ) );
 	}
 
 	public static function departures( array|string $attributes ): string {
