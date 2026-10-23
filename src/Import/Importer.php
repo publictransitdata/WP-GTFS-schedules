@@ -32,16 +32,38 @@ final class Importer {
 	}
 
 	public function start( bool $force = false ): ImportState {
-		$state = ImportState::load();
+		return $this->start_unless_running( ImportState::begin( $force ) );
+	}
 
-		if ( $state->is_running() && ! $state->is_stale() ) {
-			return $state;
+	/**
+	 * @param string $archive A feed .zip that the import may delete once unpacked.
+	 * @throws ImportError When another import is still running; the archive is deleted then too.
+	 */
+	public function start_from_archive( string $archive, bool $force = false ): ImportState {
+		$state = $this->start_unless_running( ImportState::begin( $force, $archive ) );
+
+		if ( $state->archive !== $archive ) {
+			wp_delete_file( $archive );
+			throw new ImportError( esc_html__( 'Another import is running. Try again when it has finished.', 'gtfs-timetables' ) );
 		}
 
-		$state = ImportState::begin( $force );
-		$state->save();
-
 		return $state;
+	}
+
+	private function start_unless_running( ImportState $new_import ): ImportState {
+		$current = ImportState::load();
+
+		if ( $current->is_running() && ! $current->is_stale() ) {
+			return $current;
+		}
+
+		if ( $current->is_from_upload() ) {
+			wp_delete_file( $current->archive );
+		}
+
+		$new_import->save();
+
+		return $new_import;
 	}
 
 	public function run_step( int $seconds ): ImportState {
@@ -55,7 +77,7 @@ final class Importer {
 
 		try {
 			if ( ImportState::DOWNLOADING === $state->stage ) {
-				$this->download( $state );
+				$this->unpack( $state );
 			}
 
 			if ( ImportState::LOADING === $state->stage ) {
@@ -76,7 +98,9 @@ final class Importer {
 	public function summary( ImportState $state ): string {
 		switch ( $state->stage ) {
 			case ImportState::DOWNLOADING:
-				return __( 'Downloading the feed…', 'gtfs-timetables' );
+				return $state->is_from_upload()
+					? __( 'Unpacking the feed…', 'gtfs-timetables' )
+					: __( 'Downloading the feed…', 'gtfs-timetables' );
 
 			case ImportState::LOADING:
 				$file = FeedFormat::files()[ $state->file_index ] ?? null;
@@ -97,14 +121,8 @@ final class Importer {
 		}
 	}
 
-	private function download( ImportState $state ): void {
-		$url = Settings::get( 'feed_url' );
-
-		if ( '' === $url ) {
-			throw new ImportError( esc_html__( 'Set the feed URL first.', 'gtfs-timetables' ) );
-		}
-
-		$archive = $this->downloader->download( $url );
+	private function unpack( ImportState $state ): void {
+		$archive = $state->is_from_upload() ? $state->archive : $this->download_feed_url();
 		$version = (string) sha1_file( $archive );
 
 		if ( ! $state->forced && FeedInfo::version() === $version ) {
@@ -125,6 +143,16 @@ final class Importer {
 		Schema::create( Schema::STAGING );
 
 		$state->start_loading( $directory, $version );
+	}
+
+	private function download_feed_url(): string {
+		$url = Settings::get( 'feed_url' );
+
+		if ( '' === $url ) {
+			throw new ImportError( esc_html__( 'Set the feed URL first.', 'gtfs-timetables' ) );
+		}
+
+		return $this->downloader->download( $url );
 	}
 
 	private function load_until( float $deadline, ImportState $state ): void {
@@ -216,6 +244,10 @@ final class Importer {
 	}
 
 	private function abandon( ImportState $state, string $reason ): void {
+		if ( $state->is_from_upload() ) {
+			wp_delete_file( $state->archive );
+		}
+
 		Schema::drop( Schema::STAGING );
 		$this->downloader->clean_up();
 		$state->fail( $reason );
