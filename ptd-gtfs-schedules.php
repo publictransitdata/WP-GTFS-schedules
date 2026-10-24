@@ -1,11 +1,13 @@
 <?php
 /**
  * Plugin Name:       PTD GTFS Schedules
+ * Plugin URI:        https://github.com/publictransitdata/WP-GTFS-schedules
  * Description:       Shows public transport schedules from a GTFS feed.
  * Version:           0.2.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            PUBLICTRANSITDATA.NET
+ * Author URI:        https://publictransitdata.net/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ptd-gtfs-schedules

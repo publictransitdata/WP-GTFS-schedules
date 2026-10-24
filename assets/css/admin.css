@@ -1,0 +1,230 @@
+/* The plugin's admin page. */
+
+.ptd-gtfs-admin {
+	--ptd-pink: #b8336a;
+	--ptd-purple: #726da8;
+	--ptd-blue: #a0d2db;
+	--ptd-card-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.05);
+	max-width: 1320px;
+}
+
+.ptd-gtfs-admin__header {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0.5rem 0 1.5rem;
+	padding: 1.1rem 1.5rem;
+	overflow: hidden;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: var(--ptd-card-shadow);
+}
+
+/* The logo's three colours as a strip along the top. */
+.ptd-gtfs-admin__header::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto;
+	height: 4px;
+	background: linear-gradient(90deg, var(--ptd-pink) 0 33.3%, var(--ptd-purple) 33.3% 66.6%, var(--ptd-blue) 66.6%);
+}
+
+.ptd-gtfs-admin .ptd-gtfs-admin__title {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	font-size: 1.6rem;
+	font-weight: 600;
+}
+
+.ptd-gtfs-admin__logo {
+	width: 4.5rem;
+	height: auto;
+}
+
+.ptd-gtfs-admin__version {
+	margin: 0;
+	color: #646970;
+}
+
+.ptd-gtfs-admin__layout {
+	display: grid;
+	grid-template-columns: 12.5rem minmax(0, 1fr) 18rem;
+	gap: 1.5rem;
+	align-items: start;
+}
+
+.ptd-gtfs-admin__nav {
+	position: sticky;
+	top: calc(var(--wp-admin--admin-bar--height, 32px) + 1rem);
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.ptd-gtfs-admin__nav a {
+	padding: 0.65rem 0.9rem;
+	border-radius: 6px;
+	color: #1d2327;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.ptd-gtfs-admin__nav a:hover,
+.ptd-gtfs-admin__nav a:focus {
+	background: #fff;
+	color: var(--ptd-purple);
+}
+
+.ptd-gtfs-admin__nav a[aria-current="page"] {
+	background: #fff;
+	box-shadow: inset 3px 0 0 var(--ptd-purple), var(--ptd-card-shadow);
+	color: var(--ptd-purple);
+	font-weight: 600;
+}
+
+.ptd-gtfs-admin__card {
+	margin-bottom: 1.5rem;
+	padding: 1.25rem 1.5rem;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: var(--ptd-card-shadow);
+}
+
+.ptd-gtfs-admin__card > h2:first-child {
+	margin: 0 0 0.75rem;
+	font-size: 1.15rem;
+}
+
+.ptd-gtfs-admin__card .form-table th {
+	padding-inline-start: 0;
+}
+
+.ptd-gtfs-admin__card .submit {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.ptd-gtfs-admin__card--accent {
+	box-shadow: inset 0 3px 0 var(--ptd-pink), var(--ptd-card-shadow);
+}
+
+/* WordPress keeps buttons on one line, which longer translations do not fit in the sidebar. */
+.ptd-gtfs-admin__sidebar .button {
+	max-width: 100%;
+	height: auto;
+	padding-block: 0.35em;
+	line-height: 1.4;
+	white-space: normal;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.ptd-gtfs-admin__search {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.ptd-gtfs-admin__stops {
+	margin-top: 1rem;
+}
+
+.ptd-gtfs-admin__steps {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: ptd-step;
+}
+
+.ptd-gtfs-admin__steps li {
+	position: relative;
+	margin: 0;
+	padding: 0 0 1.25rem 3rem;
+	counter-increment: ptd-step;
+}
+
+.ptd-gtfs-admin__steps li:last-child {
+	padding-bottom: 0;
+}
+
+/* Numbered stops on a line, like the logo. */
+.ptd-gtfs-admin__steps li::before {
+	content: counter(ptd-step);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	border: 3px solid #2e2e2e;
+	border-radius: 50%;
+	background: #fff;
+	box-sizing: border-box;
+	font-weight: 600;
+}
+
+.ptd-gtfs-admin__steps li:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	top: 1.5rem;
+	bottom: -0.5rem;
+	left: calc(1rem - 3px);
+	border-left: 6px solid var(--ptd-purple);
+}
+
+.ptd-gtfs-admin__steps h3 {
+	margin: 0.3rem 0 0.35rem;
+	font-size: 1rem;
+}
+
+.ptd-gtfs-admin__steps p {
+	margin: 0;
+}
+
+.ptd-gtfs-admin__contacts {
+	margin: 0 0 1rem;
+}
+
+.ptd-gtfs-admin__contacts li {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.ptd-gtfs-admin__contacts .dashicons {
+	color: var(--ptd-purple);
+}
+
+@media (max-width: 1180px) {
+	.ptd-gtfs-admin__layout {
+		grid-template-columns: 12.5rem minmax(0, 1fr);
+	}
+
+	.ptd-gtfs-admin__sidebar {
+		grid-column: 2;
+	}
+}
+
+@media (max-width: 782px) {
+	.ptd-gtfs-admin__layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.ptd-gtfs-admin__nav {
+		position: static;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.ptd-gtfs-admin__sidebar {
+		grid-column: auto;
+	}
+}
