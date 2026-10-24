@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use GtfsTimetables\Network\TripNote;
-use GtfsTimetables\Schedule\MarkedTimetable;
-use GtfsTimetables\Schedule\TimetableDeparture;
+use PtdGtfsSchedules\Network\TripNote;
+use PtdGtfsSchedules\Schedule\MarkedTimetable;
+use PtdGtfsSchedules\Schedule\TimetableDeparture;
 use PHPUnit\Framework\TestCase;
 
 final class MarkedTimetableTest extends TestCase {

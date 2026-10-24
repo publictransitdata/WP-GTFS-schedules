@@ -2,28 +2,28 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
 use DateTimeImmutable;
-use GtfsTimetables\Schedule\ServiceDay;
+use PtdGtfsSchedules\Schedule\ServiceDay;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * [gtfs_departures stop="123" limit="8"]
- * [gtfs_timetable stop="123" route="7"]
- * [gtfs_lines modes="tram,bus" layout="destinations" tabs="yes" night="mixed" heading="3"]
- * [gtfs_line] on the page every list of lines links to; it shows the line from ?line= in the address.
+ * [ptd_gtfs_departures stop="123" limit="8"]
+ * [ptd_gtfs_timetable stop="123" route="7"]
+ * [ptd_gtfs_lines modes="tram,bus" layout="destinations" tabs="yes" night="mixed" heading="3"]
+ * [ptd_gtfs_line] on the page every list of lines links to; it shows the line from ?line= in the address.
  */
 final class Shortcodes {
 
 	public const DATE_QUERY_ARG = 'gtfs_date';
 
 	public static function register(): void {
-		add_shortcode( 'gtfs_departures', array( self::class, 'departures' ) );
-		add_shortcode( 'gtfs_timetable', array( self::class, 'timetable' ) );
-		add_shortcode( 'gtfs_lines', array( self::class, 'lines' ) );
-		add_shortcode( 'gtfs_line', array( self::class, 'line' ) );
+		add_shortcode( 'ptd_gtfs_departures', array( self::class, 'departures' ) );
+		add_shortcode( 'ptd_gtfs_timetable', array( self::class, 'timetable' ) );
+		add_shortcode( 'ptd_gtfs_lines', array( self::class, 'lines' ) );
+		add_shortcode( 'ptd_gtfs_line', array( self::class, 'line' ) );
 	}
 
 	public static function line(): string {
@@ -41,7 +41,7 @@ final class Shortcodes {
 				'limit' => 8,
 			),
 			$attributes,
-			'gtfs_departures'
+			'ptd_gtfs_departures'
 		);
 
 		Assets::enqueue_styles();
@@ -59,7 +59,7 @@ final class Shortcodes {
 				'route' => '',
 			),
 			$attributes,
-			'gtfs_timetable'
+			'ptd_gtfs_timetable'
 		);
 
 		Assets::enqueue_styles();

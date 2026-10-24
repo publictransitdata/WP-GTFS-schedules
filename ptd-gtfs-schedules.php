@@ -1,14 +1,16 @@
 <?php
 /**
- * Plugin Name:       GTFS Timetables
+ * Plugin Name:       PTD GTFS Schedules
+ * Plugin URI:        https://github.com/publictransitdata/WP-GTFS-schedules
  * Description:       Shows public transport schedules from a GTFS feed.
- * Version:           0.2.0
+ * Version:           0.3.1
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            PUBLICTRANSITDATA.NET
+ * Author URI:        https://publictransitdata.net/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       gtfs-timetables
+ * Text Domain:       ptd-gtfs-schedules
  * Domain Path:       /languages
  *
  * Copyright (C) 2026 PUBLICTRANSITDATA.NET
@@ -21,13 +23,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GTFS_TIMETABLES_VERSION', '0.2.0' );
-define( 'GTFS_TIMETABLES_FILE', __FILE__ );
-define( 'GTFS_TIMETABLES_DIR', __DIR__ );
+define( 'PTD_GTFS_SCHEDULES_VERSION', '0.3.1' );
+define( 'PTD_GTFS_SCHEDULES_FILE', __FILE__ );
+define( 'PTD_GTFS_SCHEDULES_DIR', __DIR__ );
 
 require __DIR__ . '/src/autoload.php';
 
-register_activation_hook( __FILE__, array( GtfsTimetables\Plugin::class, 'activate' ) );
-register_deactivation_hook( __FILE__, array( GtfsTimetables\Plugin::class, 'deactivate' ) );
+register_activation_hook( __FILE__, array( PtdGtfsSchedules\Plugin::class, 'activate' ) );
+register_deactivation_hook( __FILE__, array( PtdGtfsSchedules\Plugin::class, 'deactivate' ) );
 
-add_action( 'plugins_loaded', array( GtfsTimetables\Plugin::class, 'boot' ) );
+add_action( 'plugins_loaded', array( PtdGtfsSchedules\Plugin::class, 'boot' ) );

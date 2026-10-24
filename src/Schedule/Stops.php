@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Schedule;
+namespace PtdGtfsSchedules\Schedule;
 
-use GtfsTimetables\Schema;
+use PtdGtfsSchedules\Schema;
 
 defined( 'ABSPATH' ) || exit;
 

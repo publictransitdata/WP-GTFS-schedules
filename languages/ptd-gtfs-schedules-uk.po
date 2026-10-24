@@ -1,36 +1,43 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: GTFS Timetables 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtfs-timetables\n"
+"Project-Id-Version: PTD GTFS Schedules\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ptd-gtfs-schedules\n"
 "Last-Translator: PUBLICTRANSITDATA.NET\n"
 "Language-Team: Ukrainian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-24T10:26:05+00:00\n"
+"PO-Revision-Date: 2026-10-24T12:43:10+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: gtfs-timetables\n"
+"X-Domain: ptd-gtfs-schedules\n"
 
 #. Plugin Name of the plugin
-#: gtfs-timetables.php:3
-#: src/Admin/SettingsPage.php:32
-#: src/Admin/SettingsPage.php:33
-#: src/Admin/SettingsPage.php:68
-msgid "GTFS Timetables"
-msgstr "Розклади GTFS"
+#: ptd-gtfs-schedules.php:3
+msgid "PTD GTFS Schedules"
+msgstr "PTD GTFS Schedules"
+
+#. Plugin URI of the plugin
+#: ptd-gtfs-schedules.php:4
+msgid "https://github.com/publictransitdata/WP-GTFS-schedules"
+msgstr "https://github.com/publictransitdata/WP-GTFS-schedules"
 
 #. Description of the plugin
-#: gtfs-timetables.php:4
+#: ptd-gtfs-schedules.php:5
 msgid "Shows public transport schedules from a GTFS feed."
-msgstr "Відображає розклади громадського транспорту з фіду GTFS."
+msgstr "Показує розклади громадського транспорту з GTFS-фіду."
 
 #. Author of the plugin
-#: gtfs-timetables.php:8
+#: ptd-gtfs-schedules.php:9
 msgid "PUBLICTRANSITDATA.NET"
 msgstr "PUBLICTRANSITDATA.NET"
+
+#. Author URI of the plugin
+#: ptd-gtfs-schedules.php:10
+msgid "https://publictransitdata.net/"
+msgstr "https://publictransitdata.net/"
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
 #: src/Admin/FeedUpload.php:82
@@ -56,105 +63,190 @@ msgstr "Файл не є архівом .zip. Фід GTFS має бути фал
 msgid "You are not allowed to import feeds."
 msgstr "У вас немає прав на імпорт фідів."
 
-#: src/Admin/SettingsPage.php:85
+#: src/Admin/SettingsPage.php:78
+msgid "Settings"
+msgstr "Налаштування"
+
+#: src/Admin/SettingsPage.php:93
+#: src/Admin/SettingsPage.php:383
+msgid "Report a problem or suggest an idea"
+msgstr "Повідомити про проблему або запропонувати ідею"
+
+#. translators: %s: version number of the plugin
+#: src/Admin/SettingsPage.php:114
+#, php-format
+msgid "Version %s"
+msgstr "Версія %s"
+
+#: src/Admin/SettingsPage.php:122
+msgid "Sections"
+msgstr "Розділи"
+
+#: src/Admin/SettingsPage.php:152
+#: src/Admin/SettingsPage.php:341
+msgid "Feed and import"
+msgstr "Фід та імпорт"
+
+#: src/Admin/SettingsPage.php:153
+#: src/Admin/SettingsPage.php:288
+msgid "Find a stop"
+msgstr "Пошук зупинки"
+
+#: src/Admin/SettingsPage.php:154
+#: src/Admin/SettingsPage.php:355
+msgid "Getting started"
+msgstr "Як почати"
+
+#: src/Admin/SettingsPage.php:170
+msgid "(opens in a new tab)"
+msgstr "(відкривається в новій вкладці)"
+
+#: src/Admin/SettingsPage.php:178
+msgid "Feed"
+msgstr "Фід"
+
+#: src/Admin/SettingsPage.php:183
 msgid "Feed URL"
 msgstr "Посилання на фід"
 
-#: src/Admin/SettingsPage.php:88
+#: src/Admin/SettingsPage.php:186
 msgid "Link to the GTFS .zip published by the transport operator."
 msgstr "Посилання на архів GTFS .zip, який публікує перевізник чи оператор."
 
-#: src/Admin/SettingsPage.php:92
+#: src/Admin/SettingsPage.php:190
 msgid "Update automatically"
 msgstr "Оновлювати автоматично"
 
-#: src/Admin/SettingsPage.php:99
-msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import"
-msgstr "Запускається вночі через WP-Cron. На сайтах із невеликою відвідуваністю налаштуйте справжнє завдання cron для wp-cron.php або використовуйте WP-CLI: wp gtfs-timetables import"
+#: src/Admin/SettingsPage.php:197
+msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp ptd-gtfs-schedules import"
+msgstr "Запускається вночі через WP-Cron. На сайтах із невеликою відвідуваністю налаштуйте справжнє завдання cron для wp-cron.php або використовуйте WP-CLI: wp ptd-gtfs-schedules import"
 
-#: src/Admin/SettingsPage.php:103
+#: src/Admin/SettingsPage.php:201
 msgid "Data source credit"
 msgstr "Джерело даних"
 
-#: src/Admin/SettingsPage.php:106
+#: src/Admin/SettingsPage.php:204
 msgid "Shown under timetables. Many open data licences require crediting the publisher, e.g. \"Data: City transport authority, CC BY 4.0\". Leave empty to show nothing."
 msgstr "Відображається під розкладами. Деякі ліцензії відкритих даних вимагають зазначати джерело, наприклад «Дані: міське управління транспорту, CC BY 4.0». Залиште порожнім, щоб нічого не відображати."
 
-#: src/Admin/SettingsPage.php:120
+#: src/Admin/SettingsPage.php:220
 msgid "Import"
 msgstr "Імпорт"
 
 #. translators: 1: date and time, 2: time zone
-#: src/Admin/SettingsPage.php:127
+#: src/Admin/SettingsPage.php:227
 #, php-format
 msgid "Current data imported %1$s. Feed time zone: %2$s."
 msgstr "Поточні дані імпортовано %1$s. Часовий пояс фіду: %2$s."
 
-#: src/Admin/SettingsPage.php:136
+#: src/Admin/SettingsPage.php:236
 msgid "This feed describes some trips with frequencies.txt (\"every 10 minutes\"). Those trips are not shown yet."
 msgstr "Частину рейсів у цьому фіді описано через frequencies.txt («кожні 10 хвилин»). Такі рейси поки не відображаються."
 
-#: src/Admin/SettingsPage.php:146
+#: src/Admin/SettingsPage.php:246
 msgid "Uploading the file…"
 msgstr "Завантаження файлу…"
 
-#: src/Admin/SettingsPage.php:149
+#: src/Admin/SettingsPage.php:249
 msgid "Import from feed URL"
-msgstr "Імпортувати за посиланням"
+msgstr "Імпортувати з посилання"
 
-#: src/Admin/SettingsPage.php:153
+#: src/Admin/SettingsPage.php:253
 msgid "Or upload a GTFS .zip file:"
 msgstr "Або завантажте файл GTFS .zip:"
 
-#: src/Admin/SettingsPage.php:156
+#: src/Admin/SettingsPage.php:256
 msgid "Upload and import"
 msgstr "Завантажити й імпортувати"
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
-#: src/Admin/SettingsPage.php:162
+#: src/Admin/SettingsPage.php:262
 #, php-format
-msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip"
-msgstr "Максимальний розмір файлу: %s. Для більших фідів використовуйте посилання або WP-CLI: wp gtfs-timetables import --file=feed.zip"
+msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
+msgstr "Максимальний розмір файлу: %s. Для більших фідів використовуйте посилання або WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
 
-#: src/Admin/SettingsPage.php:167
+#: src/Admin/SettingsPage.php:267
 msgid "Automatic updates import from the feed URL and will replace data from an uploaded file."
 msgstr "Автоматичне оновлення імпортує фід за посиланням і замінить дані із завантаженого файлу."
 
-#: src/Admin/SettingsPage.php:171
+#: src/Admin/SettingsPage.php:271
 msgid "Re-import even if the feed has not changed"
 msgstr "Імпортувати повторно, навіть якщо фід не змінився"
 
-#: src/Admin/SettingsPage.php:186
-msgid "Find a stop"
-msgstr "Пошук зупинки"
+#: src/Admin/SettingsPage.php:289
+msgid "Each stop has shortcodes you can paste into any page: one for its next departures, one for its timetable."
+msgstr "Кожна зупинка має шорткоди, які можна вставити на будь-яку сторінку: один для найближчих відправлень, другий для розкладу."
 
-#: src/Admin/SettingsPage.php:189
+#: src/Admin/SettingsPage.php:293
+#: src/Admin/SettingsPage.php:294
 msgid "Stop name, code or id"
 msgstr "Назва, код або ID зупинки"
 
-#: src/Admin/SettingsPage.php:190
+#: src/Admin/SettingsPage.php:295
 msgid "Search"
 msgstr "Шукати"
 
-#: src/Admin/SettingsPage.php:194
+#: src/Admin/SettingsPage.php:299
 msgid "No stops found."
 msgstr "Зупинок не знайдено."
 
-#: src/Admin/SettingsPage.php:201
+#: src/Admin/SettingsPage.php:306
 msgid "Stop"
 msgstr "Зупинка"
 
-#: src/Admin/SettingsPage.php:202
+#: src/Admin/SettingsPage.php:307
 msgid "Code"
 msgstr "Код"
 
-#: src/Admin/SettingsPage.php:203
+#: src/Admin/SettingsPage.php:308
 msgid "Shortcodes"
 msgstr "Скорочення"
 
-#: src/Admin/SettingsPage.php:212
+#: src/Admin/SettingsPage.php:317
 msgid "station, includes all its platforms"
 msgstr "станція, разом з усіма її платформами"
+
+#: src/Admin/SettingsPage.php:337
+msgid "Import the timetable"
+msgstr "Імпортуйте розклад"
+
+#. translators: %s: link to the "Feed and import" section
+#: src/Admin/SettingsPage.php:340
+#, php-format
+msgid "In %s, enter the public address of the GTFS feed or upload its .zip file, and import it. A feed imported from its address can then be updated automatically."
+msgstr "У розділі «%s» вкажіть публічну адресу GTFS-фіду або завантажте його файл .zip, і імпортуйте. Фід, імпортований з адреси, плагін може оновлювати автоматично."
+
+#: src/Admin/SettingsPage.php:345
+msgid "Add the Lines block"
+msgstr "Додайте блок маршрутів"
+
+#: src/Admin/SettingsPage.php:346
+msgid "Add the Lines block to a page, for example the home page. It shows every line, grouped by transport mode."
+msgstr "Додайте блок «Маршрути» на сторінку, наприклад на головну. Він відобразить всі маршрути, згруповані за типом транспорту."
+
+#: src/Admin/SettingsPage.php:349
+msgid "Create a page for timetables"
+msgstr "Створіть окрему сторінку з розкладами"
+
+#: src/Admin/SettingsPage.php:350
+msgid "Create one page with the Line timetable block. Every Lines block on the site links there, and it shows the route and timetables of the chosen line."
+msgstr "Створіть окрему сторінку з блоком «Розклади маршрутів». Усі блоки «Маршрути» на сайті ведуть туди, а вона відображає маршрут і його розклади."
+
+#: src/Admin/SettingsPage.php:381
+msgid "Problems and ideas"
+msgstr "Проблеми та ідеї"
+
+#: src/Admin/SettingsPage.php:382
+msgid "Something does not work, or a feature is missing? Open an issue on GitHub: every report helps us make the plugin better."
+msgstr "Щось не працює або бракує якоїсь фічі? Створіть issue на GitHub: кожне зголошення допомагає зробити плагін кращим."
+
+#: src/Admin/SettingsPage.php:387
+msgid "Contact"
+msgstr "Контакти"
+
+#: src/Admin/SettingsPage.php:398
+msgid "PTD GTFS Schedules by Public Transit Data."
+msgstr "PTD GTFS Schedules від Public Transit Data."
 
 #. translators: %s: file name
 #: src/Feed/CsvReader.php:73
@@ -193,22 +285,22 @@ msgstr "Маршрут %s"
 #: src/Frontend/Renderer.php:71
 #: src/Frontend/Renderer.php:111
 #: src/Frontend/Renderer.php:184
-msgid "GTFS Timetables: no feed has been imported yet."
-msgstr "Розклади GTFS: фід ще не імпортовано."
+msgid "PTD GTFS Schedules: no feed has been imported yet."
+msgstr "PTD GTFS Schedules: фід ще не імпортовано."
 
 #: src/Frontend/Renderer.php:77
-msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
-msgstr "Розклади GTFS: у фіді немає ліній вибраних видів транспорту."
+msgid "PTD GTFS Schedules: the feed has no lines of the chosen transport modes."
+msgstr "PTD GTFS Schedules: у фіді немає маршрутів вибраних видів транспорту."
 
 #: src/Frontend/Renderer.php:124
 msgid "This line is not in the current timetable. Choose a line:"
-msgstr "Цієї лінії немає в чинному розкладі. Виберіть лінію:"
+msgstr "Цього маршруту немає в чинному розкладі. Виберіть маршрут:"
 
 #. translators: %s: stop id
 #: src/Frontend/Renderer.php:191
 #, php-format
-msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
-msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
+msgid "PTD GTFS Schedules: there is no stop with id \"%s\" in the feed."
+msgstr "PTD GTFS Schedules: у фіді немає зупинки з ID «%s»."
 
 #. translators: 1: table name, 2: database error
 #: src/Import/BatchInsert.php:54
@@ -269,15 +361,15 @@ msgid "Metro line"
 msgstr "Лінія метро"
 
 #: src/Network/TransportMode.php:48
-msgid "Tram line"
+msgid "Tram"
 msgstr "Трамвай"
 
 #: src/Network/TransportMode.php:49
-msgid "Trolleybus line"
+msgid "Trolleybus"
 msgstr "Тролейбус"
 
 #: src/Network/TransportMode.php:50
-msgid "Bus line"
+msgid "Bus"
 msgstr "Автобус"
 
 #: src/Network/TransportMode.php:51
@@ -285,7 +377,7 @@ msgid "Train line"
 msgstr "Залізнична лінія"
 
 #: src/Network/TransportMode.php:52
-msgid "Ferry line"
+msgid "Ferry"
 msgstr "Пором"
 
 #: src/Network/TransportMode.php:53
@@ -487,12 +579,12 @@ msgid "Next day"
 msgstr "Наступний день"
 
 #: templates/line.php:243
-msgid "This is the last stop of the line in this direction, so it has no departures."
+msgid "This is the last stop of the line in this direction."
 msgstr "Це кінцева зупинка маршруту в цьому напрямку."
 
 #: templates/line.php:245
-msgid "Riders cannot get on this line at this stop, so it has no departures."
-msgstr "Немає відправлень з цієї зупинки"
+msgid "No departures from this stop."
+msgstr "Немає відправлень з цієї зупинки."
 
 #: templates/line.php:247
 #: templates/timetable.php:32
@@ -509,11 +601,11 @@ msgstr "Як працює ця сторінка"
 
 #: blocks/line/editor.js:22
 msgid "Every Lines block on the site links to the page with this block, adding the chosen line to the address."
-msgstr "Кожен блок «Лінії» на сайті веде на сторінку з цим блоком і додає до адреси вибрану лінію."
+msgstr "Кожен блок «Маршрути» на сайті веде на сторінку з цим блоком і додає до адреси вибраний маршрут."
 
 #: blocks/line/editor.js:23
 msgid "The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines."
-msgstr "У попередньому перегляді показано першу лінію фіду. Якщо в адресі немає лінії, відвідувачі бачать список усіх ліній."
+msgstr "У попередньому перегляді показано перший маршрут фіду. Якщо в адресі немає маршруту, відвідувачі бачать список усіх маршрутів."
 
 #: blocks/lines/editor.js:18
 msgid "Display"
@@ -525,11 +617,11 @@ msgstr "Показувати"
 
 #: blocks/lines/editor.js:23
 msgid "Line numbers"
-msgstr "Номери ліній"
+msgstr "Номери маршрутів"
 
 #: blocks/lines/editor.js:24
 msgid "Line numbers with destinations"
-msgstr "Номери ліній з кінцевими зупинками"
+msgstr "Номери маршрутів з кінцевими зупинками"
 
 #: blocks/lines/editor.js:29
 msgid "One tab per transport mode"
@@ -537,11 +629,11 @@ msgstr "Окрема вкладка для кожного виду трансп�
 
 #: blocks/lines/editor.js:34
 msgid "Night lines in their own group"
-msgstr "Нічні лінії окремою групою"
+msgstr "Нічні маршрути окремою групою"
 
 #: blocks/lines/editor.js:35
 msgid "Lines named N1, N8… are listed together after the other lines."
-msgstr "Лінії з назвами N1, N8… показуються разом після інших ліній."
+msgstr "Маршрути з назвами N1, N8… показуються разом після інших маршрутів."
 
 #: blocks/lines/editor.js:40
 msgid "Group heading level"
@@ -558,12 +650,12 @@ msgstr "Позначте види транспорту, які треба пок
 #: blocks/line/block.json
 msgctxt "block title"
 msgid "Line timetable"
-msgstr "Розклад лінії"
+msgstr "Розклади маршрутів"
 
 #: blocks/line/block.json
 msgctxt "block description"
 msgid "The line a visitor chose in a Lines block. Put it on one page: every Lines block on the site links there."
-msgstr "Лінія, яку відвідувач вибрав у блоці «Лінії». Додайте його на одну сторінку: усі блоки «Лінії» на сайті ведуть туди."
+msgstr "Маршрут, який відвідувач вибрав у блоці «Маршрути». Додайте блок на одну сторінку: усі блоки «Маршрути» на сайті ведуть туди."
 
 #: blocks/line/block.json
 msgctxt "block keyword"
@@ -585,12 +677,12 @@ msgstr "GTFS"
 #: blocks/lines/block.json
 msgctxt "block title"
 msgid "Lines"
-msgstr "Лінії"
+msgstr "Маршрути"
 
 #: blocks/lines/block.json
 msgctxt "block description"
 msgid "All lines of the network, grouped by transport mode."
-msgstr "Усі лінії мережі, згруповані за видом транспорту."
+msgstr "Усі маршрути мережі, згруповані за видом транспорту."
 
 #: blocks/lines/block.json
 msgctxt "block keyword"

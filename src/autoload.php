@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 spl_autoload_register(
 	static function ( string $class_name ): void {
-		$prefix = 'GtfsTimetables\\';
+		$prefix = 'PtdGtfsSchedules\\';
 
 		if ( ! str_starts_with( $class_name, $prefix ) ) {
 			return;

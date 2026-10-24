@@ -19,7 +19,7 @@ require dirname( __DIR__ ) . '/vendor/autoload.php';
  *
  * @return array<string, string[]>
  */
-function gtfs_timetables_messages( iterable $translations, callable $is_wanted ): array {
+function ptd_gtfs_schedules_messages( iterable $translations, callable $is_wanted ): array {
 	$messages = array();
 
 	foreach ( $translations as $translation ) {
@@ -37,15 +37,15 @@ function gtfs_timetables_messages( iterable $translations, callable $is_wanted )
 /**
  * @return string[] Files the string appears in.
  */
-function gtfs_timetables_sources( Translation $translation ): array {
+function ptd_gtfs_schedules_sources( Translation $translation ): array {
 	return array_unique( array_map( fn( array $reference ) => $reference[0], $translation->getReferences() ) );
 }
 
-function gtfs_timetables_is_script( string $file ): bool {
+function ptd_gtfs_schedules_is_script( string $file ): bool {
 	return str_ends_with( $file, '.js' );
 }
 
-function gtfs_timetables_is_translated( ?Translation $translation, Translation $original, int $plural_forms ): bool {
+function ptd_gtfs_schedules_is_translated( ?Translation $translation, Translation $original, int $plural_forms ): bool {
 	if ( ! $translation || ! $translation->hasTranslation() ) {
 		return false;
 	}
@@ -60,13 +60,13 @@ function gtfs_timetables_is_translated( ?Translation $translation, Translation $
 /**
  * @return array<string, string[]>|null
  */
-function gtfs_timetables_compiled_messages( string $file ): ?array {
+function ptd_gtfs_schedules_compiled_messages( string $file ): ?array {
 	if ( ! is_readable( $file ) ) {
 		return null;
 	}
 
 	$messages = match ( pathinfo( $file, PATHINFO_EXTENSION ) ) {
-		'mo'   => gtfs_timetables_messages( Translations::fromMoFile( $file ), fn() => true ),
+		'mo'   => ptd_gtfs_schedules_messages( Translations::fromMoFile( $file ), fn() => true ),
 		'php'  => array_map( fn( string $value ) => explode( "\0", $value ), ( require $file )['messages'] ),
 		'json' => json_decode( (string) file_get_contents( $file ), true )['locale_data']['messages'],
 	};
@@ -77,7 +77,7 @@ function gtfs_timetables_compiled_messages( string $file ): ?array {
 }
 
 $languages = dirname( __DIR__ ) . '/languages';
-$template  = Translations::fromPoFile( "{$languages}/gtfs-timetables.pot" );
+$template  = Translations::fromPoFile( "{$languages}/ptd-gtfs-schedules.pot" );
 $problems  = array();
 
 foreach ( glob( "{$languages}/*.po" ) as $po_file ) {
@@ -86,33 +86,33 @@ foreach ( glob( "{$languages}/*.po" ) as $po_file ) {
 	$plural_forms = (int) ( $translations->getPluralForms()[0] ?? 2 );
 
 	foreach ( $template as $original ) {
-		if ( ! gtfs_timetables_is_translated( $translations->find( $original ), $original, $plural_forms ) ) {
+		if ( ! ptd_gtfs_schedules_is_translated( $translations->find( $original ), $original, $plural_forms ) ) {
 			$problems[] = "{$name}.po: not translated: " . $original->getOriginal();
 		}
 	}
 
 	$used_in_php = fn( Translation $translation ) => ! $translation->getReferences()
-		|| array_filter( gtfs_timetables_sources( $translation ), fn( string $file ) => ! gtfs_timetables_is_script( $file ) );
+		|| array_filter( ptd_gtfs_schedules_sources( $translation ), fn( string $file ) => ! ptd_gtfs_schedules_is_script( $file ) );
 
 	$expected = array(
-		"{$name}.mo"       => gtfs_timetables_messages( $translations, $used_in_php ),
-		"{$name}.l10n.php" => gtfs_timetables_messages( $translations, $used_in_php ),
+		"{$name}.mo"       => ptd_gtfs_schedules_messages( $translations, $used_in_php ),
+		"{$name}.l10n.php" => ptd_gtfs_schedules_messages( $translations, $used_in_php ),
 	);
 
 	$scripts = array();
 	foreach ( $translations as $translation ) {
-		$scripts = array_merge( $scripts, array_filter( gtfs_timetables_sources( $translation ), 'gtfs_timetables_is_script' ) );
+		$scripts = array_merge( $scripts, array_filter( ptd_gtfs_schedules_sources( $translation ), 'ptd_gtfs_schedules_is_script' ) );
 	}
 
 	foreach ( array_unique( $scripts ) as $script ) {
-		$expected[ "{$name}-" . md5( $script ) . '.json' ] = gtfs_timetables_messages(
+		$expected[ "{$name}-" . md5( $script ) . '.json' ] = ptd_gtfs_schedules_messages(
 			$translations,
-			fn( Translation $translation ) => in_array( $script, gtfs_timetables_sources( $translation ), true )
+			fn( Translation $translation ) => in_array( $script, ptd_gtfs_schedules_sources( $translation ), true )
 		);
 	}
 
 	foreach ( $expected as $file => $messages ) {
-		$compiled = gtfs_timetables_compiled_messages( "{$languages}/{$file}" );
+		$compiled = ptd_gtfs_schedules_compiled_messages( "{$languages}/{$file}" );
 
 		if ( $compiled !== $messages ) {
 			$problems[] = null === $compiled ? "{$file} is missing." : "{$file} does not match {$name}.po.";

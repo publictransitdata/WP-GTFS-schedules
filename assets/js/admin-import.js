@@ -49,7 +49,7 @@
 	}
 
 	function importFromUrl() {
-		return post( 'gtfs_timetables_import_start', new URLSearchParams( { force: forceFlag() } ) );
+		return post( 'ptd_gtfs_schedules_import_start', new URLSearchParams( { force: forceFlag() } ) );
 	}
 
 	async function importUpload( file ) {
@@ -63,7 +63,7 @@
 
 		status.textContent = panel.dataset.uploadingMessage;
 
-		return post( 'gtfs_timetables_import_upload', body );
+		return post( 'ptd_gtfs_schedules_import_upload', body );
 	}
 
 	function setBusy( busy ) {
@@ -80,7 +80,7 @@
 			while ( progress.running ) {
 				status.textContent = progress.summary;
 				await pause( PAUSE_BETWEEN_STEPS_MS );
-				progress = await post( 'gtfs_timetables_import_step' );
+				progress = await post( 'ptd_gtfs_schedules_import_step' );
 			}
 
 			status.textContent = progress.summary;
@@ -98,6 +98,6 @@
 	fileInput.addEventListener( 'change', () => setBusy( false ) );
 
 	if ( panel.dataset.running === '1' ) {
-		followImport( () => post( 'gtfs_timetables_import_step' ) );
+		followImport( () => post( 'ptd_gtfs_schedules_import_step' ) );
 	}
 } )();

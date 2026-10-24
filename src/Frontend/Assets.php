@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,17 +11,17 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Assets {
 
-	public const STYLE = 'gtfs-timetables';
+	public const STYLE = 'ptd-gtfs-schedules';
 
-	private const DEPARTURES_SCRIPT = 'gtfs-timetables-departures';
-	private const LINE_TABS_SCRIPT  = 'gtfs-timetables-line-tabs';
-	private const CLOCK_SCRIPT      = 'gtfs-timetables-timetable-clock';
-	private const ROUTE_MAP_SCRIPT  = 'gtfs-timetables-route-map';
+	private const DEPARTURES_SCRIPT = 'ptd-gtfs-schedules-departures';
+	private const LINE_TABS_SCRIPT  = 'ptd-gtfs-schedules-line-tabs';
+	private const CLOCK_SCRIPT      = 'ptd-gtfs-schedules-timetable-clock';
+	private const ROUTE_MAP_SCRIPT  = 'ptd-gtfs-schedules-route-map';
 
 	public static function register(): void {
-		$base_url = plugins_url( 'assets/', GTFS_TIMETABLES_FILE );
+		$base_url = plugins_url( 'assets/', PTD_GTFS_SCHEDULES_FILE );
 
-		wp_register_style( self::STYLE, $base_url . 'css/gtfs-timetables.css', array(), GTFS_TIMETABLES_VERSION );
+		wp_register_style( self::STYLE, $base_url . 'css/ptd-gtfs-schedules.css', array(), PTD_GTFS_SCHEDULES_VERSION );
 		self::register_footer_script( self::DEPARTURES_SCRIPT, $base_url . 'js/departures.js' );
 		self::register_footer_script( self::LINE_TABS_SCRIPT, $base_url . 'js/line-tabs.js' );
 		self::register_footer_script( self::CLOCK_SCRIPT, $base_url . 'js/timetable-clock.js' );
@@ -53,7 +53,7 @@ final class Assets {
 			$handle,
 			$url,
 			array(),
-			GTFS_TIMETABLES_VERSION,
+			PTD_GTFS_SCHEDULES_VERSION,
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',

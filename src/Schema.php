@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables;
+namespace PtdGtfsSchedules;
 
-use GtfsTimetables\Import\ImportError;
+use PtdGtfsSchedules\Import\ImportError;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,12 +15,12 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Schema {
 
-	public const LIVE    = 'gtfs_';
-	public const STAGING = 'gtfs_next_';
-	public const RETIRED = 'gtfs_old_';
+	public const LIVE    = 'ptd_gtfs_';
+	public const STAGING = 'ptd_gtfs_next_';
+	public const RETIRED = 'ptd_gtfs_old_';
 
 	private const VERSION        = '4';
-	private const VERSION_OPTION = 'gtfs_timetables_db_version';
+	private const VERSION_OPTION = 'ptd_gtfs_schedules_db_version';
 
 	public static function table( string $name, string $set = self::LIVE ): string {
 		global $wpdb;

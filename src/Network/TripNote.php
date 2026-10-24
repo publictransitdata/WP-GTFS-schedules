@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Network;
+namespace PtdGtfsSchedules\Network;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,13 +19,13 @@ final class TripNote {
 	public function text(): string {
 		if ( null !== $this->to && null !== $this->via ) {
 			/* translators: 1: where the trip ends, 2: a stop off the usual route */
-			return sprintf( __( 'to %1$s, via %2$s', 'gtfs-timetables' ), $this->to, $this->via );
+			return sprintf( __( 'to %1$s, via %2$s', 'ptd-gtfs-schedules' ), $this->to, $this->via );
 		}
 
 		return null !== $this->to
 			/* translators: %s: where the trip ends */
-			? sprintf( __( 'to %s', 'gtfs-timetables' ), $this->to )
+			? sprintf( __( 'to %s', 'ptd-gtfs-schedules' ), $this->to )
 			/* translators: %s: a stop off the usual route */
-			: sprintf( __( 'via %s', 'gtfs-timetables' ), (string) $this->via );
+			: sprintf( __( 'via %s', 'ptd-gtfs-schedules' ), (string) $this->via );
 	}
 }

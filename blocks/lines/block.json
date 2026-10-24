@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "gtfs-timetables/lines",
+	"name": "ptd-gtfs-schedules/lines",
 	"title": "Lines",
 	"category": "widgets",
 	"icon": "editor-ol",
 	"description": "All lines of the network, grouped by transport mode.",
 	"keywords": [ "routes", "network", "timetable", "GTFS" ],
-	"textdomain": "gtfs-timetables",
+	"textdomain": "ptd-gtfs-schedules",
 	"attributes": {
 		"modes": {
 			"type": "array",
@@ -41,5 +41,5 @@
 		}
 	},
 	"editorScript": "file:./editor.js",
-	"style": "gtfs-timetables"
+	"style": "ptd-gtfs-schedules"
 }

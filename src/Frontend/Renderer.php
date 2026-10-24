@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
 use DateTimeImmutable;
-use GtfsTimetables\FeedInfo;
-use GtfsTimetables\Network\LineDirections;
-use GtfsTimetables\Network\Lines;
-use GtfsTimetables\Schedule\Departures;
-use GtfsTimetables\Schedule\ServiceDay;
-use GtfsTimetables\Schedule\StopTimetable;
-use GtfsTimetables\Schedule\Stops;
+use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Network\LineDirections;
+use PtdGtfsSchedules\Network\Lines;
+use PtdGtfsSchedules\Schedule\Departures;
+use PtdGtfsSchedules\Schedule\ServiceDay;
+use PtdGtfsSchedules\Schedule\StopTimetable;
+use PtdGtfsSchedules\Schedule\Stops;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -68,13 +68,13 @@ final class Renderer {
 	 */
 	public static function line_list( LineListSettings $settings, bool $is_block = false ): string {
 		if ( ! FeedInfo::is_loaded() ) {
-			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+			return Templates::notice_for_editors( __( 'PTD GTFS Schedules: no feed has been imported yet.', 'ptd-gtfs-schedules' ) );
 		}
 
 		$groups = ( new Lines() )->grouped( $settings->modes, $settings->night_lines_apart );
 
 		if ( ! $groups ) {
-			return Templates::notice_for_editors( __( 'GTFS Timetables: the feed has no lines of the chosen transport modes.', 'gtfs-timetables' ) );
+			return Templates::notice_for_editors( __( 'PTD GTFS Schedules: the feed has no lines of the chosen transport modes.', 'ptd-gtfs-schedules' ) );
 		}
 
 		Assets::enqueue_styles();
@@ -108,7 +108,7 @@ final class Renderer {
 	 */
 	public static function line_page( bool $is_block = false ): string {
 		if ( ! FeedInfo::is_loaded() ) {
-			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+			return Templates::notice_for_editors( __( 'PTD GTFS Schedules: no feed has been imported yet.', 'ptd-gtfs-schedules' ) );
 		}
 
 		$lines    = new Lines();
@@ -121,7 +121,7 @@ final class Renderer {
 		$line = '' === $route_id ? ( $lines->all()[0] ?? null ) : $lines->find( $route_id );
 
 		if ( null === $line ) {
-			return '<p class="gtfs-notice">' . esc_html__( 'This line is not in the current timetable. Choose a line:', 'gtfs-timetables' ) . '</p>'
+			return '<p class="gtfs-notice">' . esc_html__( 'This line is not in the current timetable. Choose a line:', 'ptd-gtfs-schedules' ) . '</p>'
 				. self::line_list( new LineListSettings(), $is_block );
 		}
 
@@ -181,14 +181,14 @@ final class Renderer {
 	 */
 	private static function find_stop( string $stop_id ): object|string {
 		if ( ! FeedInfo::is_loaded() ) {
-			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+			return Templates::notice_for_editors( __( 'PTD GTFS Schedules: no feed has been imported yet.', 'ptd-gtfs-schedules' ) );
 		}
 
 		$stop = ( new Stops() )->find( $stop_id );
 
 		if ( null === $stop ) {
 			/* translators: %s: stop id */
-			return Templates::notice_for_editors( sprintf( __( 'GTFS Timetables: there is no stop with id "%s" in the feed.', 'gtfs-timetables' ), $stop_id ) );
+			return Templates::notice_for_editors( sprintf( __( 'PTD GTFS Schedules: there is no stop with id "%s" in the feed.', 'ptd-gtfs-schedules' ), $stop_id ) );
 		}
 
 		return $stop;

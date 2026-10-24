@@ -2,13 +2,13 @@
 /**
  * Departure board.
  *
- * Copy to your-theme/gtfs-timetables/departures.php to customise.
+ * Copy to your-theme/ptd-gtfs-schedules/departures.php to customise.
  * Keep the outer element and its data-refresh-url: the board refreshes itself through it.
  *
  * @var array $args {
  *     @type object                                     $stop        Row from the stops table.
  *     @type DateTimeImmutable                          $now
- *     @type \GtfsTimetables\Schedule\Departure[]       $departures
+ *     @type \PtdGtfsSchedules\Schedule\Departure[]       $departures
  *     @type string                                     $refresh_url
  *     @type string                                     $attribution Escaped HTML.
  * }
@@ -22,14 +22,14 @@ $now = $args['now'];
 	<h3 class="gtfs-departures__stop"><?php echo esc_html( $args['stop']->stop_name ); ?></h3>
 
 	<?php if ( ! $args['departures'] ) : ?>
-		<p class="gtfs-departures__empty"><?php esc_html_e( 'No departures scheduled.', 'gtfs-timetables' ); ?></p>
+		<p class="gtfs-departures__empty"><?php esc_html_e( 'No departures scheduled.', 'ptd-gtfs-schedules' ); ?></p>
 	<?php else : ?>
 		<table class="gtfs-departures__list">
 			<thead>
 				<tr>
-					<th scope="col"><?php esc_html_e( 'Line', 'gtfs-timetables' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Direction', 'gtfs-timetables' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Departs', 'gtfs-timetables' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Line', 'ptd-gtfs-schedules' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Direction', 'ptd-gtfs-schedules' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Departs', 'ptd-gtfs-schedules' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

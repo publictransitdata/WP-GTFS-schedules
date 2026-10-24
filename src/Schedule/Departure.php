@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Schedule;
+namespace PtdGtfsSchedules\Schedule;
 
 use DateTimeImmutable;
 
@@ -35,12 +35,12 @@ final class Departure {
 		$minutes = $this->minutes_after( $now );
 
 		if ( 0 === $minutes ) {
-			return __( 'now', 'gtfs-timetables' );
+			return __( 'now', 'ptd-gtfs-schedules' );
 		}
 
 		if ( $minutes <= self::SHOW_COUNTDOWN_UNTIL_MINUTES ) {
 			/* translators: %d: minutes until departure */
-			return sprintf( _n( 'in %d min', 'in %d min', $minutes, 'gtfs-timetables' ), $minutes );
+			return sprintf( _n( 'in %d min', 'in %d min', $minutes, 'ptd-gtfs-schedules' ), $minutes );
 		}
 
 		return $this->time->format( 'H:i' );

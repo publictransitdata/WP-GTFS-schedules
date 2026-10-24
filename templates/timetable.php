@@ -2,17 +2,17 @@
 /**
  * Stop timetable for one day.
  *
- * Copy to your-theme/gtfs-timetables/timetable.php to customise.
+ * Copy to your-theme/ptd-gtfs-schedules/timetable.php to customise.
  *
  * @var array $args {
  *     @type object                                        $stop        Row from the stops table.
  *     @type DateTimeImmutable                             $date
- *     @type \GtfsTimetables\Schedule\TimetableSection[]   $sections
+ *     @type \PtdGtfsSchedules\Schedule\TimetableSection[]   $sections
  *     @type string                                        $attribution Escaped HTML.
  * }
  */
 
-use GtfsTimetables\Frontend\Shortcodes;
+use PtdGtfsSchedules\Frontend\Shortcodes;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,14 +22,14 @@ $day_link = fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUER
 <section class="gtfs-timetable">
 	<h3 class="gtfs-timetable__stop"><?php echo esc_html( $args['stop']->stop_name ); ?></h3>
 
-	<nav class="gtfs-timetable__days" aria-label="<?php esc_attr_e( 'Choose a day', 'gtfs-timetables' ); ?>">
-		<a href="<?php echo esc_url( $day_link( $date->modify( '-1 day' ) ) ); ?>" rel="nofollow">&larr; <?php esc_html_e( 'Previous day', 'gtfs-timetables' ); ?></a>
+	<nav class="gtfs-timetable__days" aria-label="<?php esc_attr_e( 'Choose a day', 'ptd-gtfs-schedules' ); ?>">
+		<a href="<?php echo esc_url( $day_link( $date->modify( '-1 day' ) ) ); ?>" rel="nofollow">&larr; <?php esc_html_e( 'Previous day', 'ptd-gtfs-schedules' ); ?></a>
 		<strong><?php echo esc_html( wp_date( get_option( 'date_format' ), $date->getTimestamp(), $date->getTimezone() ) ); ?></strong>
-		<a href="<?php echo esc_url( $day_link( $date->modify( '+1 day' ) ) ); ?>" rel="nofollow"><?php esc_html_e( 'Next day', 'gtfs-timetables' ); ?> &rarr;</a>
+		<a href="<?php echo esc_url( $day_link( $date->modify( '+1 day' ) ) ); ?>" rel="nofollow"><?php esc_html_e( 'Next day', 'ptd-gtfs-schedules' ); ?> &rarr;</a>
 	</nav>
 
 	<?php if ( ! $args['sections'] ) : ?>
-		<p class="gtfs-timetable__empty"><?php esc_html_e( 'No departures on this day.', 'gtfs-timetables' ); ?></p>
+		<p class="gtfs-timetable__empty"><?php esc_html_e( 'No departures on this day.', 'ptd-gtfs-schedules' ); ?></p>
 	<?php endif; ?>
 
 	<?php foreach ( $args['sections'] as $section ) : ?>

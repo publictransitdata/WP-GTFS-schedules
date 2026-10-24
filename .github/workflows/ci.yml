@@ -46,8 +46,8 @@ jobs:
         run: |
           composer i18n:pot
           # Source references (#: file:line) move with every edit; only the strings must match.
-          if ! git diff --exit-code -I '^#: ' -- languages/gtfs-timetables.pot; then
-            echo "::error file=languages/gtfs-timetables.pot::The translation template is out of date. Run composer i18n and commit languages/."
+          if ! git diff --exit-code -I '^#: ' -- languages/ptd-gtfs-schedules.pot; then
+            echo "::error file=languages/ptd-gtfs-schedules.pot::The translation template is out of date. Run composer i18n and commit languages/."
             exit 1
           fi
           php tests/check-translations.php

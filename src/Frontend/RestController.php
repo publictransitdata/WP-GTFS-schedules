@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
 use WP_REST_Request;
 use WP_REST_Response;
@@ -10,13 +10,13 @@ use WP_REST_Response;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * GET /wp-json/gtfs-timetables/v1/departures?stop=123&limit=8
+ * GET /wp-json/ptd-gtfs-schedules/v1/departures?stop=123&limit=8
  *
  * Boards on cached pages fetch fresh departures from here every minute.
  */
 final class RestController {
 
-	private const NAMESPACE     = 'gtfs-timetables/v1';
+	private const NAMESPACE     = 'ptd-gtfs-schedules/v1';
 	private const CACHE_SECONDS = 30;
 
 	public static function register_routes(): void {

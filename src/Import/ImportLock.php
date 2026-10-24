@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Import;
+namespace PtdGtfsSchedules\Import;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class ImportLock {
 
-	private const OPTION = 'gtfs_timetables_import_lock';
+	private const OPTION = 'ptd_gtfs_schedules_import_lock';
 
 	public static function acquire( int $seconds ): bool {
 		if ( self::is_held() ) {

@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Network;
+namespace PtdGtfsSchedules\Network;
 
-use GtfsTimetables\FeedCache;
-use GtfsTimetables\Schedule\RouteBadge;
-use GtfsTimetables\Schema;
+use PtdGtfsSchedules\FeedCache;
+use PtdGtfsSchedules\Schedule\RouteBadge;
+use PtdGtfsSchedules\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ final class Lines {
 		}
 
 		if ( isset( $lines_by_group[ LineGroup::NIGHT ] ) ) {
-			$groups[] = new LineGroup( LineGroup::NIGHT, __( 'Night lines', 'gtfs-timetables' ), $lines_by_group[ LineGroup::NIGHT ] );
+			$groups[] = new LineGroup( LineGroup::NIGHT, __( 'Night lines', 'ptd-gtfs-schedules' ), $lines_by_group[ LineGroup::NIGHT ] );
 		}
 
 		return $groups;
@@ -104,7 +104,7 @@ final class Lines {
 		 * @param bool $is_night By default, lines named N followed by a digit (N1, N8…).
 		 * @param Line $line
 		 */
-		return (bool) apply_filters( 'gtfs_timetables_is_night_line', $line->looks_like_night_line(), $line );
+		return (bool) apply_filters( 'ptd_gtfs_schedules_is_night_line', $line->looks_like_night_line(), $line );
 	}
 
 	private static function line_from_row( array $row ): Line {

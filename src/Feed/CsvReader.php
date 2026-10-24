@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Feed;
+namespace PtdGtfsSchedules\Feed;
 
-use GtfsTimetables\Import\ImportError;
+use PtdGtfsSchedules\Import\ImportError;
 use SplFileObject;
 
 defined( 'ABSPATH' ) || exit;
@@ -70,7 +70,7 @@ final class CsvReader {
 
 		if ( $this->is_blank( $names ) ) {
 			/* translators: %s: file name */
-			throw new ImportError( esc_html( sprintf( __( '%s has no header row.', 'gtfs-timetables' ), $this->file->getFilename() ) ) );
+			throw new ImportError( esc_html( sprintf( __( '%s has no header row.', 'ptd-gtfs-schedules' ), $this->file->getFilename() ) ) );
 		}
 
 		$names[0] = $this->strip_byte_order_mark( (string) $names[0] );
