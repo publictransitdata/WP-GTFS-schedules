@@ -185,3 +185,112 @@
 	font-size: 1.25em;
 	font-weight: 600;
 }
+
+.gtfs-line__directions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	margin-block-end: 1.5em;
+}
+
+.gtfs-line__direction {
+	padding: 0.5em 1em;
+	border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+	border-radius: 999px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-line__direction[aria-current] {
+	border-color: currentColor;
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.gtfs-line__body {
+	display: grid;
+	grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+	gap: 2em;
+	align-items: start;
+}
+
+/* Beside a long list of stops, the timetable stays in view while scrolling. */
+.gtfs-line__timetable {
+	position: sticky;
+	inset-block-start: 1rem;
+}
+
+/* On phones the chosen stop's timetable comes first, the stops to choose from after it. */
+@media (max-width: 720px) {
+	.gtfs-line__body {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.gtfs-line__timetable {
+		position: static;
+		order: -1;
+	}
+}
+
+/* Stops as a route diagram: a line with a dot for each stop. */
+.gtfs-line__stops {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gtfs-line__stop {
+	position: relative;
+	padding-block: 0.3em;
+	padding-inline-start: 1.6em;
+}
+
+.gtfs-line__stop::before {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	inset-inline-start: 0.45em;
+	border-inline-start: 3px solid color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.gtfs-line__stop:first-child::before {
+	inset-block-start: 50%;
+}
+
+.gtfs-line__stop:last-child::before {
+	inset-block-end: 50%;
+}
+
+.gtfs-line__stop::after {
+	content: "";
+	position: absolute;
+	inset-block-start: calc(50% - 0.35em);
+	inset-inline-start: 0.25em;
+	width: 0.7em;
+	height: 0.7em;
+	border: 2px solid currentColor;
+	border-radius: 50%;
+	background: var(--wp--preset--color--base, #fff);
+	box-sizing: border-box;
+}
+
+.gtfs-line__stop.is-chosen {
+	font-weight: 700;
+}
+
+.gtfs-line__stop.is-chosen::after {
+	background: currentColor;
+}
+
+.gtfs-line__stop a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-line__stop a:hover {
+	text-decoration: underline;
+}
+
+.gtfs-line__timetable .gtfs-timetable {
+	margin-block-start: 0;
+}

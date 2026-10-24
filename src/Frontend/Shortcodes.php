@@ -71,7 +71,7 @@ final class Shortcodes {
 		);
 	}
 
-	private static function requested_date(): DateTimeImmutable {
+	public static function requested_date(): DateTimeImmutable {
 		// Read-only navigation between days, so there is no nonce to check.
 		$requested = sanitize_text_field( wp_unslash( $_GET[ self::DATE_QUERY_ARG ] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 

@@ -5,6 +5,7 @@
 namespace GtfsTimetables\Frontend;
 
 use GtfsTimetables\Network\Line;
+use GtfsTimetables\Network\LineDirection;
 use GtfsTimetables\Network\Lines;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +20,9 @@ final class LinePage {
 
 	public const QUERY_ARG = 'line';
 
-	private const OPTION = 'gtfs_timetables_line_page';
+	private const DIRECTION_ARG = 'direction';
+	private const STOP_ARG      = 'stop';
+	private const OPTION        = 'gtfs_timetables_line_page';
 
 	public static function register(): void {
 		foreach ( array( 'save_post', 'deleted_post', 'trashed_post', 'untrashed_post' ) as $hook ) {
@@ -51,7 +54,34 @@ final class LinePage {
 	}
 
 	public static function requested_route_id(): string {
-		return sanitize_text_field( wp_unslash( $_GET[ self::QUERY_ARG ] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only navigation.
+		return self::query_arg( self::QUERY_ARG );
+	}
+
+	/**
+	 * @return int Position in the line's list of directions.
+	 */
+	public static function requested_direction(): int {
+		return absint( self::query_arg( self::DIRECTION_ARG ) );
+	}
+
+	/**
+	 * The stop from the address when the direction calls there, else the first stop of the direction.
+	 */
+	public static function requested_stop( LineDirection $direction ): string {
+		$stop_id = self::query_arg( self::STOP_ARG );
+
+		return $direction->has_stop( $stop_id ) ? $stop_id : ( $direction->stops[0]->stop_id ?? '' );
+	}
+
+	/**
+	 * The current page with another direction; the stop is dropped, as it belongs to the old direction.
+	 */
+	public static function direction_url( int $direction ): string {
+		return add_query_arg( self::DIRECTION_ARG, $direction, remove_query_arg( self::STOP_ARG ) );
+	}
+
+	public static function stop_url( string $stop_id ): string {
+		return add_query_arg( self::STOP_ARG, rawurlencode( $stop_id ) );
 	}
 
 	/**
@@ -92,6 +122,10 @@ final class LinePage {
 	private static function line_title( Line $line ): string {
 		/* translators: %s: line name, e.g. "N8" */
 		return sprintf( __( 'Line %s', 'gtfs-timetables' ), $line->name() );
+	}
+
+	private static function query_arg( string $name ): string {
+		return sanitize_text_field( wp_unslash( $_GET[ $name ] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only navigation.
 	}
 
 	private static function page_id(): int {
