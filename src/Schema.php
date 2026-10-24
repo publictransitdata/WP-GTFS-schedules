@@ -19,7 +19,7 @@ final class Schema {
 	public const STAGING = 'gtfs_next_';
 	public const RETIRED = 'gtfs_old_';
 
-	private const VERSION        = '2';
+	private const VERSION        = '4';
 	private const VERSION_OPTION = 'gtfs_timetables_db_version';
 
 	public static function table( string $name, string $set = self::LIVE ): string {
@@ -80,6 +80,7 @@ final class Schema {
 		self::drop( self::LIVE );
 		self::create( self::LIVE );
 		FeedInfo::clear();
+		FeedCache::forget_all();
 		self::remember_version();
 	}
 
@@ -133,10 +134,12 @@ final class Schema {
 				trip_headsign VARCHAR(255) NOT NULL DEFAULT '',
 				direction_id TINYINT UNSIGNED NULL,
 				PRIMARY KEY (trip_id),
-				KEY service_id (service_id)",
+				KEY service_id (service_id),
+				KEY route_id (route_id)",
 
 			// Rows get an ever-growing id so the import appends them in order. Feeds are rarely
-			// sorted by trip_id, and a (trip_id, stop_sequence) key left the table half empty.
+			// sorted by trip_id, and a (trip_id, stop_sequence) primary key left the table half empty.
+			// The trip_stops key, for the stops of a line, costs about 40% more space.
 			'stop_times'     => "
 				id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				trip_id VARCHAR(100) NOT NULL,
@@ -144,9 +147,11 @@ final class Schema {
 				stop_id VARCHAR(100) NOT NULL,
 				departure_secs MEDIUMINT UNSIGNED NOT NULL,
 				pickup_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
+				drop_off_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
 				stop_headsign VARCHAR(255) NOT NULL DEFAULT '',
 				PRIMARY KEY (id),
-				KEY stop_departure (stop_id, departure_secs)",
+				KEY stop_departure (stop_id, departure_secs),
+				KEY trip_stops (trip_id, stop_sequence)",
 
 			'calendar'       => '
 				service_id VARCHAR(100) NOT NULL,

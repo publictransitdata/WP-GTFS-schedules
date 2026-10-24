@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-23T20:55:33+00:00\n"
+"PO-Revision-Date: 2026-10-24T10:26:05+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -185,27 +185,27 @@ msgid "The feed is missing required files: %s"
 msgstr "У фіді бракує обов'язкових файлів: %s"
 
 #. translators: %s: line name, e.g. "N8"
-#: src/Frontend/LinePage.php:94
+#: src/Frontend/LinePage.php:124
 #, php-format
 msgid "Line %s"
-msgstr "Лінія %s"
+msgstr "Маршрут %s"
 
-#: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:109
-#: src/Frontend/Renderer.php:164
+#: src/Frontend/Renderer.php:71
+#: src/Frontend/Renderer.php:111
+#: src/Frontend/Renderer.php:184
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr "Розклади GTFS: фід ще не імпортовано."
 
-#: src/Frontend/Renderer.php:76
+#: src/Frontend/Renderer.php:77
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr "Розклади GTFS: у фіді немає ліній вибраних видів транспорту."
 
-#: src/Frontend/Renderer.php:122
+#: src/Frontend/Renderer.php:124
 msgid "This line is not in the current timetable. Choose a line:"
 msgstr "Цієї лінії немає в чинному розкладі. Виберіть лінію:"
 
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:171
+#: src/Frontend/Renderer.php:191
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
@@ -216,85 +216,135 @@ msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s�
 msgid "Could not write to %1$s: %2$s"
 msgstr "Не вдалося записати в %1$s: %2$s"
 
-#: src/Import/Importer.php:47
+#: src/Import/Importer.php:48
 msgid "Another import is running. Try again when it has finished."
-msgstr "Уже триває інший імпорт. Спробуйте знову, коли він завершиться."
+msgstr "Інший імпорт уже триває. Спробуйте знову, коли він завершиться."
 
-#: src/Import/Importer.php:102
+#: src/Import/Importer.php:103
 msgid "Unpacking the feed…"
 msgstr "Розпакування фіду…"
 
-#: src/Import/Importer.php:103
+#: src/Import/Importer.php:104
 msgid "Downloading the feed…"
 msgstr "Завантаження фіду…"
 
 #. translators: 1: file name, 2: percent done, 3: number of rows
-#: src/Import/Importer.php:109
+#: src/Import/Importer.php:110
 #, php-format
 msgid "Importing %1$s: %2$d%% (%3$s rows so far)"
 msgstr "Імпорт %1$s: %2$d%% (оброблено рядків: %3$s)"
 
-#: src/Import/Importer.php:113
+#: src/Import/Importer.php:114
 msgid "Finishing…"
 msgstr "Завершення…"
 
-#: src/Import/Importer.php:120
+#: src/Import/Importer.php:121
 msgid "No import has run yet."
 msgstr "Імпорт ще не запускався."
 
-#: src/Import/Importer.php:130
+#: src/Import/Importer.php:131
 msgid "The feed has not changed since the last import."
 msgstr "Фід не змінився з останнього імпорту."
 
-#: src/Import/Importer.php:152
+#: src/Import/Importer.php:153
 msgid "Set the feed URL first."
 msgstr "Спершу вкажіть посилання на фід."
 
-#: src/Import/Importer.php:213
+#: src/Import/Importer.php:214
 msgid "The feed has no usable stop times."
-msgstr "У фіді немає придатних часів відправлення."
+msgstr "У фіді немає правильних годин відправлення."
 
 #. translators: 1: number of stops, 2: number of trips, 3: number of stop times
-#: src/Import/Importer.php:236
+#: src/Import/Importer.php:238
 #, php-format
 msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
 msgstr "Імпорт завершено. Зупинок: %1$s, рейсів: %2$s, відправлень: %3$s."
 
 #: src/Network/Lines.php:60
 msgid "Night lines"
-msgstr "Нічні лінії"
+msgstr "Нічні маршрути"
 
-#: src/Network/TransportMode.php:44
+#: src/Network/TransportMode.php:47
+msgid "Metro line"
+msgstr "Лінія метро"
+
+#: src/Network/TransportMode.php:48
+msgid "Tram line"
+msgstr "Трамвай"
+
+#: src/Network/TransportMode.php:49
+msgid "Trolleybus line"
+msgstr "Тролейбус"
+
+#: src/Network/TransportMode.php:50
+msgid "Bus line"
+msgstr "Автобус"
+
+#: src/Network/TransportMode.php:51
+msgid "Train line"
+msgstr "Залізнична лінія"
+
+#: src/Network/TransportMode.php:52
+msgid "Ferry line"
+msgstr "Пором"
+
+#: src/Network/TransportMode.php:53
+msgid "Cable car line"
+msgstr "Канатна дорога"
+
+#: src/Network/TransportMode.php:54
+msgid "Transit line"
+msgstr "Маршрут"
+
+#: src/Network/TransportMode.php:63
 msgid "Metro"
 msgstr "Метро"
 
-#: src/Network/TransportMode.php:45
+#: src/Network/TransportMode.php:64
 msgid "Trams"
 msgstr "Трамваї"
 
-#: src/Network/TransportMode.php:46
+#: src/Network/TransportMode.php:65
 msgid "Trolleybuses"
 msgstr "Тролейбуси"
 
-#: src/Network/TransportMode.php:47
+#: src/Network/TransportMode.php:66
 msgid "Buses"
 msgstr "Автобуси"
 
-#: src/Network/TransportMode.php:48
+#: src/Network/TransportMode.php:67
 msgid "Trains"
 msgstr "Поїзди"
 
-#: src/Network/TransportMode.php:49
+#: src/Network/TransportMode.php:68
 msgid "Ferries"
 msgstr "Пороми"
 
-#: src/Network/TransportMode.php:50
+#: src/Network/TransportMode.php:69
 msgid "Cable cars and funiculars"
 msgstr "Канатні дороги й фунікулери"
 
-#: src/Network/TransportMode.php:51
+#: src/Network/TransportMode.php:70
 msgid "Other lines"
-msgstr "Інші лінії"
+msgstr "Інші маршрути"
+
+#. translators: 1: where the trip ends, 2: a stop off the usual route
+#: src/Network/TripNote.php:22
+#, php-format
+msgid "to %1$s, via %2$s"
+msgstr "до %1$s, через %2$s"
+
+#. translators: %s: where the trip ends
+#: src/Network/TripNote.php:27
+#, php-format
+msgid "to %s"
+msgstr "до %s"
+
+#. translators: %s: a stop off the usual route
+#: src/Network/TripNote.php:29
+#, php-format
+msgid "via %s"
+msgstr "через %s"
 
 #: src/Schedule/Departure.php:38
 msgid "now"
@@ -337,21 +387,121 @@ msgstr "Напрямок"
 msgid "Departs"
 msgstr "Відправлення"
 
+#: templates/line.php:73
+msgid "on request"
+msgstr "на вимогу"
+
+#: templates/line.php:78
+msgid "getting off only"
+msgstr "лише висадка"
+
+#: templates/line.php:80
+msgid "getting on only"
+msgstr "лише посадка"
+
+#: templates/line.php:84
+msgid "not every trip starts here"
+msgstr "тут починаються не всі рейси"
+
+#: templates/line.php:84
+msgid "not every trip goes this far"
+msgstr "сюди доїжджають не всі рейси"
+
+#: templates/line.php:91
+msgid "some trips start here"
+msgstr "тут починається частина рейсів"
+
+#: templates/line.php:95
+msgid "some trips end here"
+msgstr "тут закінчується частина рейсів"
+
+#. translators: %s: stop where the trips are back on the usual route
+#: templates/line.php:109
+#, php-format
+msgid "Some trips go this way and are back on the route at %s"
+msgstr "Частина рейсів їде сюди і повертається на маршрут на зупинці %s"
+
+#. translators: %s: stop off the usual route where the trips end
+#: templates/line.php:114
+#, php-format
+msgid "Some trips leave the route here and end at %s"
+msgstr "Частина рейсів звертає тут з маршруту й закінчує рейс на зупинці %s"
+
+#. translators: %s: stop on the usual route where the trips join it
+#: templates/line.php:119
+#, php-format
+msgid "Some trips start elsewhere and join the route at %s"
+msgstr "Частина рейсів починається деінде й виїжджає на маршрут на зупинці %s"
+
+#: templates/line.php:122
+msgid "Some trips carry on to"
+msgstr "Частина рейсів їде далі до"
+
+#: templates/line.php:123
+msgid "Some trips start further away, at"
+msgstr "Частина рейсів починається раніше, на"
+
+#: templates/line.php:176
+msgid "This line has no trips in the current timetable."
+msgstr "У чинному розкладі цей маршрут не має рейсів."
+
+#: templates/line.php:179
+msgid "Directions"
+msgstr "Напрямки"
+
+#. translators: %s: where the line goes, e.g. "Jelitkowo"
+#: templates/line.php:185
+#, php-format
+msgid "Towards %s"
+msgstr "У напрямку %s"
+
+#: templates/line.php:197
+msgid "every trip"
+msgstr "усі рейси"
+
+#: templates/line.php:198
+msgid "some trips only"
+msgstr "лише частина рейсів"
+
+#: templates/line.php:202
+msgid "Stops"
+msgstr "Зупинки"
+
+#: templates/line.php:233
+msgid "Timetable"
+msgstr "Розклад"
+
+#: templates/line.php:236
 #: templates/timetable.php:25
 msgid "Choose a day"
 msgstr "Оберіть день"
 
+#: templates/line.php:237
 #: templates/timetable.php:26
 msgid "Previous day"
 msgstr "Попередній день"
 
+#: templates/line.php:239
 #: templates/timetable.php:28
 msgid "Next day"
 msgstr "Наступний день"
 
+#: templates/line.php:243
+msgid "This is the last stop of the line in this direction, so it has no departures."
+msgstr "Це кінцева зупинка маршруту в цьому напрямку."
+
+#: templates/line.php:245
+msgid "Riders cannot get on this line at this stop, so it has no departures."
+msgstr "Немає відправлень з цієї зупинки"
+
+#: templates/line.php:247
 #: templates/timetable.php:32
 msgid "No departures on this day."
 msgstr "Цього дня відправлень немає."
+
+#: templates/line.php:251
+msgid "Next departure:"
+msgstr "Найближче відправлення:"
 
 #: blocks/line/editor.js:21
 msgid "How this page works"

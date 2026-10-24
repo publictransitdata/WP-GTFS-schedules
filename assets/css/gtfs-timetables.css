@@ -145,6 +145,8 @@
 	text-decoration: underline;
 }
 
+/* Text for screen readers only, e.g. what an icon shows. */
+.gtfs-visually-hidden,
 .gtfs-lines--compact .gtfs-lines__destinations,
 .gtfs-lines.is-tabbed .gtfs-lines__heading {
 	position: absolute;
@@ -153,6 +155,24 @@
 	overflow: hidden;
 	clip-path: inset(50%);
 	white-space: nowrap;
+}
+
+.gtfs-icon {
+	flex: none;
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.125em;
+}
+
+.gtfs-icon--back {
+	transform: scaleX(-1);
+}
+
+.gtfs-lines__heading,
+.gtfs-lines__tab {
+	display: inline-flex;
+	gap: 0.45em;
+	align-items: center;
 }
 
 /* Line page */
@@ -175,6 +195,9 @@
 }
 
 .gtfs-line__mode {
+	display: flex;
+	gap: 0.4em;
+	align-items: center;
 	font-size: 0.85em;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
@@ -184,4 +207,407 @@
 .gtfs-line__destinations {
 	font-size: 1.25em;
 	font-weight: 600;
+}
+
+.gtfs-line__directions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	margin-block-end: 1.5em;
+}
+
+.gtfs-line__direction {
+	padding: 0.55em 1.1em;
+	border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+	border-radius: 999px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-line__direction > span[aria-hidden] {
+	display: inline-flex;
+	gap: 0.5em;
+	align-items: center;
+}
+
+.gtfs-line__direction:hover {
+	border-color: currentColor;
+}
+
+.gtfs-line__direction[aria-current] {
+	border-color: currentColor;
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.gtfs-line__body {
+	display: grid;
+	grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr);
+	gap: 2em;
+	align-items: start;
+}
+
+/*
+ * Route diagram: a solid line where every trip runs and a dashed one where only some do.
+ * route-map.js draws the lines as SVG (.gtfs-route-map__lines) and marks the diagram is-drawn;
+ * until then, or without scripts, the pseudo-elements below draw them.
+ */
+
+.gtfs-line__route,
+.gtfs-route-map {
+	--gtfs-line-x: 0.45em;
+	--gtfs-line-width: 3px;
+	/* Opaque, so the lines do not look darker where they overlap. */
+	--gtfs-line-colour: color-mix(in srgb, currentColor 45%, var(--wp--preset--color--base, #fff));
+	--gtfs-stop-indent: 1.7em;
+	--gtfs-branch-indent: 1.3em;
+	--gtfs-curve: 0.8em;
+	--gtfs-dot-y: 1.025em;
+}
+
+.gtfs-line__route {
+	position: relative;
+}
+
+.gtfs-route-map {
+	--gtfs-css-line-colour: var(--gtfs-line-colour);
+}
+
+.gtfs-route-map.is-drawn {
+	--gtfs-css-line-colour: transparent;
+}
+
+.gtfs-route-map__lines {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	pointer-events: none;
+}
+
+.gtfs-route-map__lines path {
+	fill: none;
+	stroke: var(--gtfs-line-colour);
+	stroke-width: var(--gtfs-line-width);
+}
+
+.gtfs-route-map__lines path.is-dashed {
+	stroke-dasharray: 7px 5px;
+}
+
+.gtfs-route-map,
+.gtfs-route-map__branch-stops {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gtfs-route-map__stop,
+.gtfs-route-map__beside {
+	position: relative;
+	padding-inline-start: var(--gtfs-stop-indent);
+}
+
+.gtfs-route-map__stop {
+	padding-block: 0.3em;
+}
+
+/* The line into each stop and on from it, beside branches that join the route, and along branches. */
+.gtfs-route-map__stop::before,
+.gtfs-route-map__stop::after,
+.gtfs-route-map__beside::before,
+.gtfs-route-map__caption::before {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	inset-inline-start: calc(var(--gtfs-line-x) - var(--gtfs-line-width) / 2);
+	border-inline-start: var(--gtfs-line-width) solid var(--gtfs-css-line-colour);
+}
+
+.gtfs-route-map__stop::before {
+	inset-block-end: calc(100% - var(--gtfs-dot-y));
+}
+
+.gtfs-route-map__stop::after {
+	inset-block-start: var(--gtfs-dot-y);
+}
+
+.gtfs-route-map__stop.is-start::before,
+.gtfs-route-map__stop.is-end::after {
+	content: none;
+}
+
+.gtfs-route-map__stop.is-partial-before::before,
+.gtfs-route-map__stop.is-partial-after::after,
+.gtfs-route-map__beside.is-partial::before,
+.gtfs-route-map__branch .gtfs-route-map__stop::before,
+.gtfs-route-map__branch .gtfs-route-map__stop::after,
+.gtfs-route-map__caption::before {
+	border-inline-start-style: dashed;
+}
+
+.gtfs-route-map__name {
+	position: relative;
+	display: inline-block;
+}
+
+/* The dot of each stop, over the line. */
+.gtfs-route-map__dot {
+	position: absolute;
+	z-index: 1;
+	inset-block-start: calc(var(--gtfs-dot-y) - 0.3em - 0.375em);
+	inset-inline-start: calc(var(--gtfs-line-x) - var(--gtfs-stop-indent) - 0.375em);
+	width: 0.75em;
+	height: 0.75em;
+	border: 2px solid currentColor;
+	border-radius: 50%;
+	background: var(--wp--preset--color--base, #fff);
+	box-sizing: border-box;
+}
+
+.gtfs-route-map__name.is-chosen {
+	font-weight: 700;
+}
+
+.gtfs-route-map__name.is-chosen .gtfs-route-map__dot {
+	background: currentColor;
+	box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.gtfs-route-map a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-route-map a:hover {
+	text-decoration: underline;
+}
+
+.gtfs-route-map__note {
+	display: flex;
+	gap: 0.35em;
+	align-items: center;
+	font-size: 0.8em;
+	opacity: 0.75;
+}
+
+.gtfs-route-map__legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25em 1.25em;
+	margin: 0 0 0.75em;
+	padding: 0;
+	list-style: none;
+	font-size: 0.8em;
+}
+
+.gtfs-route-map__legend li {
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+}
+
+.gtfs-route-map__legend li::before {
+	content: "";
+	width: 2.25em;
+	height: var(--gtfs-line-width);
+	background: var(--gtfs-line-colour);
+}
+
+/* The same dashes as the diagram's: 7px dash, 5px gap. */
+.gtfs-route-map__legend .is-some-trips::before {
+	background: repeating-linear-gradient(to right, var(--gtfs-line-colour) 0 7px, transparent 7px 12px);
+}
+
+/* Branches before the first stop and after the last one carry the route's line on; the others run beside it. */
+.gtfs-route-map__branch {
+	position: relative;
+	margin-block-start: 0.35em;
+	margin-inline-start: var(--gtfs-branch-indent);
+}
+
+.gtfs-route-map__extension .gtfs-route-map__branch {
+	margin: 0;
+}
+
+.gtfs-route-map__branch.is-detour,
+.gtfs-route-map__branch.is-joins {
+	padding-block-end: var(--gtfs-curve);
+}
+
+/* Curves from the route's line to the branch's, where the trips leave the route, come back or join it. */
+.gtfs-route-map__branch.is-detour::before,
+.gtfs-route-map__branch.is-ends::before,
+.gtfs-route-map__branch.is-detour::after,
+.gtfs-route-map__branch.is-joins::after {
+	content: "";
+	position: absolute;
+	inset-inline-start: calc(var(--gtfs-line-x) - var(--gtfs-stop-indent) - var(--gtfs-branch-indent));
+	width: calc(var(--gtfs-stop-indent) + var(--gtfs-branch-indent) + var(--gtfs-line-width) / 2);
+	height: var(--gtfs-curve);
+	box-sizing: border-box;
+	border: 0 dashed var(--gtfs-css-line-colour);
+	border-inline-end-width: var(--gtfs-line-width);
+}
+
+.gtfs-route-map__branch.is-detour::before,
+.gtfs-route-map__branch.is-ends::before {
+	inset-block-start: 0;
+	border-block-start-width: var(--gtfs-line-width);
+	border-start-end-radius: var(--gtfs-curve);
+}
+
+.gtfs-route-map__branch.is-detour::after,
+.gtfs-route-map__branch.is-joins::after {
+	inset-block-end: 0;
+	border-block-end-width: var(--gtfs-line-width);
+	border-end-end-radius: var(--gtfs-curve);
+}
+
+.gtfs-route-map__caption {
+	position: relative;
+	margin: 0;
+	padding-block-end: 0.3em;
+	padding-inline-start: var(--gtfs-stop-indent);
+}
+
+.gtfs-route-map__caption span {
+	font-size: 0.8em;
+	font-style: italic;
+	opacity: 0.75;
+}
+
+.gtfs-route-map__branch.is-detour .gtfs-route-map__caption::before,
+.gtfs-route-map__branch.is-ends .gtfs-route-map__caption::before {
+	inset-block-start: var(--gtfs-curve);
+}
+
+/* Lines that start or end at a stop of the branch, where its trips start or end. */
+.gtfs-route-map__branch.is-starts-before .gtfs-route-map__caption::before,
+.gtfs-route-map__branch.is-joins .gtfs-route-map__caption::before,
+.gtfs-route-map__branch.is-starts-before .gtfs-route-map__stop:first-child::before,
+.gtfs-route-map__branch.is-joins .gtfs-route-map__stop:first-child::before,
+.gtfs-route-map__branch.is-ends .gtfs-route-map__stop:last-child::after,
+.gtfs-route-map__branch.is-continues .gtfs-route-map__stop:last-child::after {
+	content: none;
+}
+
+/* Timetable of the chosen stop */
+
+.gtfs-line-timetable {
+	position: sticky;
+	inset-block-start: 1rem;
+	padding: 1.25em 1.4em;
+	border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+	border-radius: 0.5em;
+	font-variant-numeric: tabular-nums;
+}
+
+.gtfs-line-timetable__stop {
+	margin-block: 0 0.5em;
+}
+
+.gtfs-line-timetable__days {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1em;
+	align-items: center;
+	justify-content: space-between;
+	margin-block-end: 1em;
+}
+
+.gtfs-line-timetable__days a {
+	display: inline-flex;
+	gap: 0.4em;
+	align-items: center;
+}
+
+.gtfs-line-timetable__next {
+	margin-block: 0 0.75em;
+	padding: 0.5em 0.75em;
+	border-inline-start: 4px solid currentColor;
+	background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.gtfs-line-timetable__hours {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.gtfs-line-timetable__hours :is(th, td) {
+	padding: 0.35em 0.5em;
+	border-block-end: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+	text-align: start;
+	vertical-align: baseline;
+}
+
+.gtfs-line-timetable__hours th {
+	width: 2.5em;
+}
+
+.gtfs-line-timetable__hours td {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.15em 0.9em;
+}
+
+.gtfs-line-timetable__departure {
+	white-space: nowrap;
+}
+
+.gtfs-line-timetable time.has-left {
+	opacity: 0.4;
+}
+
+.gtfs-line-timetable time.is-next {
+	padding: 0.05em 0.3em;
+	border-radius: 0.25em;
+	outline: 2px solid currentColor;
+	background: color-mix(in srgb, currentColor 12%, transparent);
+	font-weight: 700;
+}
+
+.gtfs-mark {
+	margin-inline-start: 0.1em;
+	font-size: 0.75em;
+	font-weight: 700;
+	vertical-align: super;
+}
+
+.gtfs-legend {
+	display: grid;
+	gap: 0.25em;
+	margin-block: 1em 0;
+	font-size: 0.9em;
+}
+
+.gtfs-legend div {
+	display: flex;
+	gap: 0.5em;
+}
+
+.gtfs-legend dt {
+	font-weight: 700;
+}
+
+.gtfs-legend dt::after {
+	content: " —";
+	font-weight: 400;
+}
+
+.gtfs-legend dd {
+	margin: 0;
+}
+
+/* On phones the chosen stop's timetable comes first, the stops to choose from after it. */
+@media (max-width: 720px) {
+	.gtfs-line__body {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.gtfs-line-timetable {
+		position: static;
+		order: -1;
+	}
 }

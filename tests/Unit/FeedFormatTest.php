@@ -27,6 +27,23 @@ final class FeedFormatTest extends TestCase {
 		$this->assertSame( 4, $stop_time['stop_sequence'] );
 	}
 
+	public function test_a_stop_time_keeps_whether_riders_can_get_on_and_off(): void {
+		$stop_time = $this->import_row(
+			'stop_times.txt',
+			array(
+				'trip_id'        => 'T1',
+				'departure_time' => '08:00:00',
+				'stop_id'        => '36499',
+				'stop_sequence'  => '0',
+				'pickup_type'    => '1',
+				'drop_off_type'  => '3',
+			)
+		);
+
+		$this->assertSame( 1, $stop_time['pickup_type'] );
+		$this->assertSame( 3, $stop_time['drop_off_type'] );
+	}
+
 	public function test_a_stop_time_without_departure_time_uses_the_arrival_time(): void {
 		$stop_time = $this->import_row(
 			'stop_times.txt',

@@ -6,6 +6,7 @@ namespace GtfsTimetables\Frontend;
 
 use DateTimeImmutable;
 use GtfsTimetables\FeedInfo;
+use GtfsTimetables\Network\LineDirections;
 use GtfsTimetables\Network\Lines;
 use GtfsTimetables\Schedule\Departures;
 use GtfsTimetables\Schedule\ServiceDay;
@@ -43,7 +44,7 @@ final class Renderer {
 		);
 	}
 
-	public static function stop_timetable( string $stop_id, string $route_id, DateTimeImmutable $date ): string {
+	public static function stop_timetable( string $stop_id, string $route_id, DateTimeImmutable $date, ?int $direction_id = null ): string {
 		$stop = self::find_stop( $stop_id );
 
 		if ( is_string( $stop ) ) {
@@ -55,7 +56,7 @@ final class Renderer {
 			array(
 				'stop'        => $stop,
 				'date'        => $date,
-				'sections'    => ( new StopTimetable() )->for_date( $stop->stop_id, $date, $route_id ),
+				'sections'    => ( new StopTimetable() )->for_date( $stop->stop_id, $date, $route_id, $direction_id ),
 				'attribution' => Templates::data_attribution(),
 			)
 		);
@@ -99,7 +100,8 @@ final class Renderer {
 	}
 
 	/**
-	 * The line from ?line= in the address. Without it the page lists every line, each linking back here;
+	 * The line from ?line= in the address: its directions, the stops of the chosen direction and the
+	 * timetable of the chosen stop. Without a line the page lists every line, each linking back here;
 	 * the editor preview shows the first line instead.
 	 *
 	 * @param bool $is_block Rendered by the Line block, whose wrapper carries the block's own classes and styles.
@@ -123,12 +125,30 @@ final class Renderer {
 				. self::line_list( new LineListSettings(), $is_block );
 		}
 
+		$directions = ( new LineDirections() )->of( $line );
+		$direction  = $directions[ LinePage::requested_direction() ] ?? $directions[0] ?? null;
+		$stop_id    = $direction ? LinePage::requested_stop( $direction ) : '';
+		$date       = Shortcodes::requested_date();
+
 		Assets::enqueue_styles();
+		Assets::enqueue_timetable_clock();
+		Assets::enqueue_route_map();
 
 		return Templates::render(
 			'line',
 			array(
 				'line'               => $line,
+				'directions'         => $directions,
+				'direction'          => $direction,
+				'stop'               => $direction?->stop( $stop_id ),
+				'date'               => $date,
+				'now'                => ServiceDay::now(),
+				'timetable'          => $direction && ! $direction->ends_at( $stop_id ) && $direction->can_board_at( $stop_id )
+					? ( new StopTimetable() )->for_line( $stop_id, $date, $line->badge->route_id, $direction )
+					: null,
+				'direction_url'      => array( LinePage::class, 'direction_url' ),
+				'stop_url'           => array( LinePage::class, 'stop_url' ),
+				'day_url'            => fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUERY_ARG, $day->format( 'Y-m-d' ) ),
 				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
 				'attribution'        => Templates::data_attribution(),
 			)

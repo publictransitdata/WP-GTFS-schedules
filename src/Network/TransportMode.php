@@ -39,6 +39,25 @@ enum TransportMode: string {
 		};
 	}
 
+	/**
+	 * What one line of this mode is called, e.g. above its name on the line's page.
+	 */
+	public function line_label(): string {
+		return match ( $this ) {
+			self::Metro      => __( 'Metro line', 'gtfs-timetables' ),
+			self::Tram       => __( 'Tram line', 'gtfs-timetables' ),
+			self::Trolleybus => __( 'Trolleybus line', 'gtfs-timetables' ),
+			self::Bus        => __( 'Bus line', 'gtfs-timetables' ),
+			self::Rail       => __( 'Train line', 'gtfs-timetables' ),
+			self::Ferry      => __( 'Ferry line', 'gtfs-timetables' ),
+			self::Cable      => __( 'Cable car line', 'gtfs-timetables' ),
+			self::Other      => __( 'Transit line', 'gtfs-timetables' ),
+		};
+	}
+
+	/**
+	 * The name of a group of lines of this mode.
+	 */
 	public function label(): string {
 		return match ( $this ) {
 			self::Metro      => __( 'Metro', 'gtfs-timetables' ),
