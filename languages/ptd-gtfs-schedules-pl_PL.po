@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-24T10:26:05+00:00\n"
+"PO-Revision-Date: 2026-10-24T12:28:12+00:00\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -16,21 +16,28 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: ptd-gtfs-schedules.php:3
-#: src/Admin/SettingsPage.php:32
-#: src/Admin/SettingsPage.php:33
-#: src/Admin/SettingsPage.php:68
 msgid "PTD GTFS Schedules"
 msgstr "PTD GTFS Schedules"
 
-#. Description of the plugin
+#. Plugin URI of the plugin
 #: ptd-gtfs-schedules.php:4
+msgid "https://github.com/publictransitdata/WP-GTFS-schedules"
+msgstr "https://github.com/publictransitdata/WP-GTFS-schedules"
+
+#. Description of the plugin
+#: ptd-gtfs-schedules.php:5
 msgid "Shows public transport schedules from a GTFS feed."
-msgstr "Wyświetla rozkłady jazdy komunikacji publicznej z feedu GTFS."
+msgstr "Pokazuje rozkłady jazdy komunikacji miejskiej z feedu GTFS."
 
 #. Author of the plugin
-#: ptd-gtfs-schedules.php:8
+#: ptd-gtfs-schedules.php:9
 msgid "PUBLICTRANSITDATA.NET"
 msgstr "PUBLICTRANSITDATA.NET"
+
+#. Author URI of the plugin
+#: ptd-gtfs-schedules.php:10
+msgid "https://publictransitdata.net/"
+msgstr "https://publictransitdata.net/"
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
 #: src/Admin/FeedUpload.php:82
@@ -56,105 +63,190 @@ msgstr "Plik nie jest archiwum .zip. Feed GTFS jest publikowany jako archiwum .z
 msgid "You are not allowed to import feeds."
 msgstr "Nie masz uprawnień do importowania feedów."
 
-#: src/Admin/SettingsPage.php:85
+#: src/Admin/SettingsPage.php:78
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: src/Admin/SettingsPage.php:93
+#: src/Admin/SettingsPage.php:383
+msgid "Report a problem or suggest an idea"
+msgstr "Zgłoś problem lub zaproponuj pomysł"
+
+#. translators: %s: version number of the plugin
+#: src/Admin/SettingsPage.php:114
+#, php-format
+msgid "Version %s"
+msgstr "Wersja %s"
+
+#: src/Admin/SettingsPage.php:122
+msgid "Sections"
+msgstr "Sekcje"
+
+#: src/Admin/SettingsPage.php:152
+#: src/Admin/SettingsPage.php:341
+msgid "Feed and import"
+msgstr "Feed i import"
+
+#: src/Admin/SettingsPage.php:153
+#: src/Admin/SettingsPage.php:288
+msgid "Find a stop"
+msgstr "Znajdź przystanek"
+
+#: src/Admin/SettingsPage.php:154
+#: src/Admin/SettingsPage.php:355
+msgid "Getting started"
+msgstr "Pierwsze kroki"
+
+#: src/Admin/SettingsPage.php:170
+msgid "(opens in a new tab)"
+msgstr "(otwiera się w nowej karcie)"
+
+#: src/Admin/SettingsPage.php:178
+msgid "Feed"
+msgstr "Feed"
+
+#: src/Admin/SettingsPage.php:183
 msgid "Feed URL"
 msgstr "Adres URL feedu"
 
-#: src/Admin/SettingsPage.php:88
+#: src/Admin/SettingsPage.php:186
 msgid "Link to the GTFS .zip published by the transport operator."
 msgstr "Link do archiwum GTFS .zip publikowanego przez przewoźnika."
 
-#: src/Admin/SettingsPage.php:92
+#: src/Admin/SettingsPage.php:190
 msgid "Update automatically"
 msgstr "Aktualizuj automatycznie"
 
-#: src/Admin/SettingsPage.php:99
+#: src/Admin/SettingsPage.php:197
 msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp ptd-gtfs-schedules import"
 msgstr "Uruchamia się w nocy przez WP-Cron. Na witrynach z małym ruchem skonfiguruj prawdziwe zadanie cron dla wp-cron.php lub użyj WP-CLI: wp ptd-gtfs-schedules import"
 
-#: src/Admin/SettingsPage.php:103
+#: src/Admin/SettingsPage.php:201
 msgid "Data source credit"
 msgstr "Źródło danych"
 
-#: src/Admin/SettingsPage.php:106
+#: src/Admin/SettingsPage.php:204
 msgid "Shown under timetables. Many open data licences require crediting the publisher, e.g. \"Data: City transport authority, CC BY 4.0\". Leave empty to show nothing."
 msgstr "Wyświetlane pod rozkładami. Wiele licencji otwartych danych wymaga podania źródła, np. „Dane: Zarząd Transportu Miejskiego, CC BY 4.0”. Zostaw puste, aby nic nie wyświetlać."
 
-#: src/Admin/SettingsPage.php:120
+#: src/Admin/SettingsPage.php:220
 msgid "Import"
 msgstr "Import"
 
 #. translators: 1: date and time, 2: time zone
-#: src/Admin/SettingsPage.php:127
+#: src/Admin/SettingsPage.php:227
 #, php-format
 msgid "Current data imported %1$s. Feed time zone: %2$s."
 msgstr "Bieżące dane zaimportowano %1$s. Strefa czasowa feedu: %2$s."
 
-#: src/Admin/SettingsPage.php:136
+#: src/Admin/SettingsPage.php:236
 msgid "This feed describes some trips with frequencies.txt (\"every 10 minutes\"). Those trips are not shown yet."
 msgstr "Część kursów w tym feedzie opisano w pliku frequencies.txt („co 10 minut”). Takie kursy nie są jeszcze wyświetlane."
 
-#: src/Admin/SettingsPage.php:146
+#: src/Admin/SettingsPage.php:246
 msgid "Uploading the file…"
 msgstr "Przesyłanie pliku…"
 
-#: src/Admin/SettingsPage.php:149
+#: src/Admin/SettingsPage.php:249
 msgid "Import from feed URL"
 msgstr "Importuj z adresu URL"
 
-#: src/Admin/SettingsPage.php:153
+#: src/Admin/SettingsPage.php:253
 msgid "Or upload a GTFS .zip file:"
 msgstr "Lub prześlij plik GTFS .zip:"
 
-#: src/Admin/SettingsPage.php:156
+#: src/Admin/SettingsPage.php:256
 msgid "Upload and import"
 msgstr "Prześlij i zaimportuj"
 
 #. translators: %s: maximum upload size, e.g. "64 MB"
-#: src/Admin/SettingsPage.php:162
+#: src/Admin/SettingsPage.php:262
 #, php-format
 msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
 msgstr "Maksymalny rozmiar pliku: %s. W przypadku większych feedów użyj adresu URL lub WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
 
-#: src/Admin/SettingsPage.php:167
+#: src/Admin/SettingsPage.php:267
 msgid "Automatic updates import from the feed URL and will replace data from an uploaded file."
 msgstr "Automatyczne aktualizacje importują feed z adresu URL i zastąpią dane z przesłanego pliku."
 
-#: src/Admin/SettingsPage.php:171
+#: src/Admin/SettingsPage.php:271
 msgid "Re-import even if the feed has not changed"
 msgstr "Importuj ponownie, nawet jeśli feed się nie zmienił"
 
-#: src/Admin/SettingsPage.php:186
-msgid "Find a stop"
-msgstr "Znajdź przystanek"
+#: src/Admin/SettingsPage.php:289
+msgid "Each stop has shortcodes you can paste into any page: one for its next departures, one for its timetable."
+msgstr "Każdy przystanek ma shortcode’y, które możesz wstawić na dowolną stronę: jeden z najbliższymi odjazdami, drugi z rozkładem jazdy."
 
-#: src/Admin/SettingsPage.php:189
+#: src/Admin/SettingsPage.php:293
+#: src/Admin/SettingsPage.php:294
 msgid "Stop name, code or id"
 msgstr "Nazwa, kod lub ID przystanku"
 
-#: src/Admin/SettingsPage.php:190
+#: src/Admin/SettingsPage.php:295
 msgid "Search"
 msgstr "Szukaj"
 
-#: src/Admin/SettingsPage.php:194
+#: src/Admin/SettingsPage.php:299
 msgid "No stops found."
 msgstr "Nie znaleziono przystanków."
 
-#: src/Admin/SettingsPage.php:201
+#: src/Admin/SettingsPage.php:306
 msgid "Stop"
 msgstr "Przystanek"
 
-#: src/Admin/SettingsPage.php:202
+#: src/Admin/SettingsPage.php:307
 msgid "Code"
 msgstr "Kod"
 
-#: src/Admin/SettingsPage.php:203
+#: src/Admin/SettingsPage.php:308
 msgid "Shortcodes"
 msgstr "Shortcode’y"
 
-#: src/Admin/SettingsPage.php:212
+#: src/Admin/SettingsPage.php:317
 msgid "station, includes all its platforms"
 msgstr "stacja, obejmuje wszystkie jej perony"
+
+#: src/Admin/SettingsPage.php:337
+msgid "Import the timetable"
+msgstr "Zaimportuj rozkład jazdy"
+
+#. translators: %s: link to the "Feed and import" section
+#: src/Admin/SettingsPage.php:340
+#, php-format
+msgid "In %s, enter the public address of the GTFS feed or upload its .zip file, and import it. A feed imported from its address can then be updated automatically."
+msgstr "W sekcji „%s” podaj publiczny adres feedu GTFS albo prześlij jego plik .zip i zaimportuj go. Feed zaimportowany z adresu wtyczka może aktualizować automatycznie."
+
+#: src/Admin/SettingsPage.php:345
+msgid "Add the Lines block"
+msgstr "Dodaj blok linii"
+
+#: src/Admin/SettingsPage.php:346
+msgid "Add the Lines block to a page, for example the home page. It shows every line, grouped by transport mode."
+msgstr "Dodaj blok „Linie” do strony, na przykład do strony głównej. Pokazuje wszystkie linie, pogrupowane według środka transportu."
+
+#: src/Admin/SettingsPage.php:349
+msgid "Create a page for timetables"
+msgstr "Utwórz osobną stronę z rozkładami"
+
+#: src/Admin/SettingsPage.php:350
+msgid "Create one page with the Line timetable block. Every Lines block on the site links there, and it shows the route and timetables of the chosen line."
+msgstr "Utwórz jedną stronę z blokiem „Rozkład linii”. Wszystkie bloki „Linie” w witrynie prowadzą właśnie tam, a ona pokazuje trasę i rozkłady wybranej linii."
+
+#: src/Admin/SettingsPage.php:381
+msgid "Problems and ideas"
+msgstr "Problemy i pomysły"
+
+#: src/Admin/SettingsPage.php:382
+msgid "Something does not work, or a feature is missing? Open an issue on GitHub: every report helps us make the plugin better."
+msgstr "Coś nie działa albo brakuje jakiejś funkcji? Utwórz zgłoszenie (issue) na GitHubie: każde zgłoszenie pomaga ulepszyć wtyczkę."
+
+#: src/Admin/SettingsPage.php:387
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/Admin/SettingsPage.php:398
+msgid "PTD GTFS Schedules by Public Transit Data."
+msgstr "PTD GTFS Schedules od Public Transit Data."
 
 #. translators: %s: file name
 #: src/Feed/CsvReader.php:73
@@ -269,24 +361,24 @@ msgid "Metro line"
 msgstr "Linia metra"
 
 #: src/Network/TransportMode.php:48
-msgid "Tram line"
-msgstr "Linia tramwajowa"
+msgid "Tram"
+msgstr "Tramwaj"
 
 #: src/Network/TransportMode.php:49
-msgid "Trolleybus line"
-msgstr "Linia trolejbusowa"
+msgid "Trolleybus"
+msgstr "Trolejbus"
 
 #: src/Network/TransportMode.php:50
-msgid "Bus line"
-msgstr "Linia autobusowa"
+msgid "Bus"
+msgstr "Autobus"
 
 #: src/Network/TransportMode.php:51
 msgid "Train line"
 msgstr "Linia kolejowa"
 
 #: src/Network/TransportMode.php:52
-msgid "Ferry line"
-msgstr "Linia promowa"
+msgid "Ferry"
+msgstr "Prom"
 
 #: src/Network/TransportMode.php:53
 msgid "Cable car line"
@@ -487,12 +579,12 @@ msgid "Next day"
 msgstr "Następny dzień"
 
 #: templates/line.php:243
-msgid "This is the last stop of the line in this direction, so it has no departures."
-msgstr "To przystanek końcowy linii w tym kierunku, więc nie ma z niego odjazdów."
+msgid "This is the last stop of the line in this direction."
+msgstr "To przystanek końcowy linii w tym kierunku."
 
 #: templates/line.php:245
-msgid "Riders cannot get on this line at this stop, so it has no departures."
-msgstr "Na tym przystanku nie można wsiąść do tej linii, więc nie ma z niego odjazdów."
+msgid "No departures from this stop."
+msgstr "Brak odjazdów z tego przystanku."
 
 #: templates/line.php:247
 #: templates/timetable.php:32

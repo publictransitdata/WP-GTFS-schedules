@@ -337,16 +337,16 @@ final class SettingsPage {
 				__( 'Import the timetable', 'ptd-gtfs-schedules' ),
 				sprintf(
 					/* translators: %s: link to the "Feed and import" section */
-					__( 'In %s, enter the address of the GTFS feed your transport authority publishes, or upload its .zip file, and import it. The plugin can then keep it up to date every night.', 'ptd-gtfs-schedules' ),
+					__( 'In %s, enter the public address of the GTFS feed or upload its .zip file, and import it. A feed imported from its address can then be updated automatically.', 'ptd-gtfs-schedules' ),
 					sprintf( '<a href="%s">%s</a>', esc_url( self::url( 'feed' ) ), esc_html__( 'Feed and import', 'ptd-gtfs-schedules' ) )
 				),
 			),
 			array(
-				__( 'List the lines', 'ptd-gtfs-schedules' ),
+				__( 'Add the Lines block', 'ptd-gtfs-schedules' ),
 				__( 'Add the Lines block to a page, for example the home page. It shows every line, grouped by transport mode.', 'ptd-gtfs-schedules' ),
 			),
 			array(
-				__( 'Give the lines a page', 'ptd-gtfs-schedules' ),
+				__( 'Create a page for timetables', 'ptd-gtfs-schedules' ),
 				__( 'Create one page with the Line timetable block. Every Lines block on the site links there, and it shows the route and timetables of the chosen line.', 'ptd-gtfs-schedules' ),
 			),
 		);
@@ -379,7 +379,7 @@ final class SettingsPage {
 		<aside class="ptd-gtfs-admin__sidebar">
 			<section class="ptd-gtfs-admin__card ptd-gtfs-admin__card--accent">
 				<h2><?php esc_html_e( 'Problems and ideas', 'ptd-gtfs-schedules' ); ?></h2>
-				<p><?php esc_html_e( 'Something does not work, or a feature is missing? Tell us on GitHub: every report helps us make the plugin better.', 'ptd-gtfs-schedules' ); ?></p>
+				<p><?php esc_html_e( 'Something does not work, or a feature is missing? Open an issue on GitHub: every report helps us make the plugin better.', 'ptd-gtfs-schedules' ); ?></p>
 				<p><?php echo wp_kses( self::external_link( Brand::ISSUES, __( 'Report a problem or suggest an idea', 'ptd-gtfs-schedules' ), 'button' ), $allowed ); ?></p>
 			</section>
 
@@ -395,7 +395,7 @@ final class SettingsPage {
 						<?php echo wp_kses( self::external_link( Brand::WEBSITE, 'publictransitdata.net' ), $allowed ); ?>
 					</li>
 				</ul>
-				<p class="description"><?php esc_html_e( 'PTD GTFS Schedules is made by Public Transit Data.', 'ptd-gtfs-schedules' ); ?></p>
+				<p class="description"><?php esc_html_e( 'PTD GTFS Schedules by Public Transit Data.', 'ptd-gtfs-schedules' ); ?></p>
 			</section>
 		</aside>
 		<?php

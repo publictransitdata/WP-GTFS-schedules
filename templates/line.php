@@ -240,9 +240,9 @@ $line_classes = function ( int $position ) use ( $direction, $last_position, $so
 				</nav>
 
 				<?php if ( null === $timetable && $stop && $direction->ends_at( $stop->stop_id ) ) : ?>
-					<p class="gtfs-notice"><?php esc_html_e( 'This is the last stop of the line in this direction, so it has no departures.', 'ptd-gtfs-schedules' ); ?></p>
+					<p class="gtfs-notice"><?php esc_html_e( 'This is the last stop of the line in this direction.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php elseif ( null === $timetable ) : ?>
-					<p class="gtfs-notice"><?php esc_html_e( 'Riders cannot get on this line at this stop, so it has no departures.', 'ptd-gtfs-schedules' ); ?></p>
+					<p class="gtfs-notice"><?php esc_html_e( 'No departures from this stop.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php elseif ( $timetable->is_empty() ) : ?>
 					<p class="gtfs-notice"><?php esc_html_e( 'No departures on this day.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php else : ?>

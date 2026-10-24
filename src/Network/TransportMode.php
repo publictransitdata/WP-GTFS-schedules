@@ -45,11 +45,11 @@ enum TransportMode: string {
 	public function line_label(): string {
 		return match ( $this ) {
 			self::Metro      => __( 'Metro line', 'ptd-gtfs-schedules' ),
-			self::Tram       => __( 'Tram line', 'ptd-gtfs-schedules' ),
-			self::Trolleybus => __( 'Trolleybus line', 'ptd-gtfs-schedules' ),
-			self::Bus        => __( 'Bus line', 'ptd-gtfs-schedules' ),
+			self::Tram       => __( 'Tram', 'ptd-gtfs-schedules' ),
+			self::Trolleybus => __( 'Trolleybus', 'ptd-gtfs-schedules' ),
+			self::Bus        => __( 'Bus', 'ptd-gtfs-schedules' ),
 			self::Rail       => __( 'Train line', 'ptd-gtfs-schedules' ),
-			self::Ferry      => __( 'Ferry line', 'ptd-gtfs-schedules' ),
+			self::Ferry      => __( 'Ferry', 'ptd-gtfs-schedules' ),
 			self::Cable      => __( 'Cable car line', 'ptd-gtfs-schedules' ),
 			self::Other      => __( 'Transit line', 'ptd-gtfs-schedules' ),
 		};
