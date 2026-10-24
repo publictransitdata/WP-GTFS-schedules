@@ -16,6 +16,7 @@
  * }
  */
 
+use GtfsTimetables\Frontend\Icons;
 use GtfsTimetables\Frontend\LineListSettings;
 
 defined( 'ABSPATH' ) || exit;
@@ -27,7 +28,7 @@ $compact     = LineListSettings::COMPACT === $args['settings']->layout;
 	<?php foreach ( $args['groups'] as $group ) : ?>
 		<?php $group_id = "{$args['id_prefix']}-{$group->key}"; ?>
 		<section class="gtfs-lines__group gtfs-lines__group--<?php echo esc_attr( $group->key ); ?>" id="<?php echo esc_attr( $group_id ); ?>" aria-labelledby="<?php echo esc_attr( "{$group_id}-heading" ); ?>">
-			<<?php echo tag_escape( $heading_tag ); ?> class="gtfs-lines__heading" id="<?php echo esc_attr( "{$group_id}-heading" ); ?>"><?php echo esc_html( $group->label ); ?></<?php echo tag_escape( $heading_tag ); ?>>
+			<<?php echo tag_escape( $heading_tag ); ?> class="gtfs-lines__heading" id="<?php echo esc_attr( "{$group_id}-heading" ); ?>"><?php echo Icons::for_group( $group->key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?> <?php echo esc_html( $group->label ); ?></<?php echo tag_escape( $heading_tag ); ?>>
 
 			<ul class="gtfs-lines__list">
 				<?php foreach ( $group->lines as $line ) : ?>
