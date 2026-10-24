@@ -4,6 +4,8 @@ A WordPress plugin that turns the GTFS feed of a transport operator or authority
 
 Import the feed once, add a block to a page, and the timetables stay current as the feed is updated.
 
+![A line page: the route diagram and the timetable of the chosen stop](.wordpress-org/screenshot-1.png)
+
 ## What it shows
 
 - **Lines**: every line of the network, grouped by transport mode (trams, buses, night lines and so on), optionally in tabs. Each line links to its own page.

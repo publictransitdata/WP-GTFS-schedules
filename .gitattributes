@@ -12,3 +12,4 @@
 /tests export-ignore
 /vendor export-ignore
 /README.md export-ignore
+/.wordpress-org export-ignore
