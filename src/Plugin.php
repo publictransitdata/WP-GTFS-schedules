@@ -9,6 +9,7 @@ use GtfsTimetables\Admin\SettingsPage;
 use GtfsTimetables\Cli\Command;
 use GtfsTimetables\Frontend\Assets;
 use GtfsTimetables\Frontend\Blocks;
+use GtfsTimetables\Frontend\LinePage;
 use GtfsTimetables\Frontend\RestController;
 use GtfsTimetables\Frontend\Shortcodes;
 use GtfsTimetables\Import\ImportScheduler;
@@ -25,6 +26,7 @@ final class Plugin {
 		add_action( 'init', array( Assets::class, 'register' ) );
 		add_action( 'init', array( Shortcodes::class, 'register' ) );
 		add_action( 'init', array( Blocks::class, 'register' ) );
+		LinePage::register();
 		add_action( 'enqueue_block_editor_assets', array( Blocks::class, 'describe_feed_to_editor' ) );
 		add_action( 'rest_api_init', array( RestController::class, 'register_routes' ) );
 

@@ -90,11 +90,56 @@ final class Renderer {
 			array(
 				'groups'             => $groups,
 				'settings'           => $settings,
-				'wrapper_attributes' => $is_block ? get_block_wrapper_attributes( $wrapper ) : self::html_attributes( $wrapper ),
+				'line_url'           => array( LinePage::class, 'url' ),
+				'wrapper_attributes' => self::wrapper_attributes( $wrapper, $is_block ),
 				'id_prefix'          => wp_unique_id( 'gtfs-lines-' ),
 				'attribution'        => Templates::data_attribution(),
 			)
 		);
+	}
+
+	/**
+	 * The line from ?line= in the address. Without it the page lists every line, each linking back here;
+	 * the editor preview shows the first line instead.
+	 *
+	 * @param bool $is_block Rendered by the Line block, whose wrapper carries the block's own classes and styles.
+	 */
+	public static function line_page( bool $is_block = false ): string {
+		if ( ! FeedInfo::is_loaded() ) {
+			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+		}
+
+		$lines    = new Lines();
+		$route_id = LinePage::requested_route_id();
+
+		if ( '' === $route_id && ! wp_is_serving_rest_request() ) {
+			return self::line_list( new LineListSettings(), $is_block );
+		}
+
+		$line = '' === $route_id ? ( $lines->all()[0] ?? null ) : $lines->find( $route_id );
+
+		if ( null === $line ) {
+			return '<p class="gtfs-notice">' . esc_html__( 'This line is not in the current timetable. Choose a line:', 'gtfs-timetables' ) . '</p>'
+				. self::line_list( new LineListSettings(), $is_block );
+		}
+
+		Assets::enqueue_styles();
+
+		return Templates::render(
+			'line',
+			array(
+				'line'               => $line,
+				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
+				'attribution'        => Templates::data_attribution(),
+			)
+		);
+	}
+
+	/**
+	 * @param array<string, string> $attributes
+	 */
+	private static function wrapper_attributes( array $attributes, bool $is_block ): string {
+		return $is_block ? get_block_wrapper_attributes( $attributes ) : self::html_attributes( $attributes );
 	}
 
 	/**

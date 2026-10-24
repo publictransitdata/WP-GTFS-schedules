@@ -93,7 +93,7 @@
 	gap: 0.5em 2em;
 }
 
-.gtfs-lines--destinations .gtfs-lines__line {
+.gtfs-lines--destinations :is(.gtfs-lines__line, .gtfs-lines__link) {
 	display: flex;
 	gap: 0.75em;
 	align-items: baseline;
@@ -131,6 +131,21 @@
 	font-weight: 700;
 }
 
+.gtfs-lines__link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-lines__link:hover .gtfs-route,
+.gtfs-lines__link:focus-visible .gtfs-route {
+	filter: brightness(0.85);
+}
+
+.gtfs-lines__link:hover .gtfs-lines__destinations {
+	text-decoration: underline;
+}
+
+.gtfs-lines--compact .gtfs-lines__destinations,
 .gtfs-lines.is-tabbed .gtfs-lines__heading {
 	position: absolute;
 	width: 1px;
@@ -138,4 +153,35 @@
 	overflow: hidden;
 	clip-path: inset(50%);
 	white-space: nowrap;
+}
+
+/* Line page */
+
+.gtfs-line__header {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+	margin-block-end: 1.5em;
+}
+
+.gtfs-line__badge {
+	min-width: 2.4em;
+	padding: 0.25em 0.5em;
+	font-size: 2em;
+}
+
+.gtfs-line__header p {
+	margin: 0;
+}
+
+.gtfs-line__mode {
+	font-size: 0.85em;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.75;
+}
+
+.gtfs-line__destinations {
+	font-size: 1.25em;
+	font-weight: 600;
 }

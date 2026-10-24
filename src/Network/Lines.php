@@ -22,6 +22,16 @@ final class Lines {
 		return $lines;
 	}
 
+	public function find( string $route_id ): ?Line {
+		foreach ( $this->all() as $line ) {
+			if ( $line->badge->route_id === $route_id ) {
+				return $line;
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * @param TransportMode[] $modes Only lines of these modes; every mode when empty.
 	 * @return LineGroup[] One group per transport mode, night lines last.

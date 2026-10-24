@@ -16,6 +16,7 @@ defined( 'ABSPATH' ) || exit;
 final class Blocks {
 
 	private const LINES = 'gtfs-timetables/lines';
+	private const LINE  = 'gtfs-timetables/line';
 
 	public static function register(): void {
 		register_block_type(
@@ -23,11 +24,22 @@ final class Blocks {
 			array( 'render_callback' => array( self::class, 'render_lines' ) )
 		);
 
-		wp_set_script_translations( self::editor_script( self::LINES ), 'gtfs-timetables', GTFS_TIMETABLES_DIR . '/languages' );
+		register_block_type(
+			GTFS_TIMETABLES_DIR . '/blocks/line',
+			array( 'render_callback' => array( self::class, 'render_line' ) )
+		);
+
+		foreach ( array( self::LINES, self::LINE ) as $block ) {
+			wp_set_script_translations( self::editor_script( $block ), 'gtfs-timetables', GTFS_TIMETABLES_DIR . '/languages' );
+		}
 	}
 
 	public static function render_lines( array $attributes ): string {
 		return Renderer::line_list( LineListSettings::from_block_attributes( $attributes ), true );
+	}
+
+	public static function render_line(): string {
+		return Renderer::line_page( true );
 	}
 
 	/**
