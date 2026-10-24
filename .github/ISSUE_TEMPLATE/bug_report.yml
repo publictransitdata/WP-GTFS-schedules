@@ -1,0 +1,44 @@
+name: Bug report
+description: Something does not work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Import the feed …
+        2. Open the line page of line …
+        3. …
+    validations:
+      required: true
+  - type: input
+    id: feed
+    attributes:
+      label: GTFS feed
+      description: A link to the feed, if it is public. It helps us reproduce the problem.
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+    validations:
+      required: true
+  - type: input
+    id: wordpress-version
+    attributes:
+      label: WordPress and PHP versions
+      placeholder: WordPress 7.1, PHP 8.3
+    validations:
+      required: true
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Screenshots, the theme you use, error messages from the PHP log.

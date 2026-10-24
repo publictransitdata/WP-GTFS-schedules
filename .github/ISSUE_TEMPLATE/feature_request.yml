@@ -1,0 +1,21 @@
+name: Idea or feature request
+description: Something the plugin could do, or do better.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What do you need
+      description: Who would use it, and what would it let them do? For example "riders want to see …".
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How it could work
+      description: Your idea of a solution, an example from another site, or a sketch.
+  - type: input
+    id: feed
+    attributes:
+      label: GTFS feed
+      description: A link to a feed where this matters, if it is public.

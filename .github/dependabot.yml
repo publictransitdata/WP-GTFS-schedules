@@ -1,0 +1,23 @@
+# Monthly, grouped updates: one pull request per ecosystem keeps the review load small.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      development-tools:
+        patterns: ["*"]
+    commit-message:
+      prefix: chore
+      include: scope
