@@ -28,6 +28,7 @@ final class Brand {
 	}
 
 	public static function menu_icon(): string {
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- WordPress repaints only base64 data URIs (svg-painter.js).
 		return 'data:image/svg+xml;base64,' . base64_encode( self::MENU_ICON );
 	}
 }
