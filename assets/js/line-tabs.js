@@ -23,7 +23,8 @@
 			tab.type = 'button';
 			tab.id = `${ group.id }-tab`;
 			tab.className = 'gtfs-lines__tab';
-			tab.textContent = group.querySelector( '.gtfs-lines__heading' ).textContent;
+			// The heading's own markup: its transport icon (hidden from screen readers) and its name.
+			tab.innerHTML = group.querySelector( '.gtfs-lines__heading' ).innerHTML;
 			tab.setAttribute( 'role', 'tab' );
 			tab.setAttribute( 'aria-controls', group.id );
 

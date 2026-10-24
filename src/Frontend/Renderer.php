@@ -128,8 +128,11 @@ final class Renderer {
 		$directions = ( new LineDirections() )->of( $line );
 		$direction  = $directions[ LinePage::requested_direction() ] ?? $directions[0] ?? null;
 		$stop_id    = $direction ? LinePage::requested_stop( $direction ) : '';
+		$date       = Shortcodes::requested_date();
 
 		Assets::enqueue_styles();
+		Assets::enqueue_timetable_clock();
+		Assets::enqueue_route_map();
 
 		return Templates::render(
 			'line',
@@ -137,12 +140,15 @@ final class Renderer {
 				'line'               => $line,
 				'directions'         => $directions,
 				'direction'          => $direction,
-				'stop_id'            => $stop_id,
-				'timetable'          => $direction && ! $direction->ends_at( $stop_id )
-					? self::stop_timetable( $stop_id, $line->badge->route_id, Shortcodes::requested_date(), $direction->direction_id )
-					: '',
+				'stop'               => $direction?->stop( $stop_id ),
+				'date'               => $date,
+				'now'                => ServiceDay::now(),
+				'timetable'          => $direction && ! $direction->ends_at( $stop_id ) && $direction->can_board_at( $stop_id )
+					? ( new StopTimetable() )->for_line( $stop_id, $date, $line->badge->route_id, $direction )
+					: null,
 				'direction_url'      => array( LinePage::class, 'direction_url' ),
 				'stop_url'           => array( LinePage::class, 'stop_url' ),
+				'day_url'            => fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUERY_ARG, $day->format( 'Y-m-d' ) ),
 				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
 				'attribution'        => Templates::data_attribution(),
 			)

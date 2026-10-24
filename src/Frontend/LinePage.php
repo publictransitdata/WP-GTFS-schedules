@@ -65,12 +65,12 @@ final class LinePage {
 	}
 
 	/**
-	 * The stop from the address when the direction calls there, else the first stop of the direction.
+	 * The stop from the address when the direction calls there, else the first stop where riders can get on.
 	 */
 	public static function requested_stop( LineDirection $direction ): string {
 		$stop_id = self::query_arg( self::STOP_ARG );
 
-		return $direction->has_stop( $stop_id ) ? $stop_id : ( $direction->stops[0]->stop_id ?? '' );
+		return $direction->has_stop( $stop_id ) ? $stop_id : ( $direction->first_boarding_stop()->stop_id ?? '' );
 	}
 
 	/**

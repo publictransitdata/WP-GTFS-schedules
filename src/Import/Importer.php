@@ -8,6 +8,7 @@ use GtfsTimetables\Feed\CsvReader;
 use GtfsTimetables\Feed\FeedDownloader;
 use GtfsTimetables\Feed\FeedFile;
 use GtfsTimetables\Feed\FeedFormat;
+use GtfsTimetables\FeedCache;
 use GtfsTimetables\FeedInfo;
 use GtfsTimetables\Schema;
 use GtfsTimetables\Settings;
@@ -217,6 +218,7 @@ final class Importer {
 		$uses_frequencies = FeedFormat::uses_frequencies( $state->directory );
 
 		Schema::promote_staging();
+		FeedCache::forget_all();
 
 		FeedInfo::save(
 			array(
