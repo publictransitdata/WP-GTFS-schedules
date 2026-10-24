@@ -23,10 +23,12 @@ PTD GTFS Schedules turns the GTFS feed of a transport operator or authority into
 
 = For riders =
 
-* Letters in the timetable mark trips that differ, with a legend: "a – to City Stadium A".
-* Stops where nobody can get on or off are left out; stops on request and stops for getting on or off only are marked.
-* Icons and diagrams are accompanied by text for screen readers, and pages work without JavaScript.
-* Translated into Ukrainian and Polish.
+* **The next departure at a glance**: departures that have left are greyed out and the next one is highlighted, and both move on as time passes.
+* **No surprises about where a trip goes**: trips that end early or take another way are marked with a letter, explained under the timetable: "a – to City Stadium A".
+* **Only the stops they can use**: stops where nobody can get on or off are left out, and riders see where to signal the driver (stops on request) and where they can only get on or only get off.
+* **A clear picture of the route**: the diagram shows where branches leave the route, where they come back and where some trips end.
+* **For everyone**: every icon and diagram has a text equivalent for screen readers, and the pages work without JavaScript.
+* **In their language**: English, Ukrainian and Polish.
 
 = For editors and admins =
 
