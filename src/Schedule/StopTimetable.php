@@ -5,6 +5,7 @@
 namespace GtfsTimetables\Schedule;
 
 use DateTimeImmutable;
+use GtfsTimetables\Network\LineDirection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,6 +36,21 @@ final class StopTimetable {
 		usort( $sections, fn( TimetableSection $a, TimetableSection $b ) => strnatcasecmp( $a->sort_key(), $b->sort_key() ) );
 
 		return $sections;
+	}
+
+	/**
+	 * One line's departures from a stop in one direction, as a single timetable in which
+	 * the trips that differ from the usual one are marked with a letter.
+	 */
+	public function for_line( string $stop_id, DateTimeImmutable $date, string $route_id, LineDirection $direction ): MarkedTimetable {
+		$timetable = new MarkedTimetable( ServiceDay::start( $date ) );
+		$rows      = $this->find( $this->stops->with_platforms( $stop_id ), $this->calendar->services_on( $date ), $route_id, $direction->direction_id );
+
+		foreach ( $rows as $row ) {
+			$timetable->add( (int) $row->departure_secs, $direction->note_for( (string) $row->trip_id )?->text() ?? '' );
+		}
+
+		return $timetable;
 	}
 
 	private function find( array $stop_ids, array $service_ids, string $route_id, ?int $direction_id ): array {
