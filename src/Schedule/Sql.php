@@ -26,7 +26,7 @@ final class Sql {
 		$trips      = Schema::table( 'trips' );
 		$routes     = Schema::table( 'routes' );
 
-		return "SELECT st.departure_secs,
+		return "SELECT st.trip_id, st.departure_secs,
 				COALESCE(NULLIF(st.stop_headsign, ''), t.trip_headsign) AS headsign,
 				r.route_id, r.route_short_name, r.route_long_name, r.route_color, r.route_text_color
 			FROM {$stop_times} st

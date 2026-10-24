@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       GTFS Timetables
  * Description:       Shows public transport schedules from a GTFS feed.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            PUBLICTRANSITDATA.NET
@@ -21,7 +21,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GTFS_TIMETABLES_VERSION', '0.1.0' );
+define( 'GTFS_TIMETABLES_VERSION', '0.2.0' );
 define( 'GTFS_TIMETABLES_FILE', __FILE__ );
 define( 'GTFS_TIMETABLES_DIR', __DIR__ );
 

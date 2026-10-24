@@ -6,6 +6,8 @@ namespace GtfsTimetables\Frontend;
 
 use DateTimeImmutable;
 use GtfsTimetables\FeedInfo;
+use GtfsTimetables\Network\LineDirections;
+use GtfsTimetables\Network\Lines;
 use GtfsTimetables\Schedule\Departures;
 use GtfsTimetables\Schedule\ServiceDay;
 use GtfsTimetables\Schedule\StopTimetable;
@@ -14,8 +16,8 @@ use GtfsTimetables\Schedule\Stops;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Builds the HTML of the departure board and the stop timetable.
- * Shared by the shortcodes and the REST endpoint that refreshes boards.
+ * Builds the HTML of the departure board, the stop timetable and the list of lines.
+ * Shared by the blocks, the shortcodes and the REST endpoint that refreshes boards.
  */
 final class Renderer {
 
@@ -42,7 +44,7 @@ final class Renderer {
 		);
 	}
 
-	public static function stop_timetable( string $stop_id, string $route_id, DateTimeImmutable $date ): string {
+	public static function stop_timetable( string $stop_id, string $route_id, DateTimeImmutable $date, ?int $direction_id = null ): string {
 		$stop = self::find_stop( $stop_id );
 
 		if ( is_string( $stop ) ) {
@@ -54,8 +56,122 @@ final class Renderer {
 			array(
 				'stop'        => $stop,
 				'date'        => $date,
-				'sections'    => ( new StopTimetable() )->for_date( $stop->stop_id, $date, $route_id ),
+				'sections'    => ( new StopTimetable() )->for_date( $stop->stop_id, $date, $route_id, $direction_id ),
 				'attribution' => Templates::data_attribution(),
+			)
+		);
+	}
+
+	/**
+	 * @param LineListSettings $settings
+	 * @param bool             $is_block Rendered by the Lines block, whose wrapper carries the block's own classes and styles.
+	 */
+	public static function line_list( LineListSettings $settings, bool $is_block = false ): string {
+		if ( ! FeedInfo::is_loaded() ) {
+			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+		}
+
+		$groups = ( new Lines() )->grouped( $settings->modes, $settings->night_lines_apart );
+
+		if ( ! $groups ) {
+			return Templates::notice_for_editors( __( 'GTFS Timetables: the feed has no lines of the chosen transport modes.', 'gtfs-timetables' ) );
+		}
+
+		Assets::enqueue_styles();
+
+		$wrapper = array( 'class' => "gtfs-lines gtfs-lines--{$settings->layout}" );
+
+		if ( $settings->tabs ) {
+			$wrapper['data-gtfs-tabs'] = 'true';
+			Assets::enqueue_line_tabs();
+		}
+
+		return Templates::render(
+			'lines',
+			array(
+				'groups'             => $groups,
+				'settings'           => $settings,
+				'line_url'           => array( LinePage::class, 'url' ),
+				'wrapper_attributes' => self::wrapper_attributes( $wrapper, $is_block ),
+				'id_prefix'          => wp_unique_id( 'gtfs-lines-' ),
+				'attribution'        => Templates::data_attribution(),
+			)
+		);
+	}
+
+	/**
+	 * The line from ?line= in the address: its directions, the stops of the chosen direction and the
+	 * timetable of the chosen stop. Without a line the page lists every line, each linking back here;
+	 * the editor preview shows the first line instead.
+	 *
+	 * @param bool $is_block Rendered by the Line block, whose wrapper carries the block's own classes and styles.
+	 */
+	public static function line_page( bool $is_block = false ): string {
+		if ( ! FeedInfo::is_loaded() ) {
+			return Templates::notice_for_editors( __( 'GTFS Timetables: no feed has been imported yet.', 'gtfs-timetables' ) );
+		}
+
+		$lines    = new Lines();
+		$route_id = LinePage::requested_route_id();
+
+		if ( '' === $route_id && ! wp_is_serving_rest_request() ) {
+			return self::line_list( new LineListSettings(), $is_block );
+		}
+
+		$line = '' === $route_id ? ( $lines->all()[0] ?? null ) : $lines->find( $route_id );
+
+		if ( null === $line ) {
+			return '<p class="gtfs-notice">' . esc_html__( 'This line is not in the current timetable. Choose a line:', 'gtfs-timetables' ) . '</p>'
+				. self::line_list( new LineListSettings(), $is_block );
+		}
+
+		$directions = ( new LineDirections() )->of( $line );
+		$direction  = $directions[ LinePage::requested_direction() ] ?? $directions[0] ?? null;
+		$stop_id    = $direction ? LinePage::requested_stop( $direction ) : '';
+		$date       = Shortcodes::requested_date();
+
+		Assets::enqueue_styles();
+		Assets::enqueue_timetable_clock();
+		Assets::enqueue_route_map();
+
+		return Templates::render(
+			'line',
+			array(
+				'line'               => $line,
+				'directions'         => $directions,
+				'direction'          => $direction,
+				'stop'               => $direction?->stop( $stop_id ),
+				'date'               => $date,
+				'now'                => ServiceDay::now(),
+				'timetable'          => $direction && ! $direction->ends_at( $stop_id ) && $direction->can_board_at( $stop_id )
+					? ( new StopTimetable() )->for_line( $stop_id, $date, $line->badge->route_id, $direction )
+					: null,
+				'direction_url'      => array( LinePage::class, 'direction_url' ),
+				'stop_url'           => array( LinePage::class, 'stop_url' ),
+				'day_url'            => fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUERY_ARG, $day->format( 'Y-m-d' ) ),
+				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
+				'attribution'        => Templates::data_attribution(),
+			)
+		);
+	}
+
+	/**
+	 * @param array<string, string> $attributes
+	 */
+	private static function wrapper_attributes( array $attributes, bool $is_block ): string {
+		return $is_block ? get_block_wrapper_attributes( $attributes ) : self::html_attributes( $attributes );
+	}
+
+	/**
+	 * @param array<string, string> $attributes
+	 */
+	private static function html_attributes( array $attributes ): string {
+		return implode(
+			' ',
+			array_map(
+				fn( string $name, string $value ) => sprintf( '%s="%s"', esc_attr( $name ), esc_attr( $value ) ),
+				array_keys( $attributes ),
+				$attributes
 			)
 		);
 	}

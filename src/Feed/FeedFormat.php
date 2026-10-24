@@ -103,7 +103,7 @@ final class FeedFormat {
 			new FeedFile(
 				'stop_times.txt',
 				'stop_times',
-				array( 'trip_id', 'stop_sequence', 'stop_id', 'departure_secs', 'pickup_type', 'stop_headsign' ),
+				array( 'trip_id', 'stop_sequence', 'stop_id', 'departure_secs', 'pickup_type', 'drop_off_type', 'stop_headsign' ),
 				fn( array $row ) => self::stop_time( $row )
 			),
 		);
@@ -165,6 +165,7 @@ final class FeedFormat {
 			self::text( $row, 'stop_id' ),
 			$seconds,
 			self::integer( $row, 'pickup_type' ),
+			self::integer( $row, 'drop_off_type' ),
 			self::text( $row, 'stop_headsign' ),
 		);
 	}

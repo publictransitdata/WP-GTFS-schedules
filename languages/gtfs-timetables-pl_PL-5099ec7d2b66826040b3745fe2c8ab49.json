@@ -1,0 +1,45 @@
+{
+    "translation-revision-date": "2026-10-24T10:26:05+00:00",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "blocks\/lines\/editor.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "pl_PL",
+                "plural-forms": "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "Display": [
+                "Wygl\u0105d"
+            ],
+            "Show": [
+                "Pokazuj"
+            ],
+            "Line numbers": [
+                "Numery linii"
+            ],
+            "Line numbers with destinations": [
+                "Numery linii z kierunkami"
+            ],
+            "One tab per transport mode": [
+                "Osobna karta dla ka\u017cdego \u015brodka transportu"
+            ],
+            "Night lines in their own group": [
+                "Linie nocne w osobnej grupie"
+            ],
+            "Lines named N1, N8\u2026 are listed together after the other lines.": [
+                "Linie o nazwach N1, N8\u2026 s\u0105 pokazywane razem, po pozosta\u0142ych liniach."
+            ],
+            "Group heading level": [
+                "Poziom nag\u0142\u00f3wk\u00f3w grup"
+            ],
+            "Transport modes": [
+                "\u015arodki transportu"
+            ],
+            "Tick the modes to show. With none ticked, the block shows them all.": [
+                "Zaznacz \u015brodki transportu do pokazania. Je\u015bli nic nie zaznaczysz, blok poka\u017ce wszystkie."
+            ]
+        }
+    }
+}

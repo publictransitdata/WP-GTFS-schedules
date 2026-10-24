@@ -5,7 +5,7 @@
 namespace GtfsTimetables\Schedule;
 
 use DateTimeImmutable;
-use GtfsTimetables\FeedInfo;
+use GtfsTimetables\FeedCache;
 use GtfsTimetables\Schema;
 
 defined( 'ABSPATH' ) || exit;
@@ -18,39 +18,14 @@ final class ServiceCalendar {
 
 	private const SERVICE_ADDED   = 1;
 	private const SERVICE_REMOVED = 2;
-	private const CACHE_PREFIX    = 'gtfs_tt_services_';
 
 	/**
 	 * @return string[] service_id values.
 	 */
 	public function services_on( DateTimeImmutable $date ): array {
-		$cache_key = self::CACHE_PREFIX . substr( FeedInfo::version(), 0, 12 ) . '_' . $date->format( 'Ymd' );
-		$cached    = get_transient( $cache_key );
-
-		if ( is_array( $cached ) ) {
-			return $cached;
-		}
-
-		$services = $this->find_services( (int) $date->format( 'Ymd' ), strtolower( $date->format( 'l' ) ) );
-		set_transient( $cache_key, $services, DAY_IN_SECONDS );
-
-		return $services;
-	}
-
-	/**
-	 * Cache keys contain the date, so they cannot be deleted one by one by name.
-	 * Sites with a persistent object cache keep transients there; those expire within a day.
-	 */
-	public static function forget_cached_days(): void {
-		global $wpdb;
-
-		$wpdb->query(
-			$wpdb->prepare(
-				'DELETE FROM %i WHERE option_name LIKE %s OR option_name LIKE %s',
-				$wpdb->options,
-				$wpdb->esc_like( '_transient_' . self::CACHE_PREFIX ) . '%',
-				$wpdb->esc_like( '_transient_timeout_' . self::CACHE_PREFIX ) . '%'
-			)
+		return FeedCache::remember(
+			'services_' . $date->format( 'Ymd' ),
+			fn() => $this->find_services( (int) $date->format( 'Ymd' ), strtolower( $date->format( 'l' ) ) )
 		);
 	}
 
