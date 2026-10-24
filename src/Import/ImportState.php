@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Import;
+namespace PtdGtfsSchedules\Import;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +18,7 @@ final class ImportState {
 	public const DONE        = 'done';
 	public const FAILED      = 'failed';
 
-	private const OPTION              = 'gtfs_timetables_import_state';
+	private const OPTION              = 'ptd_gtfs_schedules_import_state';
 	private const STALE_AFTER_SECONDS = HOUR_IN_SECONDS;
 
 	public string $stage     = self::IDLE;

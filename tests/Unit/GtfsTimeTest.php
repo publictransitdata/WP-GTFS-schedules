@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Schedule\GtfsTime;
+use PtdGtfsSchedules\Schedule\GtfsTime;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

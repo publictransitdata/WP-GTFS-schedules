@@ -1,5 +1,5 @@
 {
-	"name": "publictransitdata/gtfs-timetables",
+	"name": "publictransitdata/ptd-gtfs-schedules",
 	"description": "WordPress plugin that shows public transport departure boards and stop timetables from a GTFS feed.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
@@ -31,10 +31,10 @@
 		"lint:fix": "phpcbf",
 		"analyse": "phpstan analyse --memory-limit=1G",
 		"test": "phpunit",
-		"i18n:pot": "wp i18n make-pot . languages/gtfs-timetables.pot --slug=gtfs-timetables --exclude=vendor,tests,languages --headers='{\"POT-Creation-Date\":\"\",\"Project-Id-Version\":\"GTFS Timetables\"}'",
+		"i18n:pot": "wp i18n make-pot . languages/ptd-gtfs-schedules.pot --slug=ptd-gtfs-schedules --exclude=vendor,tests,languages --headers='{\"POT-Creation-Date\":\"\",\"Project-Id-Version\":\"PTD GTFS Schedules\"}'",
 		"i18n": [
 			"@i18n:pot",
-			"wp i18n update-po languages/gtfs-timetables.pot",
+			"wp i18n update-po languages/ptd-gtfs-schedules.pot",
 			"wp i18n make-mo languages",
 			"wp i18n make-php languages",
 			"wp i18n make-json languages --pretty-print",

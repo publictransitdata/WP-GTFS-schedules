@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Feed\FeedFile;
-use GtfsTimetables\Feed\FeedFormat;
+use PtdGtfsSchedules\Feed\FeedFile;
+use PtdGtfsSchedules\Feed\FeedFormat;
 use PHPUnit\Framework\TestCase;
 
 final class FeedFormatTest extends TestCase {

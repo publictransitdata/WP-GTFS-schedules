@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Import;
+namespace PtdGtfsSchedules\Import;
 
-use GtfsTimetables\Settings;
+use PtdGtfsSchedules\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 final class ImportScheduler {
 
-	public const REFRESH_HOOK  = 'gtfs_timetables_refresh_feed';
-	public const CONTINUE_HOOK = 'gtfs_timetables_continue_import';
+	public const REFRESH_HOOK  = 'ptd_gtfs_schedules_refresh_feed';
+	public const CONTINUE_HOOK = 'ptd_gtfs_schedules_continue_import';
 
 	private const QUIET_HOUR = 3;
 

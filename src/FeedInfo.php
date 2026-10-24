@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables;
+namespace PtdGtfsSchedules;
 
 use DateTimeZone;
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class FeedInfo {
 
-	private const OPTION = 'gtfs_timetables_feed';
+	private const OPTION = 'ptd_gtfs_schedules_feed';
 
 	public static function save( array $info ): void {
 		update_option( self::OPTION, $info, false );

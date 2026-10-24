@@ -2,13 +2,13 @@
 /**
  * Lines of the network, grouped by transport mode, with night lines last.
  *
- * Copy to your-theme/gtfs-timetables/lines.php to customise.
+ * Copy to your-theme/ptd-gtfs-schedules/lines.php to customise.
  * With tabs on, line-tabs.js turns each group into a tab; it relies on the classes and ids below.
  * In the compact layout destinations stay in the markup for screen readers, hidden by CSS.
  *
  * @var array $args {
- *     @type \GtfsTimetables\Network\LineGroup[]          $groups
- *     @type \GtfsTimetables\Frontend\LineListSettings    $settings
+ *     @type \PtdGtfsSchedules\Network\LineGroup[]          $groups
+ *     @type \PtdGtfsSchedules\Frontend\LineListSettings    $settings
  *     @type callable                                     $line_url           Line => address of its page, '' when the site has none.
  *     @type string                                       $wrapper_attributes Escaped HTML attributes.
  *     @type string                                       $id_prefix          Unique on the page.
@@ -16,8 +16,8 @@
  * }
  */
 
-use GtfsTimetables\Frontend\Icons;
-use GtfsTimetables\Frontend\LineListSettings;
+use PtdGtfsSchedules\Frontend\Icons;
+use PtdGtfsSchedules\Frontend\LineListSettings;
 
 defined( 'ABSPATH' ) || exit;
 

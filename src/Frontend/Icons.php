@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
-use GtfsTimetables\Network\LineGroup;
-use GtfsTimetables\Network\TransportMode;
+use PtdGtfsSchedules\Network\LineGroup;
+use PtdGtfsSchedules\Network\TransportMode;
 
 defined( 'ABSPATH' ) || exit;
 

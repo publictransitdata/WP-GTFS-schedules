@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables;
+namespace PtdGtfsSchedules;
 
 defined( 'ABSPATH' ) || exit;
 
 final class Settings {
 
-	public const OPTION = 'gtfs_timetables_settings';
+	public const OPTION = 'ptd_gtfs_schedules_settings';
 
 	private const DEFAULTS = array(
 		'feed_url'          => '',
@@ -24,9 +24,9 @@ final class Settings {
 
 	public static function refresh_frequencies(): array {
 		return array(
-			'off'    => __( 'Manual only', 'gtfs-timetables' ),
-			'daily'  => __( 'Daily', 'gtfs-timetables' ),
-			'weekly' => __( 'Weekly', 'gtfs-timetables' ),
+			'off'    => __( 'Manual only', 'ptd-gtfs-schedules' ),
+			'daily'  => __( 'Daily', 'ptd-gtfs-schedules' ),
+			'weekly' => __( 'Weekly', 'ptd-gtfs-schedules' ),
 		);
 	}
 

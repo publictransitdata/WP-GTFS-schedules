@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Feed;
+namespace PtdGtfsSchedules\Feed;
 
-use GtfsTimetables\Import\ImportError;
+use PtdGtfsSchedules\Import\ImportError;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +23,7 @@ final class FeedDownloader {
 
 		if ( is_wp_error( $archive ) ) {
 			/* translators: %s: error message */
-			throw new ImportError( esc_html( sprintf( __( 'Could not download the feed: %s', 'gtfs-timetables' ), $archive->get_error_message() ) ) );
+			throw new ImportError( esc_html( sprintf( __( 'Could not download the feed: %s', 'ptd-gtfs-schedules' ), $archive->get_error_message() ) ) );
 		}
 
 		return $archive;
@@ -41,9 +41,9 @@ final class FeedDownloader {
 		$result = $this->connect_filesystem() ? unzip_file( $archive, $target ) : false;
 
 		if ( true !== $result ) {
-			$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'filesystem is not writable', 'gtfs-timetables' );
+			$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'filesystem is not writable', 'ptd-gtfs-schedules' );
 			/* translators: %s: error message */
-			throw new ImportError( esc_html( sprintf( __( 'Could not unpack the feed: %s', 'gtfs-timetables' ), $reason ) ) );
+			throw new ImportError( esc_html( sprintf( __( 'Could not unpack the feed: %s', 'ptd-gtfs-schedules' ), $reason ) ) );
 		}
 
 		return FeedFormat::locate_root( $target );
@@ -60,7 +60,7 @@ final class FeedDownloader {
 	}
 
 	private function work_directory(): string {
-		return trailingslashit( wp_upload_dir( null, false )['basedir'] ) . 'gtfs-timetables-import';
+		return trailingslashit( wp_upload_dir( null, false )['basedir'] ) . 'ptd-gtfs-schedules-import';
 	}
 
 	private function connect_filesystem(): bool {

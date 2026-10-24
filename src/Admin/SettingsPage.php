@@ -2,24 +2,24 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Admin;
+namespace PtdGtfsSchedules\Admin;
 
-use GtfsTimetables\FeedInfo;
-use GtfsTimetables\Import\Importer;
-use GtfsTimetables\Import\ImportState;
-use GtfsTimetables\Schedule\Stops;
-use GtfsTimetables\Settings;
+use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Import\Importer;
+use PtdGtfsSchedules\Import\ImportState;
+use PtdGtfsSchedules\Schedule\Stops;
+use PtdGtfsSchedules\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Settings → GTFS Timetables: feed settings, import status and a stop finder
+ * Settings → PTD GTFS Schedules: feed settings, import status and a stop finder
  * that gives editors ready-to-paste shortcodes.
  */
 final class SettingsPage {
 
-	private const SLUG         = 'gtfs-timetables';
-	private const SEARCH_PARAM = 'gtfs_stop_search';
+	private const SLUG         = 'ptd-gtfs-schedules';
+	private const SEARCH_PARAM = 'ptd_gtfs_stop_search';
 
 	public static function register(): void {
 		add_action( 'admin_menu', array( self::class, 'add_page' ) );
@@ -29,8 +29,8 @@ final class SettingsPage {
 
 	public static function add_page(): void {
 		add_options_page(
-			__( 'GTFS Timetables', 'gtfs-timetables' ),
-			__( 'GTFS Timetables', 'gtfs-timetables' ),
+			__( 'PTD GTFS Schedules', 'ptd-gtfs-schedules' ),
+			__( 'PTD GTFS Schedules', 'ptd-gtfs-schedules' ),
 			'manage_options',
 			self::SLUG,
 			array( self::class, 'render' )
@@ -51,10 +51,10 @@ final class SettingsPage {
 		}
 
 		wp_enqueue_script(
-			'gtfs-timetables-admin-import',
-			plugins_url( 'assets/js/admin-import.js', GTFS_TIMETABLES_FILE ),
+			'ptd-gtfs-schedules-admin-import',
+			plugins_url( 'assets/js/admin-import.js', PTD_GTFS_SCHEDULES_FILE ),
 			array(),
-			GTFS_TIMETABLES_VERSION,
+			PTD_GTFS_SCHEDULES_VERSION,
 			array( 'in_footer' => true )
 		);
 	}
@@ -65,7 +65,7 @@ final class SettingsPage {
 		}
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'GTFS Timetables', 'gtfs-timetables' ); ?></h1>
+			<h1><?php esc_html_e( 'PTD GTFS Schedules', 'ptd-gtfs-schedules' ); ?></h1>
 			<?php
 			self::render_settings_form();
 			self::render_import_panel();
@@ -82,28 +82,28 @@ final class SettingsPage {
 			<?php settings_fields( self::SLUG ); ?>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><label for="gtfs-feed-url"><?php esc_html_e( 'Feed URL', 'gtfs-timetables' ); ?></label></th>
+					<th scope="row"><label for="gtfs-feed-url"><?php esc_html_e( 'Feed URL', 'ptd-gtfs-schedules' ); ?></label></th>
 					<td>
 						<input type="url" id="gtfs-feed-url" class="large-text code" name="<?php echo esc_attr( $field( 'feed_url' ) ); ?>" value="<?php echo esc_attr( Settings::get( 'feed_url' ) ); ?>" placeholder="https://example.com/gtfs.zip">
-						<p class="description"><?php esc_html_e( 'Link to the GTFS .zip published by the transport operator.', 'gtfs-timetables' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Link to the GTFS .zip published by the transport operator.', 'ptd-gtfs-schedules' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="gtfs-refresh"><?php esc_html_e( 'Update automatically', 'gtfs-timetables' ); ?></label></th>
+					<th scope="row"><label for="gtfs-refresh"><?php esc_html_e( 'Update automatically', 'ptd-gtfs-schedules' ); ?></label></th>
 					<td>
 						<select id="gtfs-refresh" name="<?php echo esc_attr( $field( 'refresh_frequency' ) ); ?>">
 							<?php foreach ( Settings::refresh_frequencies() as $value => $label ) : ?>
 								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( Settings::get( 'refresh_frequency' ), $value ); ?>><?php echo esc_html( $label ); ?></option>
 							<?php endforeach; ?>
 						</select>
-						<p class="description"><?php esc_html_e( 'Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import', 'gtfs-timetables' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp ptd-gtfs-schedules import', 'ptd-gtfs-schedules' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="gtfs-attribution"><?php esc_html_e( 'Data source credit', 'gtfs-timetables' ); ?></label></th>
+					<th scope="row"><label for="gtfs-attribution"><?php esc_html_e( 'Data source credit', 'ptd-gtfs-schedules' ); ?></label></th>
 					<td>
 						<input type="text" id="gtfs-attribution" class="regular-text" name="<?php echo esc_attr( $field( 'attribution' ) ); ?>" value="<?php echo esc_attr( Settings::get( 'attribution' ) ); ?>">
-						<p class="description"><?php esc_html_e( 'Shown under timetables. Many open data licences require crediting the publisher, e.g. "Data: City transport authority, CC BY 4.0". Leave empty to show nothing.', 'gtfs-timetables' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Shown under timetables. Many open data licences require crediting the publisher, e.g. "Data: City transport authority, CC BY 4.0". Leave empty to show nothing.', 'ptd-gtfs-schedules' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -117,14 +117,14 @@ final class SettingsPage {
 		$state    = ImportState::load();
 		$feed     = FeedInfo::all();
 		?>
-		<h2><?php esc_html_e( 'Import', 'gtfs-timetables' ); ?></h2>
+		<h2><?php esc_html_e( 'Import', 'ptd-gtfs-schedules' ); ?></h2>
 
 		<?php if ( FeedInfo::is_loaded() ) : ?>
 			<p>
 				<?php
 				printf(
 					/* translators: 1: date and time, 2: time zone */
-					esc_html__( 'Current data imported %1$s. Feed time zone: %2$s.', 'gtfs-timetables' ),
+					esc_html__( 'Current data imported %1$s. Feed time zone: %2$s.', 'ptd-gtfs-schedules' ),
 					esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $feed['imported_at'] ) ),
 					esc_html( FeedInfo::timezone()->getName() )
 				);
@@ -133,7 +133,7 @@ final class SettingsPage {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $feed['uses_frequencies'] ) ) : ?>
-			<div class="notice notice-warning inline"><p><?php esc_html_e( 'This feed describes some trips with frequencies.txt ("every 10 minutes"). Those trips are not shown yet.', 'gtfs-timetables' ); ?></p></div>
+			<div class="notice notice-warning inline"><p><?php esc_html_e( 'This feed describes some trips with frequencies.txt ("every 10 minutes"). Those trips are not shown yet.', 'ptd-gtfs-schedules' ); ?></p></div>
 		<?php endif; ?>
 
 		<div
@@ -143,32 +143,32 @@ final class SettingsPage {
 			data-running="<?php echo $state->is_running() ? '1' : '0'; ?>"
 			data-max-upload-bytes="<?php echo esc_attr( (string) FeedUpload::max_bytes() ); ?>"
 			data-too-large-message="<?php echo esc_attr( FeedUpload::too_large_message() ); ?>"
-			data-uploading-message="<?php esc_attr_e( 'Uploading the file…', 'gtfs-timetables' ); ?>"
+			data-uploading-message="<?php esc_attr_e( 'Uploading the file…', 'ptd-gtfs-schedules' ); ?>"
 		>
 			<p>
-				<button type="button" class="button button-primary" data-gtfs-import-url <?php disabled( '' === Settings::get( 'feed_url' ) ); ?>><?php esc_html_e( 'Import from feed URL', 'gtfs-timetables' ); ?></button>
+				<button type="button" class="button button-primary" data-gtfs-import-url <?php disabled( '' === Settings::get( 'feed_url' ) ); ?>><?php esc_html_e( 'Import from feed URL', 'ptd-gtfs-schedules' ); ?></button>
 			</p>
 			<p>
 				<label>
-					<?php esc_html_e( 'Or upload a GTFS .zip file:', 'gtfs-timetables' ); ?>
+					<?php esc_html_e( 'Or upload a GTFS .zip file:', 'ptd-gtfs-schedules' ); ?>
 					<input type="file" accept=".zip,application/zip" name="<?php echo esc_attr( FeedUpload::FIELD ); ?>" data-gtfs-import-file>
 				</label>
-				<button type="button" class="button" data-gtfs-import-upload disabled><?php esc_html_e( 'Upload and import', 'gtfs-timetables' ); ?></button>
+				<button type="button" class="button" data-gtfs-import-upload disabled><?php esc_html_e( 'Upload and import', 'ptd-gtfs-schedules' ); ?></button>
 			</p>
 			<p class="description">
 				<?php
 				printf(
 					/* translators: %s: maximum upload size, e.g. "64 MB" */
-					esc_html__( 'Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip', 'gtfs-timetables' ),
+					esc_html__( 'Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip', 'ptd-gtfs-schedules' ),
 					esc_html( size_format( FeedUpload::max_bytes() ) )
 				);
 				?>
 				<?php if ( self::updates_automatically() ) : ?>
-					<br><?php esc_html_e( 'Automatic updates import from the feed URL and will replace data from an uploaded file.', 'gtfs-timetables' ); ?>
+					<br><?php esc_html_e( 'Automatic updates import from the feed URL and will replace data from an uploaded file.', 'ptd-gtfs-schedules' ); ?>
 				<?php endif; ?>
 			</p>
 			<p>
-				<label><input type="checkbox" data-gtfs-import-force> <?php esc_html_e( 'Re-import even if the feed has not changed', 'gtfs-timetables' ); ?></label>
+				<label><input type="checkbox" data-gtfs-import-force> <?php esc_html_e( 'Re-import even if the feed has not changed', 'ptd-gtfs-schedules' ); ?></label>
 			</p>
 			<p data-gtfs-import-status><?php echo esc_html( $importer->summary( $state ) ); ?></p>
 		</div>
@@ -183,24 +183,24 @@ final class SettingsPage {
 		$search = sanitize_text_field( wp_unslash( $_GET[ self::SEARCH_PARAM ] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search.
 		$stops  = ( '' !== $search && FeedInfo::is_loaded() ) ? ( new Stops() )->search( $search ) : array();
 		?>
-		<h2><?php esc_html_e( 'Find a stop', 'gtfs-timetables' ); ?></h2>
+		<h2><?php esc_html_e( 'Find a stop', 'ptd-gtfs-schedules' ); ?></h2>
 		<form method="get">
 			<input type="hidden" name="page" value="<?php echo esc_attr( self::SLUG ); ?>">
-			<input type="search" name="<?php echo esc_attr( self::SEARCH_PARAM ); ?>" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Stop name, code or id', 'gtfs-timetables' ); ?>">
-			<?php submit_button( __( 'Search', 'gtfs-timetables' ), 'secondary', '', false ); ?>
+			<input type="search" name="<?php echo esc_attr( self::SEARCH_PARAM ); ?>" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Stop name, code or id', 'ptd-gtfs-schedules' ); ?>">
+			<?php submit_button( __( 'Search', 'ptd-gtfs-schedules' ), 'secondary', '', false ); ?>
 		</form>
 
 		<?php if ( '' !== $search && ! $stops ) : ?>
-			<p><?php esc_html_e( 'No stops found.', 'gtfs-timetables' ); ?></p>
+			<p><?php esc_html_e( 'No stops found.', 'ptd-gtfs-schedules' ); ?></p>
 		<?php endif; ?>
 
 		<?php if ( $stops ) : ?>
 			<table class="widefat striped" style="margin-top:1em">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'Stop', 'gtfs-timetables' ); ?></th>
-						<th><?php esc_html_e( 'Code', 'gtfs-timetables' ); ?></th>
-						<th><?php esc_html_e( 'Shortcodes', 'gtfs-timetables' ); ?></th>
+						<th><?php esc_html_e( 'Stop', 'ptd-gtfs-schedules' ); ?></th>
+						<th><?php esc_html_e( 'Code', 'ptd-gtfs-schedules' ); ?></th>
+						<th><?php esc_html_e( 'Shortcodes', 'ptd-gtfs-schedules' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -209,13 +209,13 @@ final class SettingsPage {
 							<td>
 								<?php echo esc_html( $stop->stop_name ); ?>
 								<?php if ( 1 === (int) $stop->location_type ) : ?>
-									<em>(<?php esc_html_e( 'station, includes all its platforms', 'gtfs-timetables' ); ?>)</em>
+									<em>(<?php esc_html_e( 'station, includes all its platforms', 'ptd-gtfs-schedules' ); ?>)</em>
 								<?php endif; ?>
 							</td>
 							<td><?php echo esc_html( $stop->stop_code ); ?></td>
 							<td>
-								<code>[gtfs_departures stop="<?php echo esc_html( $stop->stop_id ); ?>"]</code><br>
-								<code>[gtfs_timetable stop="<?php echo esc_html( $stop->stop_id ); ?>"]</code>
+								<code>[ptd_gtfs_departures stop="<?php echo esc_html( $stop->stop_id ); ?>"]</code><br>
+								<code>[ptd_gtfs_timetable stop="<?php echo esc_html( $stop->stop_id ); ?>"]</code>
 							</td>
 						</tr>
 					<?php endforeach; ?>

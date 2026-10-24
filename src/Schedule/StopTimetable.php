@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Schedule;
+namespace PtdGtfsSchedules\Schedule;
 
 use DateTimeImmutable;
-use GtfsTimetables\Network\LineDirection;
+use PtdGtfsSchedules\Network\LineDirection;
 
 defined( 'ABSPATH' ) || exit;
 

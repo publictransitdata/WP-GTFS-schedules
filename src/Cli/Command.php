@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Cli;
+namespace PtdGtfsSchedules\Cli;
 
-use GtfsTimetables\FeedInfo;
-use GtfsTimetables\Import\ImportError;
-use GtfsTimetables\Import\Importer;
-use GtfsTimetables\Import\ImportLock;
-use GtfsTimetables\Import\ImportState;
+use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Import\ImportError;
+use PtdGtfsSchedules\Import\Importer;
+use PtdGtfsSchedules\Import\ImportLock;
+use PtdGtfsSchedules\Import\ImportState;
 use WP_CLI;
 
 defined( 'ABSPATH' ) || exit;
@@ -33,9 +33,9 @@ final class Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gtfs-timetables import
-	 *     wp gtfs-timetables import --force
-	 *     wp gtfs-timetables import --file=gtfs.zip
+	 *     wp ptd-gtfs-schedules import
+	 *     wp ptd-gtfs-schedules import --force
+	 *     wp ptd-gtfs-schedules import --file=gtfs.zip
 	 */
 	public function import( array $args, array $options ): void {
 		if ( ImportLock::is_held() ) {

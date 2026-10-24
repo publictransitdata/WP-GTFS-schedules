@@ -6,14 +6,14 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 require __DIR__ . '/src/autoload.php';
 
-use GtfsTimetables\Feed\FeedDownloader;
-use GtfsTimetables\FeedCache;
-use GtfsTimetables\FeedInfo;
-use GtfsTimetables\Import\ImportLock;
-use GtfsTimetables\Import\ImportScheduler;
-use GtfsTimetables\Import\ImportState;
-use GtfsTimetables\Schema;
-use GtfsTimetables\Settings;
+use PtdGtfsSchedules\Feed\FeedDownloader;
+use PtdGtfsSchedules\FeedCache;
+use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Import\ImportLock;
+use PtdGtfsSchedules\Import\ImportScheduler;
+use PtdGtfsSchedules\Import\ImportState;
+use PtdGtfsSchedules\Schema;
+use PtdGtfsSchedules\Settings;
 
 ImportScheduler::unschedule_all();
 ( new FeedDownloader() )->clean_up();

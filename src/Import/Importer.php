@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Import;
+namespace PtdGtfsSchedules\Import;
 
-use GtfsTimetables\Feed\CsvReader;
-use GtfsTimetables\Feed\FeedDownloader;
-use GtfsTimetables\Feed\FeedFile;
-use GtfsTimetables\Feed\FeedFormat;
-use GtfsTimetables\FeedCache;
-use GtfsTimetables\FeedInfo;
-use GtfsTimetables\Schema;
-use GtfsTimetables\Settings;
+use PtdGtfsSchedules\Feed\CsvReader;
+use PtdGtfsSchedules\Feed\FeedDownloader;
+use PtdGtfsSchedules\Feed\FeedFile;
+use PtdGtfsSchedules\Feed\FeedFormat;
+use PtdGtfsSchedules\FeedCache;
+use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Schema;
+use PtdGtfsSchedules\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -45,7 +45,7 @@ final class Importer {
 
 		if ( $state->archive !== $archive ) {
 			wp_delete_file( $archive );
-			throw new ImportError( esc_html__( 'Another import is running. Try again when it has finished.', 'gtfs-timetables' ) );
+			throw new ImportError( esc_html__( 'Another import is running. Try again when it has finished.', 'ptd-gtfs-schedules' ) );
 		}
 
 		return $state;
@@ -100,25 +100,25 @@ final class Importer {
 		switch ( $state->stage ) {
 			case ImportState::DOWNLOADING:
 				return $state->is_from_upload()
-					? __( 'Unpacking the feed…', 'gtfs-timetables' )
-					: __( 'Downloading the feed…', 'gtfs-timetables' );
+					? __( 'Unpacking the feed…', 'ptd-gtfs-schedules' )
+					: __( 'Downloading the feed…', 'ptd-gtfs-schedules' );
 
 			case ImportState::LOADING:
 				$file = FeedFormat::files()[ $state->file_index ] ?? null;
 				return $file ? sprintf(
 					/* translators: 1: file name, 2: percent done, 3: number of rows */
-					__( 'Importing %1$s: %2$d%% (%3$s rows so far)', 'gtfs-timetables' ),
+					__( 'Importing %1$s: %2$d%% (%3$s rows so far)', 'ptd-gtfs-schedules' ),
 					$file->name,
 					$this->percent_of_file_done( $file, $state ),
 					number_format_i18n( $state->rows[ $file->table ] ?? 0 )
-				) : __( 'Finishing…', 'gtfs-timetables' );
+				) : __( 'Finishing…', 'ptd-gtfs-schedules' );
 
 			case ImportState::DONE:
 			case ImportState::FAILED:
 				return $state->message;
 
 			default:
-				return __( 'No import has run yet.', 'gtfs-timetables' );
+				return __( 'No import has run yet.', 'ptd-gtfs-schedules' );
 		}
 	}
 
@@ -128,7 +128,7 @@ final class Importer {
 
 		if ( ! $state->forced && FeedInfo::version() === $version ) {
 			wp_delete_file( $archive );
-			$state->finish( __( 'The feed has not changed since the last import.', 'gtfs-timetables' ) );
+			$state->finish( __( 'The feed has not changed since the last import.', 'ptd-gtfs-schedules' ) );
 			return;
 		}
 
@@ -150,7 +150,7 @@ final class Importer {
 		$url = Settings::get( 'feed_url' );
 
 		if ( '' === $url ) {
-			throw new ImportError( esc_html__( 'Set the feed URL first.', 'gtfs-timetables' ) );
+			throw new ImportError( esc_html__( 'Set the feed URL first.', 'ptd-gtfs-schedules' ) );
 		}
 
 		return $this->downloader->download( $url );
@@ -211,7 +211,7 @@ final class Importer {
 
 	private function publish( ImportState $state ): void {
 		if ( empty( $state->rows['stop_times'] ) ) {
-			throw new ImportError( esc_html__( 'The feed has no usable stop times.', 'gtfs-timetables' ) );
+			throw new ImportError( esc_html__( 'The feed has no usable stop times.', 'ptd-gtfs-schedules' ) );
 		}
 
 		$timezone         = $this->feed_timezone();
@@ -235,14 +235,14 @@ final class Importer {
 		$state->finish(
 			sprintf(
 				/* translators: 1: number of stops, 2: number of trips, 3: number of stop times */
-				__( 'Import finished: %1$s stops, %2$s trips, %3$s stop times.', 'gtfs-timetables' ),
+				__( 'Import finished: %1$s stops, %2$s trips, %3$s stop times.', 'ptd-gtfs-schedules' ),
 				number_format_i18n( $state->rows['stops'] ?? 0 ),
 				number_format_i18n( $state->rows['trips'] ?? 0 ),
 				number_format_i18n( $state->rows['stop_times'] )
 			)
 		);
 
-		do_action( 'gtfs_timetables_imported', FeedInfo::all() );
+		do_action( 'ptd_gtfs_schedules_imported', FeedInfo::all() );
 	}
 
 	private function abandon( ImportState $state, string $reason ): void {

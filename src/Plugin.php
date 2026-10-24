@@ -2,17 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables;
+namespace PtdGtfsSchedules;
 
-use GtfsTimetables\Admin\ImportAjax;
-use GtfsTimetables\Admin\SettingsPage;
-use GtfsTimetables\Cli\Command;
-use GtfsTimetables\Frontend\Assets;
-use GtfsTimetables\Frontend\Blocks;
-use GtfsTimetables\Frontend\LinePage;
-use GtfsTimetables\Frontend\RestController;
-use GtfsTimetables\Frontend\Shortcodes;
-use GtfsTimetables\Import\ImportScheduler;
+use PtdGtfsSchedules\Admin\ImportAjax;
+use PtdGtfsSchedules\Admin\SettingsPage;
+use PtdGtfsSchedules\Cli\Command;
+use PtdGtfsSchedules\Frontend\Assets;
+use PtdGtfsSchedules\Frontend\Blocks;
+use PtdGtfsSchedules\Frontend\LinePage;
+use PtdGtfsSchedules\Frontend\RestController;
+use PtdGtfsSchedules\Frontend\Shortcodes;
+use PtdGtfsSchedules\Import\ImportScheduler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,12 +36,12 @@ final class Plugin {
 		}
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			\WP_CLI::add_command( 'gtfs-timetables', Command::class );
+			\WP_CLI::add_command( 'ptd-gtfs-schedules', Command::class );
 		}
 	}
 
 	public static function load_translations(): void {
-		load_plugin_textdomain( 'gtfs-timetables', false, dirname( plugin_basename( GTFS_TIMETABLES_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'ptd-gtfs-schedules', false, dirname( plugin_basename( PTD_GTFS_SCHEDULES_FILE ) ) . '/languages' );
 	}
 
 	public static function activate(): void {

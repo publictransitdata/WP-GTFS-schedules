@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
-use GtfsTimetables\Network\TransportMode;
+use PtdGtfsSchedules\Network\TransportMode;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * How a list of lines is shown, from the block's attributes or the [gtfs_lines] shortcode.
+ * How a list of lines is shown, from the block's attributes or the [ptd_gtfs_lines] shortcode.
  */
 final class LineListSettings {
 
@@ -40,7 +40,7 @@ final class LineListSettings {
 	}
 
 	/**
-	 * [gtfs_lines modes="tram,bus" layout="destinations" tabs="yes" night="mixed" heading="3"]
+	 * [ptd_gtfs_lines modes="tram,bus" layout="destinations" tabs="yes" night="mixed" heading="3"]
 	 */
 	public static function from_shortcode( array $attributes ): self {
 		return new self(

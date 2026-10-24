@@ -2,17 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
-use GtfsTimetables\Network\Line;
-use GtfsTimetables\Network\LineDirection;
-use GtfsTimetables\Network\Lines;
+use PtdGtfsSchedules\Network\Line;
+use PtdGtfsSchedules\Network\LineDirection;
+use PtdGtfsSchedules\Network\Lines;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * The page that shows one line, e.g. /timetable/?line=408. Lines blocks link to it on their own:
- * it is whichever published page holds the Line block (or [gtfs_line]), found again after every change to posts.
+ * it is whichever published page holds the Line block (or [ptd_gtfs_line]), found again after every change to posts.
  *
  * The link uses the feed's route_id: line numbers are not unique, and database ids change with every import.
  */
@@ -22,7 +22,7 @@ final class LinePage {
 
 	private const DIRECTION_ARG = 'direction';
 	private const STOP_ARG      = 'stop';
-	private const OPTION        = 'gtfs_timetables_line_page';
+	private const OPTION        = 'ptd_gtfs_schedules_line_page';
 
 	public static function register(): void {
 		foreach ( array( 'save_post', 'deleted_post', 'trashed_post', 'untrashed_post' ) as $hook ) {
@@ -50,7 +50,7 @@ final class LinePage {
 		 * @param string $url  Empty when the site has no line page.
 		 * @param Line   $line
 		 */
-		return (string) apply_filters( 'gtfs_timetables_line_url', $url, $line );
+		return (string) apply_filters( 'ptd_gtfs_schedules_line_url', $url, $line );
 	}
 
 	public static function requested_route_id(): string {
@@ -121,7 +121,7 @@ final class LinePage {
 
 	private static function line_title( Line $line ): string {
 		/* translators: %s: line name, e.g. "N8" */
-		return sprintf( __( 'Line %s', 'gtfs-timetables' ), $line->name() );
+		return sprintf( __( 'Line %s', 'ptd-gtfs-schedules' ), $line->name() );
 	}
 
 	private static function query_arg( string $name ): string {
@@ -140,7 +140,7 @@ final class LinePage {
 	}
 
 	/**
-	 * The oldest published page or post with the Line block or the [gtfs_line] shortcode.
+	 * The oldest published page or post with the Line block or the [ptd_gtfs_line] shortcode.
 	 */
 	private static function find_page(): int {
 		global $wpdb;
@@ -152,9 +152,9 @@ final class LinePage {
 					AND ( post_content LIKE %s OR post_content LIKE %s OR post_content LIKE %s )
 				ORDER BY ID LIMIT 1",
 				$wpdb->posts,
-				'%' . $wpdb->esc_like( '<!-- wp:gtfs-timetables/line ' ) . '%',
-				'%' . $wpdb->esc_like( '[gtfs_line]' ) . '%',
-				'%' . $wpdb->esc_like( '[gtfs_line ' ) . '%'
+				'%' . $wpdb->esc_like( '<!-- wp:ptd-gtfs-schedules/line ' ) . '%',
+				'%' . $wpdb->esc_like( '[ptd_gtfs_line]' ) . '%',
+				'%' . $wpdb->esc_like( '[ptd_gtfs_line ' ) . '%'
 			)
 		);
 	}

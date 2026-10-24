@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables;
+namespace PtdGtfsSchedules;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class FeedCache {
 
-	private const PREFIX = 'gtfs_tt_';
+	private const PREFIX = 'ptd_gtfs_cache_';
 
 	/**
 	 * @template T

@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Network\LineBranch;
-use GtfsTimetables\Network\LineDirection;
-use GtfsTimetables\Network\LineStop;
+use PtdGtfsSchedules\Network\LineBranch;
+use PtdGtfsSchedules\Network\LineDirection;
+use PtdGtfsSchedules\Network\LineStop;
 use PHPUnit\Framework\TestCase;
 
 final class LineBranchTest extends TestCase {

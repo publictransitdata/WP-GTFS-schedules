@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Network;
+namespace PtdGtfsSchedules\Network;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,14 +44,14 @@ enum TransportMode: string {
 	 */
 	public function line_label(): string {
 		return match ( $this ) {
-			self::Metro      => __( 'Metro line', 'gtfs-timetables' ),
-			self::Tram       => __( 'Tram line', 'gtfs-timetables' ),
-			self::Trolleybus => __( 'Trolleybus line', 'gtfs-timetables' ),
-			self::Bus        => __( 'Bus line', 'gtfs-timetables' ),
-			self::Rail       => __( 'Train line', 'gtfs-timetables' ),
-			self::Ferry      => __( 'Ferry line', 'gtfs-timetables' ),
-			self::Cable      => __( 'Cable car line', 'gtfs-timetables' ),
-			self::Other      => __( 'Transit line', 'gtfs-timetables' ),
+			self::Metro      => __( 'Metro line', 'ptd-gtfs-schedules' ),
+			self::Tram       => __( 'Tram line', 'ptd-gtfs-schedules' ),
+			self::Trolleybus => __( 'Trolleybus line', 'ptd-gtfs-schedules' ),
+			self::Bus        => __( 'Bus line', 'ptd-gtfs-schedules' ),
+			self::Rail       => __( 'Train line', 'ptd-gtfs-schedules' ),
+			self::Ferry      => __( 'Ferry line', 'ptd-gtfs-schedules' ),
+			self::Cable      => __( 'Cable car line', 'ptd-gtfs-schedules' ),
+			self::Other      => __( 'Transit line', 'ptd-gtfs-schedules' ),
 		};
 	}
 
@@ -60,14 +60,14 @@ enum TransportMode: string {
 	 */
 	public function label(): string {
 		return match ( $this ) {
-			self::Metro      => __( 'Metro', 'gtfs-timetables' ),
-			self::Tram       => __( 'Trams', 'gtfs-timetables' ),
-			self::Trolleybus => __( 'Trolleybuses', 'gtfs-timetables' ),
-			self::Bus        => __( 'Buses', 'gtfs-timetables' ),
-			self::Rail       => __( 'Trains', 'gtfs-timetables' ),
-			self::Ferry      => __( 'Ferries', 'gtfs-timetables' ),
-			self::Cable      => __( 'Cable cars and funiculars', 'gtfs-timetables' ),
-			self::Other      => __( 'Other lines', 'gtfs-timetables' ),
+			self::Metro      => __( 'Metro', 'ptd-gtfs-schedules' ),
+			self::Tram       => __( 'Trams', 'ptd-gtfs-schedules' ),
+			self::Trolleybus => __( 'Trolleybuses', 'ptd-gtfs-schedules' ),
+			self::Bus        => __( 'Buses', 'ptd-gtfs-schedules' ),
+			self::Rail       => __( 'Trains', 'ptd-gtfs-schedules' ),
+			self::Ferry      => __( 'Ferries', 'ptd-gtfs-schedules' ),
+			self::Cable      => __( 'Cable cars and funiculars', 'ptd-gtfs-schedules' ),
+			self::Other      => __( 'Other lines', 'ptd-gtfs-schedules' ),
 		};
 	}
 }

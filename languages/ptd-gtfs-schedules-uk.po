@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: GTFS Timetables 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtfs-timetables\n"
+"Project-Id-Version: PTD GTFS Schedules\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ptd-gtfs-schedules\n"
 "Last-Translator: PUBLICTRANSITDATA.NET\n"
 "Language-Team: Ukrainian\n"
 "MIME-Version: 1.0\n"
@@ -12,23 +12,23 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: gtfs-timetables\n"
+"X-Domain: ptd-gtfs-schedules\n"
 
 #. Plugin Name of the plugin
-#: gtfs-timetables.php:3
+#: ptd-gtfs-schedules.php:3
 #: src/Admin/SettingsPage.php:32
 #: src/Admin/SettingsPage.php:33
 #: src/Admin/SettingsPage.php:68
-msgid "GTFS Timetables"
-msgstr "Розклади GTFS"
+msgid "PTD GTFS Schedules"
+msgstr "PTD GTFS Schedules"
 
 #. Description of the plugin
-#: gtfs-timetables.php:4
+#: ptd-gtfs-schedules.php:4
 msgid "Shows public transport schedules from a GTFS feed."
 msgstr "Відображає розклади громадського транспорту з фіду GTFS."
 
 #. Author of the plugin
-#: gtfs-timetables.php:8
+#: ptd-gtfs-schedules.php:8
 msgid "PUBLICTRANSITDATA.NET"
 msgstr "PUBLICTRANSITDATA.NET"
 
@@ -69,8 +69,8 @@ msgid "Update automatically"
 msgstr "Оновлювати автоматично"
 
 #: src/Admin/SettingsPage.php:99
-msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import"
-msgstr "Запускається вночі через WP-Cron. На сайтах із невеликою відвідуваністю налаштуйте справжнє завдання cron для wp-cron.php або використовуйте WP-CLI: wp gtfs-timetables import"
+msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp ptd-gtfs-schedules import"
+msgstr "Запускається вночі через WP-Cron. На сайтах із невеликою відвідуваністю налаштуйте справжнє завдання cron для wp-cron.php або використовуйте WP-CLI: wp ptd-gtfs-schedules import"
 
 #: src/Admin/SettingsPage.php:103
 msgid "Data source credit"
@@ -113,8 +113,8 @@ msgstr "Завантажити й імпортувати"
 #. translators: %s: maximum upload size, e.g. "64 MB"
 #: src/Admin/SettingsPage.php:162
 #, php-format
-msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip"
-msgstr "Максимальний розмір файлу: %s. Для більших фідів використовуйте посилання або WP-CLI: wp gtfs-timetables import --file=feed.zip"
+msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
+msgstr "Максимальний розмір файлу: %s. Для більших фідів використовуйте посилання або WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
 
 #: src/Admin/SettingsPage.php:167
 msgid "Automatic updates import from the feed URL and will replace data from an uploaded file."
@@ -193,12 +193,12 @@ msgstr "Маршрут %s"
 #: src/Frontend/Renderer.php:71
 #: src/Frontend/Renderer.php:111
 #: src/Frontend/Renderer.php:184
-msgid "GTFS Timetables: no feed has been imported yet."
-msgstr "Розклади GTFS: фід ще не імпортовано."
+msgid "PTD GTFS Schedules: no feed has been imported yet."
+msgstr "PTD GTFS Schedules: фід ще не імпортовано."
 
 #: src/Frontend/Renderer.php:77
-msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
-msgstr "Розклади GTFS: у фіді немає ліній вибраних видів транспорту."
+msgid "PTD GTFS Schedules: the feed has no lines of the chosen transport modes."
+msgstr "PTD GTFS Schedules: у фіді немає ліній вибраних видів транспорту."
 
 #: src/Frontend/Renderer.php:124
 msgid "This line is not in the current timetable. Choose a line:"
@@ -207,8 +207,8 @@ msgstr "Цієї лінії немає в чинному розкладі. Ви�
 #. translators: %s: stop id
 #: src/Frontend/Renderer.php:191
 #, php-format
-msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
-msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
+msgid "PTD GTFS Schedules: there is no stop with id \"%s\" in the feed."
+msgstr "PTD GTFS Schedules: у фіді немає зупинки з ID «%s»."
 
 #. translators: 1: table name, 2: database error
 #: src/Import/BatchInsert.php:54

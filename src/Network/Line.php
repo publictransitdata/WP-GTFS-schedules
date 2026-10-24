@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Network;
+namespace PtdGtfsSchedules\Network;
 
-use GtfsTimetables\Schedule\RouteBadge;
+use PtdGtfsSchedules\Schedule\RouteBadge;
 
 defined( 'ABSPATH' ) || exit;
 

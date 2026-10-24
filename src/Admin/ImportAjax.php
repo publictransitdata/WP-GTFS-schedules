@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Admin;
+namespace PtdGtfsSchedules\Admin;
 
-use GtfsTimetables\Import\ImportError;
-use GtfsTimetables\Import\Importer;
-use GtfsTimetables\Import\ImportState;
+use PtdGtfsSchedules\Import\ImportError;
+use PtdGtfsSchedules\Import\Importer;
+use PtdGtfsSchedules\Import\ImportState;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,12 +16,12 @@ defined( 'ABSPATH' ) || exit;
  */
 final class ImportAjax {
 
-	public const NONCE_ACTION = 'gtfs_timetables_import';
+	public const NONCE_ACTION = 'ptd_gtfs_schedules_import';
 
 	public static function register(): void {
-		add_action( 'wp_ajax_gtfs_timetables_import_start', array( self::class, 'start' ) );
-		add_action( 'wp_ajax_gtfs_timetables_import_step', array( self::class, 'step' ) );
-		add_action( 'wp_ajax_gtfs_timetables_import_upload', array( self::class, 'upload' ) );
+		add_action( 'wp_ajax_ptd_gtfs_schedules_import_start', array( self::class, 'start' ) );
+		add_action( 'wp_ajax_ptd_gtfs_schedules_import_step', array( self::class, 'step' ) );
+		add_action( 'wp_ajax_ptd_gtfs_schedules_import_upload', array( self::class, 'upload' ) );
 	}
 
 	public static function start(): void {
@@ -66,7 +66,7 @@ final class ImportAjax {
 		check_ajax_referer( self::NONCE_ACTION );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to import feeds.', 'gtfs-timetables' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to import feeds.', 'ptd-gtfs-schedules' ) ), 403 );
 		}
 	}
 

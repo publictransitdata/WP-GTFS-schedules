@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "gtfs-timetables/line",
+	"name": "ptd-gtfs-schedules/line",
 	"title": "Line timetable",
 	"category": "widgets",
 	"icon": "calendar-alt",
 	"description": "The line a visitor chose in a Lines block. Put it on one page: every Lines block on the site links there.",
 	"keywords": [ "route", "timetable", "GTFS" ],
-	"textdomain": "gtfs-timetables",
+	"textdomain": "ptd-gtfs-schedules",
 	"supports": {
 		"html": false,
 		"multiple": false,
@@ -18,5 +18,5 @@
 		}
 	},
 	"editorScript": "file:./editor.js",
-	"style": "gtfs-timetables"
+	"style": "ptd-gtfs-schedules"
 }

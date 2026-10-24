@@ -5,7 +5,7 @@ parameters:
 	level: 6
 	phpVersion: 80100
 	paths:
-		- gtfs-timetables.php
+		- ptd-gtfs-schedules.php
 		- uninstall.php
 		- src
 		- templates

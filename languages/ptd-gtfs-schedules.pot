@@ -2,8 +2,8 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTFS Timetables\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtfs-timetables\n"
+"Project-Id-Version: PTD GTFS Schedules\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ptd-gtfs-schedules\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,23 +12,23 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: gtfs-timetables\n"
+"X-Domain: ptd-gtfs-schedules\n"
 
 #. Plugin Name of the plugin
-#: gtfs-timetables.php:3
+#: ptd-gtfs-schedules.php:3
 #: src/Admin/SettingsPage.php:32
 #: src/Admin/SettingsPage.php:33
 #: src/Admin/SettingsPage.php:68
-msgid "GTFS Timetables"
+msgid "PTD GTFS Schedules"
 msgstr ""
 
 #. Description of the plugin
-#: gtfs-timetables.php:4
+#: ptd-gtfs-schedules.php:4
 msgid "Shows public transport schedules from a GTFS feed."
 msgstr ""
 
 #. Author of the plugin
-#: gtfs-timetables.php:8
+#: ptd-gtfs-schedules.php:8
 msgid "PUBLICTRANSITDATA.NET"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgid "Update automatically"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:99
-msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp gtfs-timetables import"
+msgid "Runs at night through WP-Cron. On sites with little traffic, set up a real cron job for wp-cron.php or use WP-CLI: wp ptd-gtfs-schedules import"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:103
@@ -113,7 +113,7 @@ msgstr ""
 #. translators: %s: maximum upload size, e.g. "64 MB"
 #: src/Admin/SettingsPage.php:162
 #, php-format
-msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp gtfs-timetables import --file=feed.zip"
+msgid "Maximum file size: %s. For larger feeds use the feed URL or WP-CLI: wp ptd-gtfs-schedules import --file=feed.zip"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:167
@@ -193,11 +193,11 @@ msgstr ""
 #: src/Frontend/Renderer.php:71
 #: src/Frontend/Renderer.php:111
 #: src/Frontend/Renderer.php:184
-msgid "GTFS Timetables: no feed has been imported yet."
+msgid "PTD GTFS Schedules: no feed has been imported yet."
 msgstr ""
 
 #: src/Frontend/Renderer.php:77
-msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
+msgid "PTD GTFS Schedules: the feed has no lines of the chosen transport modes."
 msgstr ""
 
 #: src/Frontend/Renderer.php:124
@@ -207,7 +207,7 @@ msgstr ""
 #. translators: %s: stop id
 #: src/Frontend/Renderer.php:191
 #, php-format
-msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
+msgid "PTD GTFS Schedules: there is no stop with id \"%s\" in the feed."
 msgstr ""
 
 #. translators: 1: table name, 2: database error

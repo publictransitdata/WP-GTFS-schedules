@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Feed;
+namespace PtdGtfsSchedules\Feed;
 
-use GtfsTimetables\Import\ImportError;
-use GtfsTimetables\Schedule\GtfsTime;
+use PtdGtfsSchedules\Import\ImportError;
+use PtdGtfsSchedules\Schedule\GtfsTime;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -128,7 +128,7 @@ final class FeedFormat {
 
 		if ( $missing ) {
 			/* translators: %s: comma-separated list of file names */
-			throw new ImportError( esc_html( sprintf( __( 'The feed is missing required files: %s', 'gtfs-timetables' ), implode( ', ', $missing ) ) ) );
+			throw new ImportError( esc_html( sprintf( __( 'The feed is missing required files: %s', 'ptd-gtfs-schedules' ), implode( ', ', $missing ) ) ) );
 		}
 	}
 

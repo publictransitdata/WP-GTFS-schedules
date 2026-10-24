@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Network\Line;
-use GtfsTimetables\Network\TransportMode;
-use GtfsTimetables\Schedule\RouteBadge;
+use PtdGtfsSchedules\Network\Line;
+use PtdGtfsSchedules\Network\TransportMode;
+use PtdGtfsSchedules\Schedule\RouteBadge;
 use PHPUnit\Framework\TestCase;
 
 final class LineTest extends TestCase {

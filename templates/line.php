@@ -9,16 +9,16 @@
  * route-map.js draws the lines of the diagram from the classes of .gtfs-route-map and the position
  * of each .gtfs-route-map__dot; without it, the stylesheet draws simpler lines.
  *
- * Copy to your-theme/gtfs-timetables/line.php to customise.
+ * Copy to your-theme/ptd-gtfs-schedules/line.php to customise.
  *
  * @var array $args {
- *     @type \GtfsTimetables\Network\Line                    $line
- *     @type \GtfsTimetables\Network\LineDirection[]         $directions
- *     @type \GtfsTimetables\Network\LineDirection|null      $direction          The chosen one.
- *     @type \GtfsTimetables\Network\LineStop|null           $stop               The chosen stop.
+ *     @type \PtdGtfsSchedules\Network\Line                    $line
+ *     @type \PtdGtfsSchedules\Network\LineDirection[]         $directions
+ *     @type \PtdGtfsSchedules\Network\LineDirection|null      $direction          The chosen one.
+ *     @type \PtdGtfsSchedules\Network\LineStop|null           $stop               The chosen stop.
  *     @type DateTimeImmutable                               $date               The day the timetable shows.
  *     @type DateTimeImmutable                               $now
- *     @type \GtfsTimetables\Schedule\MarkedTimetable|null   $timetable          Null at the last stop.
+ *     @type \PtdGtfsSchedules\Schedule\MarkedTimetable|null   $timetable          Null at the last stop.
  *     @type callable                                        $direction_url      Position in $directions => address.
  *     @type callable                                        $stop_url           Stop id => address.
  *     @type callable                                        $day_url            DateTimeImmutable => address.
@@ -27,9 +27,9 @@
  * }
  */
 
-use GtfsTimetables\Frontend\Icons;
-use GtfsTimetables\Network\LineBranch;
-use GtfsTimetables\Network\LineStop;
+use PtdGtfsSchedules\Frontend\Icons;
+use PtdGtfsSchedules\Network\LineBranch;
+use PtdGtfsSchedules\Network\LineStop;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -70,29 +70,29 @@ $stop_item = function ( LineStop $route_stop, ?int $position = null, bool $branc
 	</span>
 	<?php
 	if ( $direction->stops_on_request_at( $stop_id ) ) {
-		$note( 'request', __( 'on request', 'gtfs-timetables' ) );
+		$note( 'request', __( 'on request', 'ptd-gtfs-schedules' ) );
 	}
 
 	// Stops where nobody gets on or off are left off the diagram altogether (LineDirections::describe()).
 	if ( ! $can_board && ! $is_last ) {
-		$note( 'alight', __( 'getting off only', 'gtfs-timetables' ) );
+		$note( 'alight', __( 'getting off only', 'ptd-gtfs-schedules' ) );
 	} elseif ( ! $can_alight && ! $is_first ) {
-		$note( 'board', __( 'getting on only', 'gtfs-timetables' ) );
+		$note( 'board', __( 'getting on only', 'ptd-gtfs-schedules' ) );
 	}
 
 	if ( null !== $position && $direction->is_partial_at( $position ) && ( $is_first || $is_last ) ) {
-		$note( 'turn-back', $is_first ? __( 'not every trip starts here', 'gtfs-timetables' ) : __( 'not every trip goes this far', 'gtfs-timetables' ) );
+		$note( 'turn-back', $is_first ? __( 'not every trip starts here', 'ptd-gtfs-schedules' ) : __( 'not every trip goes this far', 'ptd-gtfs-schedules' ) );
 	}
 
 	$starts_here = $branch_start || ( null !== $position && in_array( $position, $direction->starts_late_at, true ) );
 	$ends_here   = null === $position ? $is_last : in_array( $position, $direction->ends_early_at, true );
 
 	if ( $starts_here ) {
-		$note( 'turn-back', __( 'some trips start here', 'gtfs-timetables' ) );
+		$note( 'turn-back', __( 'some trips start here', 'ptd-gtfs-schedules' ) );
 	}
 
 	if ( $ends_here ) {
-		$note( 'turn-back', __( 'some trips end here', 'gtfs-timetables' ) );
+		$note( 'turn-back', __( 'some trips end here', 'ptd-gtfs-schedules' ) );
 	}
 };
 
@@ -106,21 +106,21 @@ $branch = function ( LineBranch $branch ) use ( $direction, $stop_item ): void {
 	$caption   = match ( $kind ) {
 		LineBranch::DETOUR        => sprintf(
 			/* translators: %s: stop where the trips are back on the usual route */
-			__( 'Some trips go this way and are back on the route at %s', 'gtfs-timetables' ),
+			__( 'Some trips go this way and are back on the route at %s', 'ptd-gtfs-schedules' ),
 			$direction->stops[ (int) $branch->rejoins_at ]->name
 		),
 		LineBranch::ENDS          => sprintf(
 			/* translators: %s: stop off the usual route where the trips end */
-			__( 'Some trips leave the route here and end at %s', 'gtfs-timetables' ),
+			__( 'Some trips leave the route here and end at %s', 'ptd-gtfs-schedules' ),
 			$last_stop->name
 		),
 		LineBranch::JOINS         => sprintf(
 			/* translators: %s: stop on the usual route where the trips join it */
-			__( 'Some trips start elsewhere and join the route at %s', 'gtfs-timetables' ),
+			__( 'Some trips start elsewhere and join the route at %s', 'ptd-gtfs-schedules' ),
 			$direction->stops[ (int) $branch->rejoins_at ]->name
 		),
-		LineBranch::CONTINUES     => __( 'Some trips carry on to', 'gtfs-timetables' ),
-		default                   => __( 'Some trips start further away, at', 'gtfs-timetables' ),
+		LineBranch::CONTINUES     => __( 'Some trips carry on to', 'ptd-gtfs-schedules' ),
+		default                   => __( 'Some trips start further away, at', 'ptd-gtfs-schedules' ),
 	};
 	?>
 	<div class="gtfs-route-map__branch is-<?php echo esc_attr( $kind ); ?>">
@@ -173,16 +173,16 @@ $line_classes = function ( int $position ) use ( $direction, $last_position, $so
 	</header>
 
 	<?php if ( null === $direction ) : ?>
-		<p class="gtfs-notice"><?php esc_html_e( 'This line has no trips in the current timetable.', 'gtfs-timetables' ); ?></p>
+		<p class="gtfs-notice"><?php esc_html_e( 'This line has no trips in the current timetable.', 'ptd-gtfs-schedules' ); ?></p>
 		<?php echo $args['attribution']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in Templates::data_attribution(). ?>
 	<?php else : ?>
-		<nav class="gtfs-line__directions" aria-label="<?php esc_attr_e( 'Directions', 'gtfs-timetables' ); ?>">
+		<nav class="gtfs-line__directions" aria-label="<?php esc_attr_e( 'Directions', 'ptd-gtfs-schedules' ); ?>">
 			<?php foreach ( $args['directions'] as $position => $option ) : ?>
 				<a class="gtfs-line__direction" href="<?php echo esc_url( $args['direction_url']( $position ) ); ?>" <?php echo $option === $direction ? 'aria-current="page"' : ''; ?>>
 					<span class="gtfs-visually-hidden">
 						<?php
 						/* translators: %s: where the line goes, e.g. "Jelitkowo" */
-						echo esc_html( sprintf( __( 'Towards %s', 'gtfs-timetables' ), $option->headsign ) );
+						echo esc_html( sprintf( __( 'Towards %s', 'ptd-gtfs-schedules' ), $option->headsign ) );
 						?>
 					</span>
 					<span aria-hidden="true"><?php echo Icons::svg( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?> <?php echo esc_html( $option->headsign ); ?></span>
@@ -194,12 +194,12 @@ $line_classes = function ( int $position ) use ( $direction, $last_position, $so
 			<div class="gtfs-line__route">
 				<?php if ( $direction->partial_at || $direction->branches ) : ?>
 					<ul class="gtfs-route-map__legend" aria-hidden="true">
-						<li class="is-every-trip"><?php esc_html_e( 'every trip', 'gtfs-timetables' ); ?></li>
-						<li class="is-some-trips"><?php esc_html_e( 'some trips only', 'gtfs-timetables' ); ?></li>
+						<li class="is-every-trip"><?php esc_html_e( 'every trip', 'ptd-gtfs-schedules' ); ?></li>
+						<li class="is-some-trips"><?php esc_html_e( 'some trips only', 'ptd-gtfs-schedules' ); ?></li>
 					</ul>
 				<?php endif; ?>
 
-				<ol class="gtfs-route-map" aria-label="<?php esc_attr_e( 'Stops', 'gtfs-timetables' ); ?>">
+				<ol class="gtfs-route-map" aria-label="<?php esc_attr_e( 'Stops', 'ptd-gtfs-schedules' ); ?>">
 					<?php foreach ( $direction->branches_joining_at( 0 ) as $starting ) : ?>
 						<li class="gtfs-route-map__extension"><?php $branch( $starting ); ?></li>
 					<?php endforeach; ?>
@@ -230,25 +230,25 @@ $line_classes = function ( int $position ) use ( $direction, $last_position, $so
 				</ol>
 			</div>
 
-			<section class="gtfs-line-timetable" data-gtfs-timetable aria-label="<?php esc_attr_e( 'Timetable', 'gtfs-timetables' ); ?>">
+			<section class="gtfs-line-timetable" data-gtfs-timetable aria-label="<?php esc_attr_e( 'Timetable', 'ptd-gtfs-schedules' ); ?>">
 				<h3 class="gtfs-line-timetable__stop"><?php echo esc_html( $stop ? $stop->name : '' ); ?></h3>
 
-				<nav class="gtfs-line-timetable__days" aria-label="<?php esc_attr_e( 'Choose a day', 'gtfs-timetables' ); ?>">
-					<a href="<?php echo esc_url( $args['day_url']( $args['date']->modify( '-1 day' ) ) ); ?>" rel="nofollow"><?php echo Icons::svg( 'arrow', 'gtfs-icon--back' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?> <?php esc_html_e( 'Previous day', 'gtfs-timetables' ); ?></a>
+				<nav class="gtfs-line-timetable__days" aria-label="<?php esc_attr_e( 'Choose a day', 'ptd-gtfs-schedules' ); ?>">
+					<a href="<?php echo esc_url( $args['day_url']( $args['date']->modify( '-1 day' ) ) ); ?>" rel="nofollow"><?php echo Icons::svg( 'arrow', 'gtfs-icon--back' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?> <?php esc_html_e( 'Previous day', 'ptd-gtfs-schedules' ); ?></a>
 					<strong><?php echo esc_html( wp_date( get_option( 'date_format' ), $args['date']->getTimestamp(), $args['date']->getTimezone() ) ); ?></strong>
-					<a href="<?php echo esc_url( $args['day_url']( $args['date']->modify( '+1 day' ) ) ); ?>" rel="nofollow"><?php esc_html_e( 'Next day', 'gtfs-timetables' ); ?> <?php echo Icons::svg( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?></a>
+					<a href="<?php echo esc_url( $args['day_url']( $args['date']->modify( '+1 day' ) ) ); ?>" rel="nofollow"><?php esc_html_e( 'Next day', 'ptd-gtfs-schedules' ); ?> <?php echo Icons::svg( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG markup. ?></a>
 				</nav>
 
 				<?php if ( null === $timetable && $stop && $direction->ends_at( $stop->stop_id ) ) : ?>
-					<p class="gtfs-notice"><?php esc_html_e( 'This is the last stop of the line in this direction, so it has no departures.', 'gtfs-timetables' ); ?></p>
+					<p class="gtfs-notice"><?php esc_html_e( 'This is the last stop of the line in this direction, so it has no departures.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php elseif ( null === $timetable ) : ?>
-					<p class="gtfs-notice"><?php esc_html_e( 'Riders cannot get on this line at this stop, so it has no departures.', 'gtfs-timetables' ); ?></p>
+					<p class="gtfs-notice"><?php esc_html_e( 'Riders cannot get on this line at this stop, so it has no departures.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php elseif ( $timetable->is_empty() ) : ?>
-					<p class="gtfs-notice"><?php esc_html_e( 'No departures on this day.', 'gtfs-timetables' ); ?></p>
+					<p class="gtfs-notice"><?php esc_html_e( 'No departures on this day.', 'ptd-gtfs-schedules' ); ?></p>
 				<?php else : ?>
 					<?php $next = $timetable->next_departure( $args['now'] ); ?>
 					<p class="gtfs-line-timetable__next" data-gtfs-next-departure <?php echo $next ? '' : 'hidden'; ?>>
-						<?php esc_html_e( 'Next departure:', 'gtfs-timetables' ); ?>
+						<?php esc_html_e( 'Next departure:', 'ptd-gtfs-schedules' ); ?>
 						<strong><?php echo esc_html( $next ? $next->time->format( 'H:i' ) : '' ); ?></strong>
 					</p>
 

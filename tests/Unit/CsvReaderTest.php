@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Feed\CsvReader;
-use GtfsTimetables\Import\ImportError;
+use PtdGtfsSchedules\Feed\CsvReader;
+use PtdGtfsSchedules\Import\ImportError;
 use PHPUnit\Framework\TestCase;
 
 final class CsvReaderTest extends TestCase {

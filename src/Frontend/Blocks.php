@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
-use GtfsTimetables\Network\Lines;
-use GtfsTimetables\Network\TransportMode;
+use PtdGtfsSchedules\Network\Lines;
+use PtdGtfsSchedules\Network\TransportMode;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,22 +15,22 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Blocks {
 
-	private const LINES = 'gtfs-timetables/lines';
-	private const LINE  = 'gtfs-timetables/line';
+	private const LINES = 'ptd-gtfs-schedules/lines';
+	private const LINE  = 'ptd-gtfs-schedules/line';
 
 	public static function register(): void {
 		register_block_type(
-			GTFS_TIMETABLES_DIR . '/blocks/lines',
+			PTD_GTFS_SCHEDULES_DIR . '/blocks/lines',
 			array( 'render_callback' => array( self::class, 'render_lines' ) )
 		);
 
 		register_block_type(
-			GTFS_TIMETABLES_DIR . '/blocks/line',
+			PTD_GTFS_SCHEDULES_DIR . '/blocks/line',
 			array( 'render_callback' => array( self::class, 'render_line' ) )
 		);
 
 		foreach ( array( self::LINES, self::LINE ) as $block ) {
-			wp_set_script_translations( self::editor_script( $block ), 'gtfs-timetables', GTFS_TIMETABLES_DIR . '/languages' );
+			wp_set_script_translations( self::editor_script( $block ), 'ptd-gtfs-schedules', PTD_GTFS_SCHEDULES_DIR . '/languages' );
 		}
 	}
 
@@ -56,7 +56,7 @@ final class Blocks {
 
 		wp_add_inline_script(
 			self::editor_script( self::LINES ),
-			'window.gtfsTimetablesEditor = ' . wp_json_encode( array( 'modes' => $modes ) ) . ';',
+			'window.ptdGtfsSchedulesEditor = ' . wp_json_encode( array( 'modes' => $modes ) ) . ';',
 			'before'
 		);
 	}

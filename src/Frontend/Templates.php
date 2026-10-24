@@ -2,22 +2,22 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Frontend;
+namespace PtdGtfsSchedules\Frontend;
 
-use GtfsTimetables\Settings;
+use PtdGtfsSchedules\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 final class Templates {
 
 	/**
-	 * Themes can override a template by copying it to "gtfs-timetables/{name}.php" in the theme.
+	 * Themes can override a template by copying it to "ptd-gtfs-schedules/{name}.php" in the theme.
 	 */
 	public static function render( string $name, array $args ): string {
-		$path = locate_template( "gtfs-timetables/{$name}.php" );
+		$path = locate_template( "ptd-gtfs-schedules/{$name}.php" );
 
 		if ( '' === $path ) {
-			$path = GTFS_TIMETABLES_DIR . "/templates/{$name}.php";
+			$path = PTD_GTFS_SCHEDULES_DIR . "/templates/{$name}.php";
 		}
 
 		ob_start();

@@ -8,7 +8,7 @@
 	const { InspectorControls, useBlockProps } = blockEditor;
 	const { PanelBody } = components;
 
-	blocks.registerBlockType( 'gtfs-timetables/line', {
+	blocks.registerBlockType( 'ptd-gtfs-schedules/line', {
 		edit() {
 			return el(
 				'div',
@@ -18,12 +18,12 @@
 					null,
 					el(
 						PanelBody,
-						{ title: __( 'How this page works', 'gtfs-timetables' ) },
-						el( 'p', null, __( 'Every Lines block on the site links to the page with this block, adding the chosen line to the address.', 'gtfs-timetables' ) ),
-						el( 'p', null, __( 'The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines.', 'gtfs-timetables' ) )
+						{ title: __( 'How this page works', 'ptd-gtfs-schedules' ) },
+						el( 'p', null, __( 'Every Lines block on the site links to the page with this block, adding the chosen line to the address.', 'ptd-gtfs-schedules' ) ),
+						el( 'p', null, __( 'The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines.', 'ptd-gtfs-schedules' ) )
 					)
 				),
-				el( ServerSideRender, { block: 'gtfs-timetables/line' } )
+				el( ServerSideRender, { block: 'ptd-gtfs-schedules/line' } )
 			);
 		},
 	} );

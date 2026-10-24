@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2026 PUBLICTRANSITDATA.NET
 
-namespace GtfsTimetables\Tests\Unit;
+namespace PtdGtfsSchedules\Tests\Unit;
 
-use GtfsTimetables\Network\LineDirection;
-use GtfsTimetables\Network\LineDirections;
+use PtdGtfsSchedules\Network\LineDirection;
+use PtdGtfsSchedules\Network\LineDirections;
 use PHPUnit\Framework\TestCase;
 
 final class LineDirectionsTest extends TestCase {
