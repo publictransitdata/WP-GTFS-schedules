@@ -19,7 +19,7 @@ final class Schema {
 	public const STAGING = 'gtfs_next_';
 	public const RETIRED = 'gtfs_old_';
 
-	private const VERSION        = '3';
+	private const VERSION        = '4';
 	private const VERSION_OPTION = 'gtfs_timetables_db_version';
 
 	public static function table( string $name, string $set = self::LIVE ): string {
@@ -80,6 +80,7 @@ final class Schema {
 		self::drop( self::LIVE );
 		self::create( self::LIVE );
 		FeedInfo::clear();
+		FeedCache::forget_all();
 		self::remember_version();
 	}
 
@@ -146,6 +147,7 @@ final class Schema {
 				stop_id VARCHAR(100) NOT NULL,
 				departure_secs MEDIUMINT UNSIGNED NOT NULL,
 				pickup_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
+				drop_off_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
 				stop_headsign VARCHAR(255) NOT NULL DEFAULT '',
 				PRIMARY KEY (id),
 				KEY stop_departure (stop_id, departure_secs),
