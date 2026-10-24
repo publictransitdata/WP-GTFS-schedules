@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-23T20:55:33+00:00\n"
+"PO-Revision-Date: 2026-10-24T07:02:08+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -185,27 +185,27 @@ msgid "The feed is missing required files: %s"
 msgstr "У фіді бракує обов'язкових файлів: %s"
 
 #. translators: %s: line name, e.g. "N8"
-#: src/Frontend/LinePage.php:94
+#: src/Frontend/LinePage.php:124
 #, php-format
 msgid "Line %s"
 msgstr "Лінія %s"
 
-#: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:109
-#: src/Frontend/Renderer.php:164
+#: src/Frontend/Renderer.php:71
+#: src/Frontend/Renderer.php:111
+#: src/Frontend/Renderer.php:178
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr "Розклади GTFS: фід ще не імпортовано."
 
-#: src/Frontend/Renderer.php:76
+#: src/Frontend/Renderer.php:77
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr "Розклади GTFS: у фіді немає ліній вибраних видів транспорту."
 
-#: src/Frontend/Renderer.php:122
+#: src/Frontend/Renderer.php:124
 msgid "This line is not in the current timetable. Choose a line:"
 msgstr "Цієї лінії немає в чинному розкладі. Виберіть лінію:"
 
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:171
+#: src/Frontend/Renderer.php:185
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
@@ -264,35 +264,67 @@ msgstr "Імпорт завершено. Зупинок: %1$s, рейсів: %2$
 msgid "Night lines"
 msgstr "Нічні лінії"
 
-#: src/Network/TransportMode.php:44
+#: src/Network/TransportMode.php:47
+msgid "Metro line"
+msgstr "Лінія метро"
+
+#: src/Network/TransportMode.php:48
+msgid "Tram line"
+msgstr "Трамвайна лінія"
+
+#: src/Network/TransportMode.php:49
+msgid "Trolleybus line"
+msgstr "Тролейбусна лінія"
+
+#: src/Network/TransportMode.php:50
+msgid "Bus line"
+msgstr "Автобусна лінія"
+
+#: src/Network/TransportMode.php:51
+msgid "Train line"
+msgstr "Залізнична лінія"
+
+#: src/Network/TransportMode.php:52
+msgid "Ferry line"
+msgstr "Поромна лінія"
+
+#: src/Network/TransportMode.php:53
+msgid "Cable car line"
+msgstr "Канатна дорога"
+
+#: src/Network/TransportMode.php:54
+msgid "Transit line"
+msgstr "Лінія"
+
+#: src/Network/TransportMode.php:63
 msgid "Metro"
 msgstr "Метро"
 
-#: src/Network/TransportMode.php:45
+#: src/Network/TransportMode.php:64
 msgid "Trams"
 msgstr "Трамваї"
 
-#: src/Network/TransportMode.php:46
+#: src/Network/TransportMode.php:65
 msgid "Trolleybuses"
 msgstr "Тролейбуси"
 
-#: src/Network/TransportMode.php:47
+#: src/Network/TransportMode.php:66
 msgid "Buses"
 msgstr "Автобуси"
 
-#: src/Network/TransportMode.php:48
+#: src/Network/TransportMode.php:67
 msgid "Trains"
 msgstr "Поїзди"
 
-#: src/Network/TransportMode.php:49
+#: src/Network/TransportMode.php:68
 msgid "Ferries"
 msgstr "Пороми"
 
-#: src/Network/TransportMode.php:50
+#: src/Network/TransportMode.php:69
 msgid "Cable cars and funiculars"
 msgstr "Канатні дороги й фунікулери"
 
-#: src/Network/TransportMode.php:51
+#: src/Network/TransportMode.php:70
 msgid "Other lines"
 msgstr "Інші лінії"
 
@@ -336,6 +368,28 @@ msgstr "Напрямок"
 #: templates/departures.php:32
 msgid "Departs"
 msgstr "Відправлення"
+
+#: templates/line.php:38
+msgid "This line has no trips in the current timetable."
+msgstr "У чинному розкладі ця лінія не має рейсів."
+
+#: templates/line.php:41
+msgid "Directions"
+msgstr "Напрямки"
+
+#. translators: %s: where the line goes, e.g. "Jelitkowo"
+#: templates/line.php:46
+#, php-format
+msgid "Towards %s"
+msgstr "У напрямку %s"
+
+#: templates/line.php:53
+msgid "Stops"
+msgstr "Зупинки"
+
+#: templates/line.php:70
+msgid "This is the last stop of the line in this direction, so it has no departures."
+msgstr "Це кінцева зупинка лінії в цьому напрямку, тож відправлень з неї немає."
 
 #: templates/timetable.php:25
 msgid "Choose a day"

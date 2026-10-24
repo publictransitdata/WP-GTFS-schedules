@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-23T20:55:33+00:00\n"
+"PO-Revision-Date: 2026-10-24T07:02:08+00:00\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -185,27 +185,27 @@ msgid "The feed is missing required files: %s"
 msgstr "W feedzie brakuje wymaganych plików: %s"
 
 #. translators: %s: line name, e.g. "N8"
-#: src/Frontend/LinePage.php:94
+#: src/Frontend/LinePage.php:124
 #, php-format
 msgid "Line %s"
 msgstr "Linia %s"
 
-#: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:109
-#: src/Frontend/Renderer.php:164
+#: src/Frontend/Renderer.php:71
+#: src/Frontend/Renderer.php:111
+#: src/Frontend/Renderer.php:178
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr "Rozkłady jazdy GTFS: nie zaimportowano jeszcze żadnego feedu."
 
-#: src/Frontend/Renderer.php:76
+#: src/Frontend/Renderer.php:77
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr "Rozkłady jazdy GTFS: w feedzie nie ma linii wybranych środków transportu."
 
-#: src/Frontend/Renderer.php:122
+#: src/Frontend/Renderer.php:124
 msgid "This line is not in the current timetable. Choose a line:"
 msgstr "Tej linii nie ma w obowiązującym rozkładzie. Wybierz linię:"
 
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:171
+#: src/Frontend/Renderer.php:185
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr "Rozkłady jazdy GTFS: w feedzie nie ma przystanku o ID „%s”."
@@ -264,35 +264,67 @@ msgstr "Import zakończony. Przystanki: %1$s, kursy: %2$s, godziny odjazdów: %3
 msgid "Night lines"
 msgstr "Linie nocne"
 
-#: src/Network/TransportMode.php:44
+#: src/Network/TransportMode.php:47
+msgid "Metro line"
+msgstr "Linia metra"
+
+#: src/Network/TransportMode.php:48
+msgid "Tram line"
+msgstr "Linia tramwajowa"
+
+#: src/Network/TransportMode.php:49
+msgid "Trolleybus line"
+msgstr "Linia trolejbusowa"
+
+#: src/Network/TransportMode.php:50
+msgid "Bus line"
+msgstr "Linia autobusowa"
+
+#: src/Network/TransportMode.php:51
+msgid "Train line"
+msgstr "Linia kolejowa"
+
+#: src/Network/TransportMode.php:52
+msgid "Ferry line"
+msgstr "Linia promowa"
+
+#: src/Network/TransportMode.php:53
+msgid "Cable car line"
+msgstr "Kolej linowa"
+
+#: src/Network/TransportMode.php:54
+msgid "Transit line"
+msgstr "Linia"
+
+#: src/Network/TransportMode.php:63
 msgid "Metro"
 msgstr "Metro"
 
-#: src/Network/TransportMode.php:45
+#: src/Network/TransportMode.php:64
 msgid "Trams"
 msgstr "Tramwaje"
 
-#: src/Network/TransportMode.php:46
+#: src/Network/TransportMode.php:65
 msgid "Trolleybuses"
 msgstr "Trolejbusy"
 
-#: src/Network/TransportMode.php:47
+#: src/Network/TransportMode.php:66
 msgid "Buses"
 msgstr "Autobusy"
 
-#: src/Network/TransportMode.php:48
+#: src/Network/TransportMode.php:67
 msgid "Trains"
 msgstr "Pociągi"
 
-#: src/Network/TransportMode.php:49
+#: src/Network/TransportMode.php:68
 msgid "Ferries"
 msgstr "Promy"
 
-#: src/Network/TransportMode.php:50
+#: src/Network/TransportMode.php:69
 msgid "Cable cars and funiculars"
 msgstr "Koleje linowe i linowo-terenowe"
 
-#: src/Network/TransportMode.php:51
+#: src/Network/TransportMode.php:70
 msgid "Other lines"
 msgstr "Inne linie"
 
@@ -336,6 +368,28 @@ msgstr "Kierunek"
 #: templates/departures.php:32
 msgid "Departs"
 msgstr "Odjazd"
+
+#: templates/line.php:38
+msgid "This line has no trips in the current timetable."
+msgstr "W obowiązującym rozkładzie ta linia nie ma kursów."
+
+#: templates/line.php:41
+msgid "Directions"
+msgstr "Kierunki"
+
+#. translators: %s: where the line goes, e.g. "Jelitkowo"
+#: templates/line.php:46
+#, php-format
+msgid "Towards %s"
+msgstr "Kierunek: %s"
+
+#: templates/line.php:53
+msgid "Stops"
+msgstr "Przystanki"
+
+#: templates/line.php:70
+msgid "This is the last stop of the line in this direction, so it has no departures."
+msgstr "To przystanek końcowy linii w tym kierunku, więc nie ma z niego odjazdów."
 
 #: templates/timetable.php:25
 msgid "Choose a day"
