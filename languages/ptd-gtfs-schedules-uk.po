@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-24T12:28:12+00:00\n"
+"PO-Revision-Date: 2026-10-24T12:43:10+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -149,7 +149,7 @@ msgstr "Завантаження файлу…"
 
 #: src/Admin/SettingsPage.php:249
 msgid "Import from feed URL"
-msgstr "Імпортувати за посиланням"
+msgstr "Імпортувати з посилання"
 
 #: src/Admin/SettingsPage.php:253
 msgid "Or upload a GTFS .zip file:"
