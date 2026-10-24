@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-23T20:24:00+00:00\n"
+"PO-Revision-Date: 2026-10-23T20:55:33+00:00\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -184,8 +184,15 @@ msgstr "Nie udało się rozpakować feedu: %s"
 msgid "The feed is missing required files: %s"
 msgstr "W feedzie brakuje wymaganych plików: %s"
 
+#. translators: %s: line name, e.g. "N8"
+#: src/Frontend/LinePage.php:94
+#, php-format
+msgid "Line %s"
+msgstr "Linia %s"
+
 #: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:119
+#: src/Frontend/Renderer.php:109
+#: src/Frontend/Renderer.php:164
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr "Rozkłady jazdy GTFS: nie zaimportowano jeszcze żadnego feedu."
 
@@ -193,8 +200,12 @@ msgstr "Rozkłady jazdy GTFS: nie zaimportowano jeszcze żadnego feedu."
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr "Rozkłady jazdy GTFS: w feedzie nie ma linii wybranych środków transportu."
 
+#: src/Frontend/Renderer.php:122
+msgid "This line is not in the current timetable. Choose a line:"
+msgstr "Tej linii nie ma w obowiązującym rozkładzie. Wybierz linię:"
+
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:126
+#: src/Frontend/Renderer.php:171
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr "Rozkłady jazdy GTFS: w feedzie nie ma przystanku o ID „%s”."
@@ -249,7 +260,7 @@ msgstr "Feed nie zawiera użytecznych godzin odjazdów."
 msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
 msgstr "Import zakończony. Przystanki: %1$s, kursy: %2$s, godziny odjazdów: %3$s."
 
-#: src/Network/Lines.php:50
+#: src/Network/Lines.php:60
 msgid "Night lines"
 msgstr "Linie nocne"
 
@@ -342,6 +353,18 @@ msgstr "Następny dzień"
 msgid "No departures on this day."
 msgstr "Brak odjazdów w tym dniu."
 
+#: blocks/line/editor.js:21
+msgid "How this page works"
+msgstr "Jak działa ta strona"
+
+#: blocks/line/editor.js:22
+msgid "Every Lines block on the site links to the page with this block, adding the chosen line to the address."
+msgstr "Każdy blok „Linie” w witrynie prowadzi do strony z tym blokiem i dodaje wybraną linię do adresu."
+
+#: blocks/line/editor.js:23
+msgid "The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines."
+msgstr "Podgląd pokazuje pierwszą linię z feedu. Gdy w adresie nie ma linii, odwiedzający widzą listę wszystkich linii."
+
 #: blocks/lines/editor.js:18
 msgid "Display"
 msgstr "Wygląd"
@@ -382,6 +405,33 @@ msgstr "Środki transportu"
 msgid "Tick the modes to show. With none ticked, the block shows them all."
 msgstr "Zaznacz środki transportu do pokazania. Jeśli nic nie zaznaczysz, blok pokaże wszystkie."
 
+#: blocks/line/block.json
+msgctxt "block title"
+msgid "Line timetable"
+msgstr "Rozkład linii"
+
+#: blocks/line/block.json
+msgctxt "block description"
+msgid "The line a visitor chose in a Lines block. Put it on one page: every Lines block on the site links there."
+msgstr "Linia wybrana przez odwiedzającego w bloku „Linie”. Umieść go na jednej stronie: wszystkie bloki „Linie” w witrynie prowadzą właśnie tam."
+
+#: blocks/line/block.json
+msgctxt "block keyword"
+msgid "route"
+msgstr "trasa"
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "timetable"
+msgstr "rozkład jazdy"
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "GTFS"
+msgstr "GTFS"
+
 #: blocks/lines/block.json
 msgctxt "block title"
 msgid "Lines"
@@ -401,13 +451,3 @@ msgstr "trasy"
 msgctxt "block keyword"
 msgid "network"
 msgstr "sieć"
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "timetable"
-msgstr "rozkład jazdy"
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "GTFS"
-msgstr "GTFS"

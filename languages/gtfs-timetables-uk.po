@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-23T20:24:00+00:00\n"
+"PO-Revision-Date: 2026-10-23T20:55:33+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -184,8 +184,15 @@ msgstr "Не вдалося розпакувати фід: %s"
 msgid "The feed is missing required files: %s"
 msgstr "У фіді бракує обов'язкових файлів: %s"
 
+#. translators: %s: line name, e.g. "N8"
+#: src/Frontend/LinePage.php:94
+#, php-format
+msgid "Line %s"
+msgstr "Лінія %s"
+
 #: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:119
+#: src/Frontend/Renderer.php:109
+#: src/Frontend/Renderer.php:164
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr "Розклади GTFS: фід ще не імпортовано."
 
@@ -193,8 +200,12 @@ msgstr "Розклади GTFS: фід ще не імпортовано."
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr "Розклади GTFS: у фіді немає ліній вибраних видів транспорту."
 
+#: src/Frontend/Renderer.php:122
+msgid "This line is not in the current timetable. Choose a line:"
+msgstr "Цієї лінії немає в чинному розкладі. Виберіть лінію:"
+
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:126
+#: src/Frontend/Renderer.php:171
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr "Розклади GTFS: у фіді немає зупинки з ID «%s»."
@@ -249,7 +260,7 @@ msgstr "У фіді немає придатних часів відправле�
 msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
 msgstr "Імпорт завершено. Зупинок: %1$s, рейсів: %2$s, відправлень: %3$s."
 
-#: src/Network/Lines.php:50
+#: src/Network/Lines.php:60
 msgid "Night lines"
 msgstr "Нічні лінії"
 
@@ -342,6 +353,18 @@ msgstr "Наступний день"
 msgid "No departures on this day."
 msgstr "Цього дня відправлень немає."
 
+#: blocks/line/editor.js:21
+msgid "How this page works"
+msgstr "Як працює ця сторінка"
+
+#: blocks/line/editor.js:22
+msgid "Every Lines block on the site links to the page with this block, adding the chosen line to the address."
+msgstr "Кожен блок «Лінії» на сайті веде на сторінку з цим блоком і додає до адреси вибрану лінію."
+
+#: blocks/line/editor.js:23
+msgid "The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines."
+msgstr "У попередньому перегляді показано першу лінію фіду. Якщо в адресі немає лінії, відвідувачі бачать список усіх ліній."
+
 #: blocks/lines/editor.js:18
 msgid "Display"
 msgstr "Вигляд"
@@ -382,6 +405,33 @@ msgstr "Види транспорту"
 msgid "Tick the modes to show. With none ticked, the block shows them all."
 msgstr "Позначте види транспорту, які треба показати. Якщо нічого не позначено, блок показує всі."
 
+#: blocks/line/block.json
+msgctxt "block title"
+msgid "Line timetable"
+msgstr "Розклад лінії"
+
+#: blocks/line/block.json
+msgctxt "block description"
+msgid "The line a visitor chose in a Lines block. Put it on one page: every Lines block on the site links there."
+msgstr "Лінія, яку відвідувач вибрав у блоці «Лінії». Додайте його на одну сторінку: усі блоки «Лінії» на сайті ведуть туди."
+
+#: blocks/line/block.json
+msgctxt "block keyword"
+msgid "route"
+msgstr "маршрут"
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "timetable"
+msgstr "розклад"
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "GTFS"
+msgstr "GTFS"
+
 #: blocks/lines/block.json
 msgctxt "block title"
 msgid "Lines"
@@ -401,13 +451,3 @@ msgstr "маршрути"
 msgctxt "block keyword"
 msgid "network"
 msgstr "мережа"
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "timetable"
-msgstr "розклад"
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "GTFS"
-msgstr "GTFS"

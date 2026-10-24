@@ -184,8 +184,15 @@ msgstr ""
 msgid "The feed is missing required files: %s"
 msgstr ""
 
+#. translators: %s: line name, e.g. "N8"
+#: src/Frontend/LinePage.php:94
+#, php-format
+msgid "Line %s"
+msgstr ""
+
 #: src/Frontend/Renderer.php:70
-#: src/Frontend/Renderer.php:119
+#: src/Frontend/Renderer.php:109
+#: src/Frontend/Renderer.php:164
 msgid "GTFS Timetables: no feed has been imported yet."
 msgstr ""
 
@@ -193,8 +200,12 @@ msgstr ""
 msgid "GTFS Timetables: the feed has no lines of the chosen transport modes."
 msgstr ""
 
+#: src/Frontend/Renderer.php:122
+msgid "This line is not in the current timetable. Choose a line:"
+msgstr ""
+
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:126
+#: src/Frontend/Renderer.php:171
 #, php-format
 msgid "GTFS Timetables: there is no stop with id \"%s\" in the feed."
 msgstr ""
@@ -249,7 +260,7 @@ msgstr ""
 msgid "Import finished: %1$s stops, %2$s trips, %3$s stop times."
 msgstr ""
 
-#: src/Network/Lines.php:50
+#: src/Network/Lines.php:60
 msgid "Night lines"
 msgstr ""
 
@@ -341,6 +352,18 @@ msgstr ""
 msgid "No departures on this day."
 msgstr ""
 
+#: blocks/line/editor.js:21
+msgid "How this page works"
+msgstr ""
+
+#: blocks/line/editor.js:22
+msgid "Every Lines block on the site links to the page with this block, adding the chosen line to the address."
+msgstr ""
+
+#: blocks/line/editor.js:23
+msgid "The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines."
+msgstr ""
+
 #: blocks/lines/editor.js:18
 msgid "Display"
 msgstr ""
@@ -381,6 +404,33 @@ msgstr ""
 msgid "Tick the modes to show. With none ticked, the block shows them all."
 msgstr ""
 
+#: blocks/line/block.json
+msgctxt "block title"
+msgid "Line timetable"
+msgstr ""
+
+#: blocks/line/block.json
+msgctxt "block description"
+msgid "The line a visitor chose in a Lines block. Put it on one page: every Lines block on the site links there."
+msgstr ""
+
+#: blocks/line/block.json
+msgctxt "block keyword"
+msgid "route"
+msgstr ""
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "timetable"
+msgstr ""
+
+#: blocks/line/block.json
+#: blocks/lines/block.json
+msgctxt "block keyword"
+msgid "GTFS"
+msgstr ""
+
 #: blocks/lines/block.json
 msgctxt "block title"
 msgid "Lines"
@@ -399,14 +449,4 @@ msgstr ""
 #: blocks/lines/block.json
 msgctxt "block keyword"
 msgid "network"
-msgstr ""
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "timetable"
-msgstr ""
-
-#: blocks/lines/block.json
-msgctxt "block keyword"
-msgid "GTFS"
 msgstr ""

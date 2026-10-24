@@ -1,0 +1,24 @@
+{
+    "translation-revision-date": "2026-10-23T20:55:33+00:00",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "blocks\/line\/editor.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "pl_PL",
+                "plural-forms": "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "How this page works": [
+                "Jak dzia\u0142a ta strona"
+            ],
+            "Every Lines block on the site links to the page with this block, adding the chosen line to the address.": [
+                "Ka\u017cdy blok \u201eLinie\u201d w witrynie prowadzi do strony z tym blokiem i dodaje wybran\u0105 lini\u0119 do adresu."
+            ],
+            "The preview shows the first line of the feed. Without a line in the address, visitors see the list of all lines.": [
+                "Podgl\u0105d pokazuje pierwsz\u0105 lini\u0119 z feedu. Gdy w adresie nie ma linii, odwiedzaj\u0105cy widz\u0105 list\u0119 wszystkich linii."
+            ]
+        }
+    }
+}
