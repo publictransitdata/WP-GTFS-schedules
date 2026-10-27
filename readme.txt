@@ -4,7 +4,7 @@ Tags: public transport, timetable, schedules, gtfs, transit
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,7 +98,7 @@ Departure boards update themselves through the site's own REST API; nothing is r
 
 == Changelog ==
 
-= 0.3.1 =
+= 0.3.2 =
 * First public release.
 
 == Credits ==

@@ -13,3 +13,9 @@
 /vendor export-ignore
 /README.md export-ignore
 /.wordpress-org export-ignore
+
+# WordPress.org delivers translations from translate.wordpress.org; the release ships only the template.
+/languages/*.po export-ignore
+/languages/*.mo export-ignore
+/languages/*.l10n.php export-ignore
+/languages/*.json export-ignore

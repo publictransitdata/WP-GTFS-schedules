@@ -130,6 +130,23 @@ final class FeedFormatTest extends TestCase {
 		$this->assertSame( 0, $service['sunday'] );
 	}
 
+	public function test_only_the_files_we_read_are_unpacked_from_the_archive(): void {
+		$this->assertTrue( FeedFormat::is_read_file( 'stops.txt' ) );
+		$this->assertTrue( FeedFormat::is_read_file( 'frequencies.txt' ) );
+		$this->assertTrue( FeedFormat::is_read_file( 'gtfs/stop_times.txt' ) );
+
+		$this->assertFalse( FeedFormat::is_read_file( 'shapes.txt' ) );
+		$this->assertFalse( FeedFormat::is_read_file( 'stops.php' ) );
+		$this->assertFalse( FeedFormat::is_read_file( 'gtfs/' ) );
+	}
+
+	public function test_files_outside_the_archive_folder_are_not_unpacked(): void {
+		$this->assertFalse( FeedFormat::is_read_file( '../stops.txt' ) );
+		$this->assertFalse( FeedFormat::is_read_file( '/stops.txt' ) );
+		$this->assertFalse( FeedFormat::is_read_file( 'a/b/stops.txt' ) );
+		$this->assertFalse( FeedFormat::is_read_file( '..\\stops.txt' ) );
+	}
+
 	private function import_row( string $file_name, array $csv_row ): array {
 		$file = $this->feed_file( $file_name );
 
