@@ -106,7 +106,7 @@ final class LinePage {
 	public static function page_heading( string $title, int $post_id = 0 ): string {
 		$line = in_the_loop() || is_singular() ? self::shown_line( $post_id ) : null;
 
-		return $line ? self::line_title( $line ) : $title;
+		return $line ? esc_html( self::line_title( $line ) ) : $title;
 	}
 
 	private static function shown_line( int $post_id ): ?Line {
