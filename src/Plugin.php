@@ -22,7 +22,6 @@ final class Plugin {
 		Schema::upgrade_if_needed();
 		ImportScheduler::register();
 
-		add_action( 'init', array( self::class, 'load_translations' ) );
 		add_action( 'init', array( Assets::class, 'register' ) );
 		add_action( 'init', array( Shortcodes::class, 'register' ) );
 		add_action( 'init', array( Blocks::class, 'register' ) );
@@ -38,10 +37,6 @@ final class Plugin {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			\WP_CLI::add_command( 'ptd-gtfs-schedules', Command::class );
 		}
-	}
-
-	public static function load_translations(): void {
-		load_plugin_textdomain( 'ptd-gtfs-schedules', false, dirname( plugin_basename( PTD_GTFS_SCHEDULES_FILE ) ) . '/languages' );
 	}
 
 	public static function activate(): void {

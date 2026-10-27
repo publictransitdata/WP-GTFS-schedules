@@ -30,7 +30,7 @@ final class Blocks {
 		);
 
 		foreach ( array( self::LINES, self::LINE ) as $block ) {
-			wp_set_script_translations( self::editor_script( $block ), 'ptd-gtfs-schedules', PTD_GTFS_SCHEDULES_DIR . '/languages' );
+			wp_set_script_translations( self::editor_script( $block ), 'ptd-gtfs-schedules' );
 		}
 	}
 
