@@ -56,6 +56,7 @@ msgid "The upload failed (PHP error %d)."
 msgstr ""
 
 #: src/Admin/FeedUpload.php:109
+#: src/Feed/FeedDownloader.php:67
 msgid "The file is not a .zip archive. A GTFS feed is published as a .zip of .txt files."
 msgstr ""
 
@@ -255,23 +256,27 @@ msgid "%s has no header row."
 msgstr ""
 
 #. translators: %s: error message
-#: src/Feed/FeedDownloader.php:26
+#: src/Feed/FeedDownloader.php:27
 #, php-format
 msgid "Could not download the feed: %s"
 msgstr ""
 
-#: src/Feed/FeedDownloader.php:44
+#: src/Feed/FeedDownloader.php:61
+msgid "the PHP zip extension is not installed"
+msgstr ""
+
+#: src/Feed/FeedDownloader.php:84
 msgid "filesystem is not writable"
 msgstr ""
 
 #. translators: %s: error message
-#: src/Feed/FeedDownloader.php:46
+#: src/Feed/FeedDownloader.php:93
 #, php-format
 msgid "Could not unpack the feed: %s"
 msgstr ""
 
 #. translators: %s: comma-separated list of file names
-#: src/Feed/FeedFormat.php:131
+#: src/Feed/FeedFormat.php:132
 #, php-format
 msgid "The feed is missing required files: %s"
 msgstr ""

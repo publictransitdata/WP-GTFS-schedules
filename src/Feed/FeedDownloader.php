@@ -5,6 +5,7 @@
 namespace PtdGtfsSchedules\Feed;
 
 use PtdGtfsSchedules\Import\ImportError;
+use ZipArchive;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,17 +35,10 @@ final class FeedDownloader {
 	 * @throws ImportError When the archive is broken or the uploads folder is not writable.
 	 */
 	public function extract( string $archive ): string {
-		$this->load_file_api();
 		$this->clean_up();
 
 		$target = $this->work_directory();
-		$result = $this->connect_filesystem() ? unzip_file( $archive, $target ) : false;
-
-		if ( true !== $result ) {
-			$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'filesystem is not writable', 'ptd-gtfs-schedules' );
-			/* translators: %s: error message */
-			throw new ImportError( esc_html( sprintf( __( 'Could not unpack the feed: %s', 'ptd-gtfs-schedules' ), $reason ) ) );
-		}
+		$this->unzip_read_files( $archive, $target );
 
 		return FeedFormat::locate_root( $target );
 	}
@@ -57,6 +51,46 @@ final class FeedDownloader {
 		if ( is_dir( $directory ) && $this->connect_filesystem() ) {
 			$wp_filesystem->delete( $directory, true );
 		}
+	}
+
+	/**
+	 * @throws ImportError When the archive cannot be opened or written out.
+	 */
+	private function unzip_read_files( string $archive, string $target ): void {
+		if ( ! class_exists( ZipArchive::class ) ) {
+			self::fail_to_unpack( __( 'the PHP zip extension is not installed', 'ptd-gtfs-schedules' ) );
+		}
+
+		$zip = new ZipArchive();
+
+		if ( true !== $zip->open( $archive ) ) {
+			self::fail_to_unpack( __( 'The file is not a .zip archive. A GTFS feed is published as a .zip of .txt files.', 'ptd-gtfs-schedules' ) );
+		}
+
+		$entries = array();
+		$count   = $zip->count();
+		for ( $index = 0; $index < $count; $index++ ) {
+			$name = (string) $zip->getNameIndex( $index );
+
+			if ( FeedFormat::is_read_file( $name ) ) {
+				$entries[] = $name;
+			}
+		}
+
+		$extracted = ! $entries || $zip->extractTo( $target, $entries );
+		$zip->close();
+
+		if ( ! $extracted ) {
+			self::fail_to_unpack( __( 'filesystem is not writable', 'ptd-gtfs-schedules' ) );
+		}
+	}
+
+	/**
+	 * @throws ImportError Always.
+	 */
+	private static function fail_to_unpack( string $reason ): never {
+		/* translators: %s: error message */
+		throw new ImportError( esc_html( sprintf( __( 'Could not unpack the feed: %s', 'ptd-gtfs-schedules' ), $reason ) ) );
 	}
 
 	private function work_directory(): string {

@@ -18,6 +18,7 @@ final class FeedFormat {
 
 	private const REQUIRED_FILES = array( 'agency.txt', 'stops.txt', 'routes.txt', 'trips.txt', 'stop_times.txt' );
 	private const CALENDAR_FILES = array( 'calendar.txt', 'calendar_dates.txt' );
+	private const FREQUENCIES    = 'frequencies.txt';
 
 	/**
 	 * @return FeedFile[] In import order.
@@ -145,8 +146,19 @@ final class FeedFormat {
 		return $nested ? dirname( $nested[0] ) : $directory;
 	}
 
+	/**
+	 * Whether an archive entry is a file we read, at the top of the archive or in one folder (see locate_root()).
+	 * Nothing else is unpacked: an archive can hold anything, including scripts.
+	 */
+	public static function is_read_file( string $entry ): bool {
+		$names   = array_map( fn( FeedFile $file ) => $file->name, self::files() );
+		$names[] = self::FREQUENCIES;
+
+		return 1 === preg_match( '#^(?:[^/\\\\.][^/\\\\]*/)?([^/\\\\]+)$#', $entry, $match ) && in_array( $match[1], $names, true );
+	}
+
 	public static function uses_frequencies( string $directory ): bool {
-		$path = "{$directory}/frequencies.txt";
+		$path = "{$directory}/" . self::FREQUENCIES;
 
 		return is_readable( $path ) && null !== ( new CsvReader( $path ) )->next_row();
 	}

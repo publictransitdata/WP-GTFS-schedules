@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-24T12:43:10+00:00\n"
+"PO-Revision-Date: 2026-10-27T20:46:57+00:00\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -56,6 +56,7 @@ msgid "The upload failed (PHP error %d)."
 msgstr "Przesyłanie nie powiodło się (błąd PHP %d)."
 
 #: src/Admin/FeedUpload.php:109
+#: src/Feed/FeedDownloader.php:67
 msgid "The file is not a .zip archive. A GTFS feed is published as a .zip of .txt files."
 msgstr "Plik nie jest archiwum .zip. Feed GTFS jest publikowany jako archiwum .zip z plikami .txt."
 
@@ -255,23 +256,27 @@ msgid "%s has no header row."
 msgstr "Plik %s nie ma wiersza nagłówka."
 
 #. translators: %s: error message
-#: src/Feed/FeedDownloader.php:26
+#: src/Feed/FeedDownloader.php:27
 #, php-format
 msgid "Could not download the feed: %s"
 msgstr "Nie udało się pobrać feedu: %s"
 
-#: src/Feed/FeedDownloader.php:44
+#: src/Feed/FeedDownloader.php:61
+msgid "the PHP zip extension is not installed"
+msgstr "rozszerzenie PHP zip nie jest zainstalowane"
+
+#: src/Feed/FeedDownloader.php:84
 msgid "filesystem is not writable"
 msgstr "brak uprawnień do zapisu w systemie plików"
 
 #. translators: %s: error message
-#: src/Feed/FeedDownloader.php:46
+#: src/Feed/FeedDownloader.php:93
 #, php-format
 msgid "Could not unpack the feed: %s"
 msgstr "Nie udało się rozpakować feedu: %s"
 
 #. translators: %s: comma-separated list of file names
-#: src/Feed/FeedFormat.php:131
+#: src/Feed/FeedFormat.php:132
 #, php-format
 msgid "The feed is missing required files: %s"
 msgstr "W feedzie brakuje wymaganych plików: %s"
