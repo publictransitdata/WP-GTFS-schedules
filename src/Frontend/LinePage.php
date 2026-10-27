@@ -94,7 +94,7 @@ final class LinePage {
 		$line = is_singular() ? self::shown_line( get_queried_object_id() ) : null;
 
 		if ( $line ) {
-			$parts['title'] = self::line_title( $line );
+			$parts['title'] = esc_html( self::line_title( $line ) );
 		}
 
 		return $parts;
