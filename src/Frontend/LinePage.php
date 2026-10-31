@@ -22,6 +22,11 @@ final class LinePage {
 
 	public const QUERY_ARG = 'line';
 
+	/**
+	 * The id of the rider's stop in a trip, so the browser scrolls to it.
+	 */
+	public const TRIP_STOP_ANCHOR = 'gtfs-trip-from';
+
 	private const DIRECTION_ARG = 'direction';
 	private const STOP_ARG      = 'stop';
 	private const TRIP_ARG      = 'trip';
@@ -72,6 +77,8 @@ final class LinePage {
 				self::STOP_ARG             => $stop_id,
 			)
 		);
+
+		$url = '' === $url ? '' : $url . '#' . self::TRIP_STOP_ANCHOR;
 
 		/**
 		 * Filters the address of a trip, for sites with their own routing.

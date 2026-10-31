@@ -600,6 +600,134 @@
 	margin: 0;
 }
 
+
+.gtfs-trip {
+	--gtfs-time-width: 5em;
+	--gtfs-marker-width: 2em;
+	--gtfs-line-width: 3px;
+	--gtfs-line-colour: color-mix(in srgb, currentColor 45%, var(--wp--preset--color--base, #fff));
+	--gtfs-dot-y: 1.05em;
+	font-variant-numeric: tabular-nums;
+}
+
+.gtfs-trip__back {
+	display: inline-flex;
+	gap: 0.4em;
+	align-items: center;
+	margin-block-end: 1em;
+}
+
+.gtfs-trip__destination {
+	font-size: 1.25em;
+	font-weight: 700;
+}
+
+.gtfs-trip__date,
+.gtfs-trip__differs {
+	opacity: 0.75;
+}
+
+.gtfs-trip__stops {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gtfs-trip__stop {
+	position: relative;
+	display: flex;
+	padding-block: 0.3em;
+	/* The rider's stop scrolls to the middle, with the stops before it still in sight. */
+	scroll-margin-block-start: 40vh;
+}
+
+/* The line through the stops, and the dot of each stop over it. */
+.gtfs-trip__stop::before,
+.gtfs-trip__stop::after {
+	content: "";
+	position: absolute;
+}
+
+.gtfs-trip__stop::before {
+	inset-block: 0;
+	inset-inline-start: calc(var(--gtfs-time-width) + var(--gtfs-marker-width) / 2 - var(--gtfs-line-width) / 2);
+	border-inline-start: var(--gtfs-line-width) solid var(--gtfs-line-colour);
+}
+
+.gtfs-trip__stop:first-child::before {
+	inset-block-start: var(--gtfs-dot-y);
+}
+
+.gtfs-trip__stop:last-child::before {
+	inset-block-end: calc(100% - var(--gtfs-dot-y));
+}
+
+.gtfs-trip__stop::after {
+	z-index: 1;
+	inset-block-start: calc(var(--gtfs-dot-y) - 0.375em);
+	inset-inline-start: calc(var(--gtfs-time-width) + var(--gtfs-marker-width) / 2 - 0.375em);
+	width: 0.75em;
+	height: 0.75em;
+	border: 2px solid currentColor;
+	border-radius: 50%;
+	background: var(--wp--preset--color--base, #fff);
+	box-sizing: border-box;
+}
+
+.gtfs-trip__time {
+	display: flex;
+	flex: none;
+	flex-direction: column;
+	align-items: flex-end;
+	width: var(--gtfs-time-width);
+	white-space: nowrap;
+}
+
+.gtfs-trip__arrival {
+	font-size: 0.85em;
+	opacity: 0.75;
+}
+
+.gtfs-trip__place {
+	padding-inline-start: var(--gtfs-marker-width);
+}
+
+.gtfs-trip__place a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-trip__place a:hover {
+	text-decoration: underline;
+}
+
+.gtfs-trip__note {
+	display: flex;
+	gap: 0.35em;
+	align-items: center;
+	font-size: 0.8em;
+	opacity: 0.75;
+}
+
+.gtfs-trip__stop:has(time.has-left) {
+	opacity: 0.45;
+}
+
+.gtfs-trip__stop:has(time.is-next) time[datetime] {
+	font-weight: 700;
+}
+
+.gtfs-trip__stop.is-chosen {
+	border-radius: 0.375em;
+	background: color-mix(in srgb, currentColor 8%, transparent);
+	font-weight: 700;
+}
+
+.gtfs-trip__stop.is-chosen::after {
+	background: currentColor;
+	box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
+}
+
 /* On phones the chosen stop's timetable comes first, the stops to choose from after it. */
 @media (max-width: 720px) {
 	.gtfs-line__body {
