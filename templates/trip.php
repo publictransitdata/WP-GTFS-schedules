@@ -5,7 +5,6 @@
 /**
  * One trip of a line, stop by stop. timetable-clock.js greys out the stops it has passed by the datetime of each <time>.
  *
- *
  * @var array $args {
  *     @type \PtdGtfsSchedules\Network\Line            $line
  *     @type \PtdGtfsSchedules\Schedule\Trip           $trip
@@ -48,8 +47,8 @@ $clock = function ( DateTimeImmutable $time, bool $is_tracked ) use ( $now ): vo
 $time_at = function ( TripCall $call ) use ( $clock ): void {
 	if ( $call->shows_arrival_and_departure() ) {
 		?>
-		<span class="gtfs-trip__arrival"><?php esc_html_e( 'arr.', 'ptd-gtfs-schedules' ); ?> <?php $clock( $call->arrival, false ); ?></span>
-		<span><?php esc_html_e( 'dep.', 'ptd-gtfs-schedules' ); ?> <?php $clock( $call->departure, true ); ?></span>
+		<span class="gtfs-trip__arrival"><?php /* translators: short for "arrives at", before a time such as 14:32 */ esc_html_e( 'arr.', 'ptd-gtfs-schedules' ); ?> <?php $clock( $call->arrival, false ); ?></span>
+		<span><?php /* translators: short for "departs at", before a time such as 14:38 */ esc_html_e( 'dep.', 'ptd-gtfs-schedules' ); ?> <?php $clock( $call->departure, true ); ?></span>
 		<?php
 		return;
 	}
