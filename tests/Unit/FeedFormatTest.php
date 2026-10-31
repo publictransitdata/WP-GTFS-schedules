@@ -24,7 +24,39 @@ final class FeedFormatTest extends TestCase {
 		);
 
 		$this->assertSame( 28 * 3600 + 18 * 60, $stop_time['departure_secs'] );
+		$this->assertSame( 28 * 3600 + 16 * 60, $stop_time['arrival_secs'] );
 		$this->assertSame( 4, $stop_time['stop_sequence'] );
+	}
+
+	public function test_an_arrival_at_the_departure_time_is_not_stored(): void {
+		$stop_time = $this->import_row(
+			'stop_times.txt',
+			array(
+				'trip_id'        => 'T1',
+				'arrival_time'   => '08:00:00',
+				'departure_time' => '08:00:00',
+				'stop_id'        => '1030',
+				'stop_sequence'  => '1',
+			)
+		);
+
+		$this->assertNull( $stop_time['arrival_secs'] );
+	}
+
+	public function test_an_arrival_after_the_departure_is_ignored(): void {
+		$stop_time = $this->import_row(
+			'stop_times.txt',
+			array(
+				'trip_id'        => 'T1',
+				'arrival_time'   => '08:05:00',
+				'departure_time' => '08:00:00',
+				'stop_id'        => '1030',
+				'stop_sequence'  => '1',
+			)
+		);
+
+		$this->assertSame( 8 * 3600, $stop_time['departure_secs'] );
+		$this->assertNull( $stop_time['arrival_secs'] );
 	}
 
 	public function test_a_stop_time_keeps_whether_riders_can_get_on_and_off(): void {
@@ -57,6 +89,7 @@ final class FeedFormatTest extends TestCase {
 		);
 
 		$this->assertSame( 8 * 3600, $stop_time['departure_secs'] );
+		$this->assertNull( $stop_time['arrival_secs'] );
 	}
 
 	public function test_a_stop_time_without_any_time_is_skipped(): void {
