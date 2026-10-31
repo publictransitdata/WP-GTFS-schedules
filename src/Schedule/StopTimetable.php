@@ -29,8 +29,8 @@ final class StopTimetable {
 		foreach ( $this->find( $this->stops->with_platforms( $stop_id ), $this->calendar->services_on( $date ), $route_id, $direction_id ) as $row ) {
 			$key = $row->route_id . "\0" . $row->headsign;
 
-			$sections[ $key ] ??= new TimetableSection( RouteBadge::from_row( $row ), (string) $row->headsign );
-			$sections[ $key ]->add_departure( (int) $row->departure_secs );
+			$sections[ $key ] ??= new TimetableSection( RouteBadge::from_row( $row ), (string) $row->headsign, ServiceDay::start( $date ) );
+			$sections[ $key ]->add_departure( (int) $row->departure_secs, (string) $row->trip_id, (string) $row->stop_id );
 		}
 
 		usort( $sections, fn( TimetableSection $a, TimetableSection $b ) => strnatcasecmp( $a->sort_key(), $b->sort_key() ) );
@@ -47,7 +47,7 @@ final class StopTimetable {
 		$rows      = $this->find( $this->stops->with_platforms( $stop_id ), $this->calendar->services_on( $date ), $route_id, $direction->direction_id );
 
 		foreach ( $rows as $row ) {
-			$timetable->add( (int) $row->departure_secs, $direction->note_for( (string) $row->trip_id )?->text() ?? '' );
+			$timetable->add( (int) $row->departure_secs, $direction->note_for( (string) $row->trip_id )?->text() ?? '', (string) $row->trip_id, (string) $row->stop_id );
 		}
 
 		return $timetable;

@@ -4,6 +4,8 @@
 
 namespace PtdGtfsSchedules\Tests\Unit;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use PtdGtfsSchedules\Schedule\RouteBadge;
 use PtdGtfsSchedules\Schedule\TimetableSection;
 use PHPUnit\Framework\TestCase;
@@ -51,12 +53,20 @@ final class TimetableSectionTest extends TestCase {
 		);
 	}
 
-	private function section_with( string ...$times ): TimetableSection {
-		$section = new TimetableSection( new RouteBadge( 'N8', 'N8', '', '' ), 'Dworzec Główny' );
+	public function test_each_departure_knows_its_trip_and_when_it_leaves(): void {
+		$departure = $this->section_with( '23:50', '25:40' )->departure_rows()[1][1][0];
 
-		foreach ( $times as $time ) {
+		$this->assertSame( 'T1', $departure->trip_id );
+		$this->assertSame( '1030', $departure->stop_id );
+		$this->assertSame( '2026-10-24 01:40', $departure->time->format( 'Y-m-d H:i' ) );
+	}
+
+	private function section_with( string ...$times ): TimetableSection {
+		$section = new TimetableSection( new RouteBadge( 'N8', 'N8', '', '' ), 'Dworzec Główny', new DateTimeImmutable( '2026-10-23', new DateTimeZone( 'Europe/Warsaw' ) ) );
+
+		foreach ( $times as $position => $time ) {
 			list( $hours, $minutes ) = array_map( 'intval', explode( ':', $time ) );
-			$section->add_departure( $hours * 3600 + $minutes * 60 );
+			$section->add_departure( $hours * 3600 + $minutes * 60, "T{$position}", '1030' );
 		}
 
 		return $section;
