@@ -6,12 +6,16 @@ namespace PtdGtfsSchedules\Frontend;
 
 use DateTimeImmutable;
 use PtdGtfsSchedules\FeedInfo;
+use PtdGtfsSchedules\Network\Line;
+use PtdGtfsSchedules\Network\LineDirection;
 use PtdGtfsSchedules\Network\LineDirections;
 use PtdGtfsSchedules\Network\Lines;
 use PtdGtfsSchedules\Schedule\Departures;
 use PtdGtfsSchedules\Schedule\ServiceDay;
 use PtdGtfsSchedules\Schedule\StopTimetable;
 use PtdGtfsSchedules\Schedule\Stops;
+use PtdGtfsSchedules\Schedule\Trip;
+use PtdGtfsSchedules\Schedule\Trips;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,8 +105,8 @@ final class Renderer {
 
 	/**
 	 * The line from ?line= in the address: its directions, the stops of the chosen direction and the
-	 * timetable of the chosen stop. Without a line the page lists every line, each linking back here;
-	 * the editor preview shows the first line instead.
+	 * timetable of the chosen stop, or with ?trip= one of its trips. Without a line the page lists
+	 * every line, each linking back here; the editor preview shows the first line instead.
 	 *
 	 * @param bool $is_block Rendered by the Line block, whose wrapper carries the block's own classes and styles.
 	 */
@@ -126,15 +130,32 @@ final class Renderer {
 		}
 
 		$directions = ( new LineDirections() )->of( $line );
-		$direction  = $directions[ LinePage::requested_direction() ] ?? $directions[0] ?? null;
-		$stop_id    = $direction ? LinePage::requested_stop( $direction ) : '';
-		$date       = Shortcodes::requested_date();
+		$notice     = '';
+
+		if ( '' !== LinePage::requested_trip_id() ) {
+			$trips = new Trips();
+			$trip  = $trips->find( LinePage::requested_trip_id(), Shortcodes::requested_date() );
+			$trip  = $trip && $trip->route->route_id === $line->badge->route_id ? $trip : null;
+
+			if ( $trip && $trips->runs_that_day( $trip ) ) {
+				return self::trip_view( $line, $trip, $directions, $is_block );
+			}
+
+			$notice = $trip
+				? __( 'This trip does not run on this day.', 'ptd-gtfs-schedules' )
+				: __( 'This trip is no longer in the timetable.', 'ptd-gtfs-schedules' );
+			$notice = '<p class="gtfs-notice">' . esc_html( $notice ) . '</p>';
+		}
+
+		$direction = $directions[ LinePage::requested_direction() ] ?? $directions[0] ?? null;
+		$stop_id   = $direction ? LinePage::requested_stop( $direction ) : '';
+		$date      = Shortcodes::requested_date();
 
 		Assets::enqueue_styles();
 		Assets::enqueue_timetable_clock();
 		Assets::enqueue_route_map();
 
-		return Templates::render(
+		return $notice . Templates::render(
 			'line',
 			array(
 				'line'               => $line,
@@ -150,6 +171,46 @@ final class Renderer {
 				'stop_url'           => array( LinePage::class, 'stop_url' ),
 				'day_url'            => fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUERY_ARG, $day->format( 'Y-m-d' ) ),
 				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
+				'attribution'        => Templates::data_attribution(),
+			)
+		);
+	}
+
+	/**
+	 * @param Line            $line
+	 * @param Trip            $trip
+	 * @param LineDirection[] $directions
+	 * @param bool            $is_block
+	 */
+	private static function trip_view( Line $line, Trip $trip, array $directions, bool $is_block ): string {
+		$position  = array_key_first( array_filter( $directions, fn( LineDirection $direction ) => $direction->is_taken_by( $trip ) ) );
+		$direction = null === $position ? null : $directions[ $position ];
+		$from      = $trip->boarding_position( LinePage::requested_stop_id() );
+		$from_stop = null === $from ? null : $trip->calls[ $from ];
+
+		$timetable_url = function ( string $stop_id ) use ( $direction, $position ): string {
+			$has_timetable = $direction && $direction->has_stop( $stop_id ) && $direction->can_board_at( $stop_id ) && ! $direction->ends_at( $stop_id );
+
+			return $has_timetable ? LinePage::timetable_url( (int) $position, $stop_id ) : '';
+		};
+
+		$back_url = $from_stop ? $timetable_url( $from_stop->stop_id ) : '';
+
+		Assets::enqueue_styles();
+		Assets::enqueue_timetable_clock();
+
+		return Templates::render(
+			'trip',
+			array(
+				'line'               => $line,
+				'trip'               => $trip,
+				'note'               => $direction?->note_for( $trip->trip_id )?->text(),
+				'from'               => $from,
+				'back_stop'          => '' !== $back_url ? $from_stop : null,
+				'now'                => ServiceDay::now(),
+				'timetable_url'      => $timetable_url,
+				'back_url'           => '' !== $back_url ? $back_url : LinePage::url( $line ),
+				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-trip' ), $is_block ),
 				'attribution'        => Templates::data_attribution(),
 			)
 		);
