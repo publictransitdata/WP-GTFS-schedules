@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-27T20:46:57+00:00\n"
+"PO-Revision-Date: 2026-10-31T17:47:27+00:00\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -282,27 +282,36 @@ msgid "The feed is missing required files: %s"
 msgstr "W feedzie brakuje wymaganych plików: %s"
 
 #. translators: %s: line name, e.g. "N8"
-#: src/Frontend/LinePage.php:124
+#: src/Frontend/LinePage.php:198
+#: templates/trip.php:69
 #, php-format
 msgid "Line %s"
 msgstr "Linia %s"
 
-#: src/Frontend/Renderer.php:71
-#: src/Frontend/Renderer.php:111
-#: src/Frontend/Renderer.php:184
+#: src/Frontend/Renderer.php:80
+#: src/Frontend/Renderer.php:120
+#: src/Frontend/Renderer.php:251
 msgid "PTD GTFS Schedules: no feed has been imported yet."
 msgstr "PTD GTFS Schedules: nie zaimportowano jeszcze żadnego feedu."
 
-#: src/Frontend/Renderer.php:77
+#: src/Frontend/Renderer.php:86
 msgid "PTD GTFS Schedules: the feed has no lines of the chosen transport modes."
 msgstr "PTD GTFS Schedules: w feedzie nie ma linii wybranych środków transportu."
 
-#: src/Frontend/Renderer.php:124
+#: src/Frontend/Renderer.php:133
 msgid "This line is not in the current timetable. Choose a line:"
 msgstr "Tej linii nie ma w obowiązującym rozkładzie. Wybierz linię:"
 
+#: src/Frontend/Renderer.php:150
+msgid "This trip does not run on this day."
+msgstr "Ten kurs nie jest realizowany w tym dniu."
+
+#: src/Frontend/Renderer.php:151
+msgid "This trip is no longer in the timetable."
+msgstr "Tego kursu nie ma już w rozkładzie."
+
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:191
+#: src/Frontend/Renderer.php:258
 #, php-format
 msgid "PTD GTFS Schedules: there is no stop with id \"%s\" in the feed."
 msgstr "PTD GTFS Schedules: w feedzie nie ma przystanku o ID „%s”."
@@ -443,12 +452,12 @@ msgstr "do %s"
 msgid "via %s"
 msgstr "przez %s"
 
-#: src/Schedule/Departure.php:38
+#: src/Schedule/Departure.php:50
 msgid "now"
 msgstr "teraz"
 
 #. translators: %d: minutes until departure
-#: src/Schedule/Departure.php:43
+#: src/Schedule/Departure.php:55
 #, php-format
 msgid "in %d min"
 msgid_plural "in %d min"
@@ -468,137 +477,159 @@ msgstr "Codziennie"
 msgid "Weekly"
 msgstr "Co tydzień"
 
-#: templates/departures.php:25
+#: templates/departures.php:26
 msgid "No departures scheduled."
 msgstr "Brak zaplanowanych odjazdów."
 
-#: templates/departures.php:30
+#: templates/departures.php:31
 msgid "Line"
 msgstr "Linia"
 
-#: templates/departures.php:31
+#: templates/departures.php:32
 msgid "Direction"
 msgstr "Kierunek"
 
-#: templates/departures.php:32
+#: templates/departures.php:33
 msgid "Departs"
 msgstr "Odjazd"
 
-#: templates/line.php:73
+#: templates/line.php:74
+#: templates/trip.php:109
 msgid "on request"
 msgstr "na żądanie"
 
-#: templates/line.php:78
+#: templates/line.php:79
+#: templates/trip.php:113
 msgid "getting off only"
 msgstr "tylko wysiadanie"
 
-#: templates/line.php:80
+#: templates/line.php:81
+#: templates/trip.php:115
 msgid "getting on only"
 msgstr "tylko wsiadanie"
 
-#: templates/line.php:84
+#: templates/line.php:85
 msgid "not every trip starts here"
 msgstr "nie wszystkie kursy zaczynają się tutaj"
 
-#: templates/line.php:84
+#: templates/line.php:85
 msgid "not every trip goes this far"
 msgstr "nie wszystkie kursy dojeżdżają tutaj"
 
-#: templates/line.php:91
+#: templates/line.php:92
 msgid "some trips start here"
 msgstr "tu zaczyna się część kursów"
 
-#: templates/line.php:95
+#: templates/line.php:96
 msgid "some trips end here"
 msgstr "tu kończy się część kursów"
 
 #. translators: %s: stop where the trips are back on the usual route
-#: templates/line.php:109
+#: templates/line.php:110
 #, php-format
 msgid "Some trips go this way and are back on the route at %s"
 msgstr "Część kursów jedzie tędy i wraca na trasę na przystanku %s"
 
 #. translators: %s: stop off the usual route where the trips end
-#: templates/line.php:114
+#: templates/line.php:115
 #, php-format
 msgid "Some trips leave the route here and end at %s"
 msgstr "Część kursów zjeżdża tu z trasy i kończy bieg na przystanku %s"
 
 #. translators: %s: stop on the usual route where the trips join it
-#: templates/line.php:119
+#: templates/line.php:120
 #, php-format
 msgid "Some trips start elsewhere and join the route at %s"
 msgstr "Część kursów zaczyna się gdzie indziej i wjeżdża na trasę na przystanku %s"
 
-#: templates/line.php:122
+#: templates/line.php:123
 msgid "Some trips carry on to"
 msgstr "Część kursów jedzie dalej do"
 
-#: templates/line.php:123
+#: templates/line.php:124
 msgid "Some trips start further away, at"
 msgstr "Część kursów zaczyna się wcześniej, na"
 
-#: templates/line.php:176
+#: templates/line.php:177
 msgid "This line has no trips in the current timetable."
 msgstr "W obowiązującym rozkładzie ta linia nie ma kursów."
 
-#: templates/line.php:179
+#: templates/line.php:180
 msgid "Directions"
 msgstr "Kierunki"
 
 #. translators: %s: where the line goes, e.g. "Jelitkowo"
-#: templates/line.php:185
+#. translators: %s: where the trip goes, e.g. "Jelitkowo"
+#: templates/line.php:186
+#: templates/trip.php:81
 #, php-format
 msgid "Towards %s"
 msgstr "Kierunek: %s"
 
-#: templates/line.php:197
+#: templates/line.php:198
 msgid "every trip"
 msgstr "wszystkie kursy"
 
-#: templates/line.php:198
+#: templates/line.php:199
 msgid "some trips only"
 msgstr "tylko część kursów"
 
-#: templates/line.php:202
+#: templates/line.php:203
+#: templates/trip.php:93
 msgid "Stops"
 msgstr "Przystanki"
 
-#: templates/line.php:233
+#: templates/line.php:234
 msgid "Timetable"
 msgstr "Rozkład jazdy"
 
-#: templates/line.php:236
-#: templates/timetable.php:25
+#: templates/line.php:237
+#: templates/timetable.php:26
 msgid "Choose a day"
 msgstr "Wybierz dzień"
 
-#: templates/line.php:237
-#: templates/timetable.php:26
+#: templates/line.php:238
+#: templates/timetable.php:27
 msgid "Previous day"
 msgstr "Poprzedni dzień"
 
-#: templates/line.php:239
-#: templates/timetable.php:28
+#: templates/line.php:240
+#: templates/timetable.php:29
 msgid "Next day"
 msgstr "Następny dzień"
 
-#: templates/line.php:243
+#: templates/line.php:244
 msgid "This is the last stop of the line in this direction."
 msgstr "To przystanek końcowy linii w tym kierunku."
 
-#: templates/line.php:245
+#: templates/line.php:246
 msgid "No departures from this stop."
 msgstr "Brak odjazdów z tego przystanku."
 
-#: templates/line.php:247
-#: templates/timetable.php:32
+#: templates/line.php:248
+#: templates/timetable.php:33
 msgid "No departures on this day."
 msgstr "Brak odjazdów w tym dniu."
 
-#: templates/line.php:251
+#: templates/line.php:252
 msgid "Next departure:"
 msgstr "Najbliższy odjazd:"
+
+#. translators: short for "arrives at", before a time such as 14:32
+#: templates/trip.php:51
+msgid "arr."
+msgstr "przyj."
+
+#. translators: short for "departs at", before a time such as 14:38
+#: templates/trip.php:52
+msgid "dep."
+msgstr "odj."
+
+#. translators: %s: stop name
+#: templates/trip.php:67
+#, php-format
+msgid "Timetable at %s"
+msgstr "Rozkład na przystanku %s"
 
 #: blocks/line/editor.js:21
 msgid "How this page works"

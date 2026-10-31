@@ -3,7 +3,7 @@
  * Plugin Name:       PTD GTFS Schedules
  * Plugin URI:        https://github.com/publictransitdata/WP-GTFS-schedules
  * Description:       Shows public transport schedules from a GTFS feed.
- * Version:           0.3.2
+ * Version:           0.4.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            PUBLICTRANSITDATA.NET
@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PTD_GTFS_SCHEDULES_VERSION', '0.3.2' );
+define( 'PTD_GTFS_SCHEDULES_VERSION', '0.4.0' );
 define( 'PTD_GTFS_SCHEDULES_FILE', __FILE__ );
 define( 'PTD_GTFS_SCHEDULES_DIR', __DIR__ );
 

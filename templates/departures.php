@@ -10,6 +10,7 @@
  *     @type DateTimeImmutable                          $now
  *     @type \PtdGtfsSchedules\Schedule\Departure[]       $departures
  *     @type string                                     $refresh_url
+ *     @type callable                                   $trip_url    Departure => address of its trip; empty without a line page.
  *     @type string                                     $attribution Escaped HTML.
  * }
  */
@@ -38,7 +39,14 @@ $now = $args['now'];
 						<td><span class="gtfs-route" style="<?php echo esc_attr( $departure->route->inline_style() ); ?>"><?php echo esc_html( $departure->route->name ); ?></span></td>
 						<td><?php echo esc_html( $departure->headsign ); ?></td>
 						<td class="gtfs-departures__time">
+							<?php $trip_url = $args['trip_url']( $departure ); ?>
+							<?php if ( '' !== $trip_url ) : ?>
+								<a class="gtfs-trip-link" href="<?php echo esc_url( $trip_url ); ?>" rel="nofollow">
+							<?php endif; ?>
 							<time datetime="<?php echo esc_attr( $departure->time->format( DATE_ATOM ) ); ?>"><?php echo esc_html( $departure->label( $now ) ); ?></time>
+							<?php if ( '' !== $trip_url ) : ?>
+								</a>
+							<?php endif; ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>

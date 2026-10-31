@@ -29,9 +29,11 @@ final class MarkedTimetable {
 
 	/**
 	 * @param int    $seconds_into_service_day
-	 * @param string $note Empty for a trip on the usual route.
+	 * @param string $note    Empty for a trip on the usual route.
+	 * @param string $trip_id
+	 * @param string $stop_id
 	 */
-	public function add( int $seconds_into_service_day, string $note = '' ): void {
+	public function add( int $seconds_into_service_day, string $note = '', string $trip_id = '', string $stop_id = '' ): void {
 		$mark = '' === $note ? null : $this->mark_for( $note );
 		$time = $this->service_day_start->setTimestamp( $this->service_day_start->getTimestamp() + $seconds_into_service_day );
 
@@ -39,7 +41,9 @@ final class MarkedTimetable {
 			$time,
 			sprintf( '%02d', intdiv( $seconds_into_service_day % HOUR_IN_SECONDS, MINUTE_IN_SECONDS ) ),
 			$mark,
-			'' === $note ? null : $note
+			'' === $note ? null : $note,
+			$trip_id,
+			$stop_id
 		);
 	}
 

@@ -4,7 +4,7 @@ Tags: public transport, timetable, schedules, gtfs, transit
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.2
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,7 @@ PTD GTFS Schedules turns the GTFS feed of a transport operator or authority into
 * **Line pages**: the directions of a line, a diagram of its route with the stops and the variants some trips take (detours, short workings, trips starting or ending elsewhere), and the timetable of the chosen stop. Departures that have left are greyed out and the next one is highlighted.
 * **Stop timetables**: all departures from a stop on a given day, for every line or for one.
 * **Departure boards**: the next departures from a stop, updating themselves while the page is open.
+* **Trips**: every departure time opens its trip, from the first stop to the last, with the time at every stop. The rider's stop is highlighted, and the stops the trip has passed are greyed out.
 
 = For riders =
 
@@ -47,7 +48,7 @@ PTD GTFS Schedules turns the GTFS feed of a transport operator or authority into
 
 = Supported GTFS =
 
-The plugin reads agency.txt, stops.txt, routes.txt, trips.txt, stop_times.txt, calendar.txt and calendar_dates.txt, including extended route types, times after midnight and stations with several platforms. Trips described only with frequencies.txt are not shown yet, and the times are the scheduled ones (no GTFS Realtime).
+The plugin reads agency.txt, stops.txt, routes.txt, trips.txt, stop_times.txt, calendar.txt and calendar_dates.txt, including extended route types, times after midnight, arrival times where a vehicle waits at a stop, and stations with several platforms. Trips described only with frequencies.txt are not shown yet, and the times are the scheduled ones (no GTFS Realtime).
 
 = Feedback =
 
@@ -77,7 +78,7 @@ As often as you choose in the settings: daily, weekly or manually. Automatic upd
 
 = Can I link lines to my own pages? =
 
-Use the `ptd_gtfs_schedules_line_url` filter to give each line the address you want. The `ptd_gtfs_schedules_is_night_line` filter decides which lines count as night lines, and the `ptd_gtfs_schedules_imported` action runs after every import.
+Use the `ptd_gtfs_schedules_line_url` and `ptd_gtfs_schedules_trip_url` filters to give each line and each trip the address you want. The `ptd_gtfs_schedules_is_night_line` filter decides which lines count as night lines, and the `ptd_gtfs_schedules_imported` action runs after every import.
 
 = How do I credit the data publisher? =
 
@@ -98,8 +99,17 @@ Departure boards update themselves through the site's own REST API; nothing is r
 
 == Changelog ==
 
+= 0.4.0 =
+* New: every departure time opens its trip, with the time at every stop.
+* New: arrival times are imported, so a trip shows when the vehicle arrives and leaves where it waits at a stop.
+
 = 0.3.2 =
 * First public release.
+
+== Upgrade Notice ==
+
+= 0.4.0 =
+Arrival times appear after the next import of the feed.
 
 == Credits ==
 

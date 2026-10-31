@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-23T19:11:43+00:00\n"
-"PO-Revision-Date: 2026-10-27T20:46:57+00:00\n"
+"PO-Revision-Date: 2026-10-31T17:47:27+00:00\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -282,27 +282,36 @@ msgid "The feed is missing required files: %s"
 msgstr "У фіді бракує обов'язкових файлів: %s"
 
 #. translators: %s: line name, e.g. "N8"
-#: src/Frontend/LinePage.php:124
+#: src/Frontend/LinePage.php:198
+#: templates/trip.php:69
 #, php-format
 msgid "Line %s"
 msgstr "Маршрут %s"
 
-#: src/Frontend/Renderer.php:71
-#: src/Frontend/Renderer.php:111
-#: src/Frontend/Renderer.php:184
+#: src/Frontend/Renderer.php:80
+#: src/Frontend/Renderer.php:120
+#: src/Frontend/Renderer.php:251
 msgid "PTD GTFS Schedules: no feed has been imported yet."
 msgstr "PTD GTFS Schedules: фід ще не імпортовано."
 
-#: src/Frontend/Renderer.php:77
+#: src/Frontend/Renderer.php:86
 msgid "PTD GTFS Schedules: the feed has no lines of the chosen transport modes."
 msgstr "PTD GTFS Schedules: у фіді немає маршрутів вибраних видів транспорту."
 
-#: src/Frontend/Renderer.php:124
+#: src/Frontend/Renderer.php:133
 msgid "This line is not in the current timetable. Choose a line:"
 msgstr "Цього маршруту немає в чинному розкладі. Виберіть маршрут:"
 
+#: src/Frontend/Renderer.php:150
+msgid "This trip does not run on this day."
+msgstr "Цей рейс не курсує в цей день."
+
+#: src/Frontend/Renderer.php:151
+msgid "This trip is no longer in the timetable."
+msgstr "Цього рейсу вже немає в розкладі."
+
 #. translators: %s: stop id
-#: src/Frontend/Renderer.php:191
+#: src/Frontend/Renderer.php:258
 #, php-format
 msgid "PTD GTFS Schedules: there is no stop with id \"%s\" in the feed."
 msgstr "PTD GTFS Schedules: у фіді немає зупинки з ID «%s»."
@@ -443,12 +452,12 @@ msgstr "до %s"
 msgid "via %s"
 msgstr "через %s"
 
-#: src/Schedule/Departure.php:38
+#: src/Schedule/Departure.php:50
 msgid "now"
 msgstr "зараз"
 
 #. translators: %d: minutes until departure
-#: src/Schedule/Departure.php:43
+#: src/Schedule/Departure.php:55
 #, php-format
 msgid "in %d min"
 msgid_plural "in %d min"
@@ -468,137 +477,159 @@ msgstr "Щодня"
 msgid "Weekly"
 msgstr "Щотижня"
 
-#: templates/departures.php:25
+#: templates/departures.php:26
 msgid "No departures scheduled."
 msgstr "Відправлень не заплановано."
 
-#: templates/departures.php:30
+#: templates/departures.php:31
 msgid "Line"
 msgstr "Маршрут"
 
-#: templates/departures.php:31
+#: templates/departures.php:32
 msgid "Direction"
 msgstr "Напрямок"
 
-#: templates/departures.php:32
+#: templates/departures.php:33
 msgid "Departs"
 msgstr "Відправлення"
 
-#: templates/line.php:73
+#: templates/line.php:74
+#: templates/trip.php:109
 msgid "on request"
 msgstr "на вимогу"
 
-#: templates/line.php:78
+#: templates/line.php:79
+#: templates/trip.php:113
 msgid "getting off only"
 msgstr "лише висадка"
 
-#: templates/line.php:80
+#: templates/line.php:81
+#: templates/trip.php:115
 msgid "getting on only"
 msgstr "лише посадка"
 
-#: templates/line.php:84
+#: templates/line.php:85
 msgid "not every trip starts here"
 msgstr "тут починаються не всі рейси"
 
-#: templates/line.php:84
+#: templates/line.php:85
 msgid "not every trip goes this far"
 msgstr "сюди доїжджають не всі рейси"
 
-#: templates/line.php:91
+#: templates/line.php:92
 msgid "some trips start here"
 msgstr "тут починається частина рейсів"
 
-#: templates/line.php:95
+#: templates/line.php:96
 msgid "some trips end here"
 msgstr "тут закінчується частина рейсів"
 
 #. translators: %s: stop where the trips are back on the usual route
-#: templates/line.php:109
+#: templates/line.php:110
 #, php-format
 msgid "Some trips go this way and are back on the route at %s"
 msgstr "Частина рейсів їде сюди і повертається на маршрут на зупинці %s"
 
 #. translators: %s: stop off the usual route where the trips end
-#: templates/line.php:114
+#: templates/line.php:115
 #, php-format
 msgid "Some trips leave the route here and end at %s"
 msgstr "Частина рейсів звертає тут з маршруту й закінчує рейс на зупинці %s"
 
 #. translators: %s: stop on the usual route where the trips join it
-#: templates/line.php:119
+#: templates/line.php:120
 #, php-format
 msgid "Some trips start elsewhere and join the route at %s"
 msgstr "Частина рейсів починається деінде й виїжджає на маршрут на зупинці %s"
 
-#: templates/line.php:122
+#: templates/line.php:123
 msgid "Some trips carry on to"
 msgstr "Частина рейсів їде далі до"
 
-#: templates/line.php:123
+#: templates/line.php:124
 msgid "Some trips start further away, at"
 msgstr "Частина рейсів починається раніше, на"
 
-#: templates/line.php:176
+#: templates/line.php:177
 msgid "This line has no trips in the current timetable."
 msgstr "У чинному розкладі цей маршрут не має рейсів."
 
-#: templates/line.php:179
+#: templates/line.php:180
 msgid "Directions"
 msgstr "Напрямки"
 
 #. translators: %s: where the line goes, e.g. "Jelitkowo"
-#: templates/line.php:185
+#. translators: %s: where the trip goes, e.g. "Jelitkowo"
+#: templates/line.php:186
+#: templates/trip.php:81
 #, php-format
 msgid "Towards %s"
 msgstr "У напрямку %s"
 
-#: templates/line.php:197
+#: templates/line.php:198
 msgid "every trip"
 msgstr "усі рейси"
 
-#: templates/line.php:198
+#: templates/line.php:199
 msgid "some trips only"
 msgstr "лише частина рейсів"
 
-#: templates/line.php:202
+#: templates/line.php:203
+#: templates/trip.php:93
 msgid "Stops"
 msgstr "Зупинки"
 
-#: templates/line.php:233
+#: templates/line.php:234
 msgid "Timetable"
 msgstr "Розклад"
 
-#: templates/line.php:236
-#: templates/timetable.php:25
+#: templates/line.php:237
+#: templates/timetable.php:26
 msgid "Choose a day"
 msgstr "Оберіть день"
 
-#: templates/line.php:237
-#: templates/timetable.php:26
+#: templates/line.php:238
+#: templates/timetable.php:27
 msgid "Previous day"
 msgstr "Попередній день"
 
-#: templates/line.php:239
-#: templates/timetable.php:28
+#: templates/line.php:240
+#: templates/timetable.php:29
 msgid "Next day"
 msgstr "Наступний день"
 
-#: templates/line.php:243
+#: templates/line.php:244
 msgid "This is the last stop of the line in this direction."
 msgstr "Це кінцева зупинка маршруту в цьому напрямку."
 
-#: templates/line.php:245
+#: templates/line.php:246
 msgid "No departures from this stop."
 msgstr "Немає відправлень з цієї зупинки."
 
-#: templates/line.php:247
-#: templates/timetable.php:32
+#: templates/line.php:248
+#: templates/timetable.php:33
 msgid "No departures on this day."
 msgstr "Цього дня відправлень немає."
 
-#: templates/line.php:251
+#: templates/line.php:252
 msgid "Next departure:"
 msgstr "Найближче відправлення:"
+
+#. translators: short for "arrives at", before a time such as 14:32
+#: templates/trip.php:51
+msgid "arr."
+msgstr "приб."
+
+#. translators: short for "departs at", before a time such as 14:38
+#: templates/trip.php:52
+msgid "dep."
+msgstr "відпр."
+
+#. translators: %s: stop name
+#: templates/trip.php:67
+#, php-format
+msgid "Timetable at %s"
+msgstr "Розклад на зупинці %s"
 
 #: blocks/line/editor.js:21
 msgid "How this page works"

@@ -104,7 +104,7 @@ final class FeedFormat {
 			new FeedFile(
 				'stop_times.txt',
 				'stop_times',
-				array( 'trip_id', 'stop_sequence', 'stop_id', 'departure_secs', 'pickup_type', 'drop_off_type', 'stop_headsign' ),
+				array( 'trip_id', 'stop_sequence', 'stop_id', 'departure_secs', 'arrival_secs', 'pickup_type', 'drop_off_type', 'stop_headsign' ),
 				fn( array $row ) => self::stop_time( $row )
 			),
 		);
@@ -163,11 +163,15 @@ final class FeedFormat {
 		return is_readable( $path ) && null !== ( new CsvReader( $path ) )->next_row();
 	}
 
+	/**
+	 * Either time stands in for the other when only one is given. The arrival is stored only
+	 * where it differs from the departure, as it does at a layover.
+	 */
 	private static function stop_time( array $row ): ?array {
-		$time    = self::text( $row, 'departure_time' );
-		$seconds = GtfsTime::to_seconds( '' !== $time ? $time : self::text( $row, 'arrival_time' ) );
+		$arrival   = GtfsTime::to_seconds( self::text( $row, 'arrival_time' ) );
+		$departure = GtfsTime::to_seconds( self::text( $row, 'departure_time' ) ) ?? $arrival;
 
-		if ( null === $seconds ) {
+		if ( null === $departure ) {
 			return null;
 		}
 
@@ -175,7 +179,8 @@ final class FeedFormat {
 			self::text( $row, 'trip_id' ),
 			self::integer( $row, 'stop_sequence' ),
 			self::text( $row, 'stop_id' ),
-			$seconds,
+			$departure,
+			null !== $arrival && $arrival < $departure ? $arrival : null,
 			self::integer( $row, 'pickup_type' ),
 			self::integer( $row, 'drop_off_type' ),
 			self::text( $row, 'stop_headsign' ),

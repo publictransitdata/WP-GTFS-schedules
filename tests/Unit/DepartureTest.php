@@ -7,7 +7,6 @@ namespace PtdGtfsSchedules\Tests\Unit;
 use DateTimeImmutable;
 use DateTimeZone;
 use PtdGtfsSchedules\Schedule\Departure;
-use PtdGtfsSchedules\Schedule\ServiceDay;
 use PHPUnit\Framework\TestCase;
 
 final class DepartureTest extends TestCase {
@@ -53,6 +52,8 @@ final class DepartureTest extends TestCase {
 		list( $hours, $minutes, $seconds ) = array_map( 'intval', explode( ':', $gtfs_time ) );
 
 		$row = (object) array(
+			'trip_id'          => 'T1',
+			'stop_id'          => '1030',
 			'departure_secs'   => $hours * 3600 + $minutes * 60 + $seconds,
 			'headsign'         => 'Dworzec Główny',
 			'route_id'         => '154',
@@ -62,7 +63,7 @@ final class DepartureTest extends TestCase {
 			'route_text_color' => '',
 		);
 
-		return Departure::from_row( $row, ServiceDay::start( $this->warsaw( $service_date ) ) );
+		return Departure::from_row( $row, $this->warsaw( $service_date ) );
 	}
 
 	private function warsaw( string $moment ): DateTimeImmutable {

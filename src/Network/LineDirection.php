@@ -4,6 +4,8 @@
 
 namespace PtdGtfsSchedules\Network;
 
+use PtdGtfsSchedules\Schedule\Trip;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -145,6 +147,13 @@ final class LineDirection {
 	 */
 	public function branches_joining_at( int $position ): array {
 		return array_values( array_filter( $this->branches, fn( LineBranch $branch ) => $branch->joins_route() && $branch->rejoins_at === $position ) );
+	}
+
+	/**
+	 * Feeds without direction_id have one direction per headsign.
+	 */
+	public function is_taken_by( Trip $trip ): bool {
+		return $this->direction_id === $trip->direction_id && ( null !== $trip->direction_id || $this->headsign === $trip->headsign );
 	}
 
 	public function note_for( string $trip_id ): ?TripNote {

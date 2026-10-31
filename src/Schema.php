@@ -19,7 +19,7 @@ final class Schema {
 	public const STAGING = 'ptd_gtfs_next_';
 	public const RETIRED = 'ptd_gtfs_old_';
 
-	private const VERSION        = '4';
+	private const VERSION        = '5';
 	private const VERSION_OPTION = 'ptd_gtfs_schedules_db_version';
 
 	public static function table( string $name, string $set = self::LIVE ): string {
@@ -73,7 +73,14 @@ final class Schema {
 	}
 
 	public static function upgrade_if_needed(): void {
-		if ( self::VERSION === get_option( self::VERSION_OPTION ) ) {
+		$installed = get_option( self::VERSION_OPTION );
+
+		if ( self::VERSION === $installed ) {
+			return;
+		}
+
+		if ( '4' === $installed && self::add_arrival_times() ) {
+			self::remember_version();
 			return;
 		}
 
@@ -96,6 +103,32 @@ final class Schema {
 		self::drop( self::LIVE );
 		self::drop( self::STAGING );
 		self::drop( self::RETIRED );
+	}
+
+	/**
+	 * Adds the column instead of dropping the tables, so the imported feed stays until the next import.
+	 * Staging gets it too, for an import under way.
+	 */
+	private static function add_arrival_times(): bool {
+		global $wpdb;
+
+		foreach ( array( self::LIVE, self::STAGING ) as $set ) {
+			$table = self::table( 'stop_times', $set );
+
+			if ( null === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) ) {
+				continue;
+			}
+
+			if ( $wpdb->get_var( $wpdb->prepare( 'SHOW COLUMNS FROM %i LIKE %s', $table, 'arrival_secs' ) ) ) {
+				continue;
+			}
+
+			if ( false === $wpdb->query( $wpdb->prepare( 'ALTER TABLE %i ADD COLUMN arrival_secs MEDIUMINT UNSIGNED NULL', $table ) ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private static function definitions(): array {
@@ -140,6 +173,7 @@ final class Schema {
 			// Rows get an ever-growing id so the import appends them in order. Feeds are rarely
 			// sorted by trip_id, and a (trip_id, stop_sequence) primary key left the table half empty.
 			// The trip_stops key, for the stops of a line, costs about 40% more space.
+			// arrival_secs is null where the vehicle leaves when it arrives, as it does at most stops.
 			'stop_times'     => "
 				id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				trip_id VARCHAR(100) NOT NULL,
@@ -149,6 +183,7 @@ final class Schema {
 				pickup_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
 				drop_off_type TINYINT UNSIGNED NOT NULL DEFAULT 0,
 				stop_headsign VARCHAR(255) NOT NULL DEFAULT '',
+				arrival_secs MEDIUMINT UNSIGNED NULL,
 				PRIMARY KEY (id),
 				KEY stop_departure (stop_id, departure_secs),
 				KEY trip_stops (trip_id, stop_sequence)",

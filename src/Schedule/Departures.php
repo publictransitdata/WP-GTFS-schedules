@@ -28,7 +28,7 @@ final class Departures {
 			$services_that_day = $this->calendar->services_on( $date );
 
 			foreach ( $this->find( $stop_ids, $services_that_day, $seconds_into_day, $limit ) as $row ) {
-				$departures[] = Departure::from_row( $row, $day_start );
+				$departures[] = Departure::from_row( $row, $date );
 			}
 		}
 
