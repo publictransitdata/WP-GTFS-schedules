@@ -10,9 +10,12 @@ use PtdGtfsSchedules\Network\Line;
 use PtdGtfsSchedules\Network\LineDirection;
 use PtdGtfsSchedules\Network\LineDirections;
 use PtdGtfsSchedules\Network\Lines;
+use PtdGtfsSchedules\Schedule\Departure;
 use PtdGtfsSchedules\Schedule\Departures;
 use PtdGtfsSchedules\Schedule\ServiceDay;
 use PtdGtfsSchedules\Schedule\StopTimetable;
+use PtdGtfsSchedules\Schedule\TimetableDeparture;
+use PtdGtfsSchedules\Schedule\TimetableSection;
 use PtdGtfsSchedules\Schedule\Stops;
 use PtdGtfsSchedules\Schedule\Trip;
 use PtdGtfsSchedules\Schedule\Trips;
@@ -43,6 +46,7 @@ final class Renderer {
 				'now'         => $now,
 				'departures'  => ( new Departures() )->next_from( $stop->stop_id, $now, $limit ),
 				'refresh_url' => RestController::departures_url( $stop->stop_id, $limit ),
+				'trip_url'    => fn( Departure $departure ) => LinePage::trip_url( $departure->route->route_id, $departure->trip_id, $departure->service_date, $departure->stop_id ),
 				'attribution' => Templates::data_attribution(),
 			)
 		);
@@ -61,6 +65,7 @@ final class Renderer {
 				'stop'        => $stop,
 				'date'        => $date,
 				'sections'    => ( new StopTimetable() )->for_date( $stop->stop_id, $date, $route_id, $direction_id ),
+				'trip_url'    => fn( TimetableSection $section, TimetableDeparture $departure ) => LinePage::trip_url( $section->route->route_id, $departure->trip_id, $date, $departure->stop_id ),
 				'attribution' => Templates::data_attribution(),
 			)
 		);
@@ -170,6 +175,7 @@ final class Renderer {
 				'direction_url'      => array( LinePage::class, 'direction_url' ),
 				'stop_url'           => array( LinePage::class, 'stop_url' ),
 				'day_url'            => fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUERY_ARG, $day->format( 'Y-m-d' ) ),
+				'trip_url'           => fn( TimetableDeparture $departure ) => LinePage::trip_url( $line->badge->route_id, $departure->trip_id, $date, $departure->stop_id ),
 				'wrapper_attributes' => self::wrapper_attributes( array( 'class' => 'gtfs-line' ), $is_block ),
 				'attribution'        => Templates::data_attribution(),
 			)

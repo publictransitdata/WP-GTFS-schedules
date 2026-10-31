@@ -8,6 +8,7 @@
  *     @type object                                        $stop        Row from the stops table.
  *     @type DateTimeImmutable                             $date
  *     @type \PtdGtfsSchedules\Schedule\TimetableSection[]   $sections
+ *     @type callable                                      $trip_url    TimetableSection, TimetableDeparture => address of its trip; empty without a line page.
  *     @type string                                        $attribution Escaped HTML.
  * }
  */
@@ -40,10 +41,19 @@ $day_link = fn( DateTimeImmutable $day ) => add_query_arg( Shortcodes::DATE_QUER
 			</h4>
 			<table class="gtfs-timetable__hours">
 				<tbody>
-					<?php foreach ( $section->rows() as list( $hour, $minutes ) ) : ?>
+					<?php foreach ( $section->departure_rows() as list( $hour, $departures ) ) : ?>
 						<tr>
 							<th scope="row"><?php echo esc_html( $hour ); ?></th>
-							<td><?php echo esc_html( implode( ' ', $minutes ) ); ?></td>
+							<td>
+								<?php foreach ( $departures as $departure ) : ?>
+									<?php $trip_url = $args['trip_url']( $section, $departure ); ?>
+									<?php if ( '' !== $trip_url ) : ?>
+										<a class="gtfs-trip-link" href="<?php echo esc_url( $trip_url ); ?>" rel="nofollow"><?php echo esc_html( $departure->minute ); ?></a>
+									<?php else : ?>
+										<?php echo esc_html( $departure->minute ); ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

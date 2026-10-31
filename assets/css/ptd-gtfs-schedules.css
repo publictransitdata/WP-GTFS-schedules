@@ -600,6 +600,14 @@
 	margin: 0;
 }
 
+.gtfs-trip-link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtfs-trip-link:hover {
+	text-decoration: underline;
+}
 
 .gtfs-trip {
 	--gtfs-time-width: 5em;

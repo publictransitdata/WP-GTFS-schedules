@@ -22,6 +22,7 @@
  *     @type callable                                        $direction_url      Position in $directions => address.
  *     @type callable                                        $stop_url           Stop id => address.
  *     @type callable                                        $day_url            DateTimeImmutable => address.
+ *     @type callable                                        $trip_url           TimetableDeparture => address of its trip; empty without a line page.
  *     @type string                                          $wrapper_attributes Escaped HTML attributes.
  *     @type string                                          $attribution        Escaped HTML.
  * }
@@ -259,8 +260,15 @@ $line_classes = function ( int $position ) use ( $direction, $last_position, $so
 									<th scope="row"><?php echo esc_html( $hour ); ?></th>
 									<td>
 										<?php foreach ( $departures as $departure ) : ?>
+											<?php $trip_url = $args['trip_url']( $departure ); ?>
 											<span class="gtfs-line-timetable__departure">
+												<?php if ( '' !== $trip_url ) : ?>
+													<a class="gtfs-trip-link" href="<?php echo esc_url( $trip_url ); ?>" rel="nofollow">
+												<?php endif; ?>
 												<time class="<?php echo esc_attr( trim( ( $departure->has_left( $args['now'] ) ? 'has-left' : '' ) . ( $departure === $next ? ' is-next' : '' ) ) ); ?>" datetime="<?php echo esc_attr( $departure->time->format( DATE_ATOM ) ); ?>" data-clock="<?php echo esc_attr( $departure->time->format( 'H:i' ) ); ?>"><?php echo esc_html( $departure->minute ); ?></time>
+												<?php if ( '' !== $trip_url ) : ?>
+													</a>
+												<?php endif; ?>
 												<?php if ( $departure->mark ) : ?>
 													<span class="gtfs-mark" aria-hidden="true"><?php echo esc_html( $departure->mark ); ?></span>
 													<span class="gtfs-visually-hidden">(<?php echo esc_html( (string) $departure->note ); ?>)</span>
