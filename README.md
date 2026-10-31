@@ -12,6 +12,7 @@ Import the feed once, add a block to a page, and the timetables stay current as 
 - **Line pages**: the directions of a line, a diagram of its route with the stops and the variants some trips take (detours, short workings, trips starting or ending elsewhere), and the timetable of the chosen stop. Departures that have left are greyed out and the next one is highlighted.
 - **Stop timetables**: all departures from a stop on a given day, for every line or for one.
 - **Departure boards**: the next departures from a stop, updating themselves while the page is open.
+- **Trips**: every departure time opens its trip, from the first stop to the last, with the time at every stop. The rider's stop is highlighted, and the stops the trip has passed are greyed out.
 
 ### For riders
 
@@ -71,13 +72,14 @@ Automatic updates run at night through WP-Cron. On sites with little traffic, se
 
 ## Supported GTFS
 
-The plugin reads `agency.txt`, `stops.txt`, `routes.txt`, `trips.txt`, `stop_times.txt`, `calendar.txt` and `calendar_dates.txt`, including extended route types, times after midnight and stations with several platforms.
+The plugin reads `agency.txt`, `stops.txt`, `routes.txt`, `trips.txt`, `stop_times.txt`, `calendar.txt` and `calendar_dates.txt`, including extended route types, times after midnight, arrival times where a vehicle waits at a stop, and stations with several platforms.
 
 ## Customising
 
 - **Styles**: the markup uses `gtfs-` CSS classes that themes can style.
 - **Hooks**:
   - `ptd_gtfs_schedules_line_url` (filter): the address of a line's page, for sites with their own routing.
+  - `ptd_gtfs_schedules_trip_url` (filter): the address of a trip, likewise.
   - `ptd_gtfs_schedules_is_night_line` (filter): whether a line counts as a night line.
   - `ptd_gtfs_schedules_imported` (action): runs after every import, with the feed's details.
 
